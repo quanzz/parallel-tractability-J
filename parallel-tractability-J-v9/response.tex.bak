@@ -43,15 +43,14 @@ Definition 1 seems to so indicate, but there is nothing in the definition
 that says so.
 \end{quote}
 
-We modified Definition 1 to make it clear that the Datalog programs
-in a class share the same rule set.
+We did...
 
 \begin{quote}
 There is no definition of what the parents of a node in a graph are.
 However, it is quite obvious what the definition should be.
 \end{quote}
 
-We added the definition of the parents of a node in a materialization graph in Definition 2.
+...
 
 \begin{quote}
 Example 6 does need a bit of revision.  It is not the case that Oex3 cannot

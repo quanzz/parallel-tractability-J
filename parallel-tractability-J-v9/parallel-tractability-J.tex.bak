@@ -77,18 +77,24 @@ Materialization: Technique and Practice}
 %% \address[label1]{}
 %% \address[label2]{}
 
-\author{Zhangquan Zhou \corref{cor1}}
+\author[add1]{Zhangquan Zhou \corref{cor1}}
 \ead{quanzz1129@gmail.com}
 \cortext[cor1]{Corresponding author}
 
-\author{Guilin Qi}
+\author[add1]{Guilin Qi}
 \ead{gqi@seu.edu.cn}
 
-\address{
-    School of Computer Science, Southeast University, Nanjing, China
+\author[add2]{Birte Glimm}
+\ead{birte.glimm@uni-ulm.de}
+
+\address[add1]{
+    School of Computer Science, Southeast University, China
 }
 
-\address{}
+\address[add2]{
+    Institution of Artificial Intelligence, University of Ulm
+}
+
 
 \begin{abstract}
 Materialization is an important reasoning service for applications built
@@ -393,8 +399,8 @@ shared-memory configurations.
 
 Our target is to find for which kinds of ontologies (not ontology languages)
 materialization is parallelly tractable.
-Since we assume that for any datalog program $\langle R, \textbf{I}\rangle$ the rule
-set $R$ is fixed, the materialization problem is thus in data complexity
+Since we assume that for any class of datalog programs where the rule
+set of each datalog program is fixed, the materialization problem is thus in data complexity
 $\texttt{PTime}$-complete, which is considered to be inherently sequential in the worst
 case \cite{Raymond95}. In other words, the materialization problem on general
 datalog programs cannot be solved in parallel poly-logarithmic time unless \texttt{P}=\texttt{NC}.
@@ -1607,6 +1613,12 @@ study how to further apply the
 results in practice.
 One idea is to apply the technique of SWD paths to enhance other reasoning-based tasks,
 like ontology classification, ontology debugging and query answering.
+
+\section*{Acknowledgments}
+
+This work was partially supported by NSFC
+grant 61672153 and the 863 program under Grant
+2015AA015406.
 
 \section*{Reference}
 

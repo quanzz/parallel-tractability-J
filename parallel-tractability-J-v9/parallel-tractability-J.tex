@@ -225,6 +225,7 @@ The detailed proofs of the theorems and the lemmas in this paper are given in th
 
 In this section, we introduce some basic notions that are needed to introduce our approach.
 
+
 \subsection{Datalog}
 
 We discuss the main issues in this paper using standard datalog notions.
@@ -248,6 +249,7 @@ Furthermore the ground instantiation of $P$, denoted by $P^*$,
 consists of all ground instantiations of rules in $P$.
 The predicates occurring only in the body  of some rules are called \emph{EDB predicates},
 while the predicates that may occur as head atoms are called \emph{IDB predicates}.
+
 
 \subsection{DHL and DL-Lite}
 
@@ -336,6 +338,7 @@ which allows involving RBoxes that contain axioms of the forms (R1-R2).
 If not specially specified, \emph{a DL-Lite ontology denotes a DL-Lite$_{\mathcal{R}}$ ontology
 in the following paragraphs}.
 
+
 \subsection{Ontology Materialization via Datalog Programs}
 
 An ontology
@@ -370,7 +373,9 @@ and \emph{materialization} refers to the computation of $T_R^{n}(\textbf{I})$ wi
 $T_R^{n}(\textbf{I})$ is also called the \emph{fixpoint} and denoted by $T_R^{\omega}(\textbf{I})$.
 We say that an atom $A$ is \emph{derivable} or can be \emph{derived} with respect
 to the datalog program $P=\langle R, \textbf{I}\rangle$ if $A\in T_R^{\omega}(\textbf{I})$.
-In this paper, we consider the data complexity of materialization, i.e., we \emph{assume that the rule set $R$ is fixed}.
+In this paper, we consider the data complexity of materialization, i.e., we \emph{assume that the rule set $R$ is fixed}
+for any class of datalog programs.
+
 
 \subsection{The $\texttt{NC}$ Complexity}
 
@@ -399,8 +404,8 @@ shared-memory configurations.
 
 Our target is to find for which kinds of ontologies (not ontology languages)
 materialization is parallelly tractable.
-Since we assume that for any datalog program $\langle R, \textbf{I}\rangle$ the rule
-set $R$ is fixed, the materialization problem is thus in data complexity
+Since we assume that for any class of datalog programs where the rule
+set of each datalog program is fixed, the materialization problem is thus in data complexity
 $\texttt{PTime}$-complete, which is considered to be inherently sequential in the worst
 case \cite{Raymond95}. In other words, the materialization problem on general
 datalog programs cannot be solved in parallel poly-logarithmic time unless \texttt{P}=\texttt{NC}.
@@ -416,8 +421,8 @@ We first give the following definition for a parallel tractable class of datalog
 where an \texttt{NC} algorithm exists for handling each datalog program in this class.
 
 \begin{definition}\label{def:ptd}
-\textbf{(Parallelly Tractable Class)} Given a class $\mathcal{D}$ of datalog programs,
-we say that $\mathcal{D}$ is a parallelly tractable datalog program (\texttt{PTD}) class
+\textbf{(Parallelly Tractable Class)} Given a class $\mathcal{D}$ of datalog programs where the
+same rule set is shared, we say that $\mathcal{D}$ is a parallelly tractable datalog program (\texttt{PTD}) class
 if there exists an \texttt{NC} algorithm that performs sound and complete materialization for each datalog program
 in $\mathcal{D}$. The corresponding class of ontologies of $\mathcal{D}$ is called a
 parallelly tractable ontology (\texttt{PTO}) class.
@@ -448,9 +453,11 @@ a datalog program $P=\langle R, \textbf{I}\rangle$, is a directed acyclic graph
 denoted by $\mathcal{G}=\langle V, E\rangle$ where,
 \begin{enumerate}[leftmargin=4ex,label=$\bullet$]
   \item $V$ is the node set and $V\subseteq T_R^{\omega}(\textbf{I})$;
-  \item $E$ is the edge set and $E\subseteq T_R^{\omega}(\textbf{I})\times T_R^{\omega}(\textbf{I})$;
+  \item $E$ is the edge set and $E\subseteq T_R^{\omega}(\textbf{I})\times T_R^{\omega}(\textbf{I})$.
 \end{enumerate}
-~~$\mathcal{G}$ satisfies the following condition:
+For each edge of the form $e(v_1, v_2)$ where $v_1$ and $v_2$ are the two nodes,
+we say that node $v_1$ is the parent of node $v_2$ and node $v_2$ is the child
+of node $v_1$. Further, $\mathcal{G}$ satisfies the following condition:
 \begin{enumerate}[leftmargin=4ex,label=$\bullet$]
   \item $\forall H,B_1,...,B_n\in V$ such that $e(B_1, H),...,e(B_n, H)\in E$ and
   $B_1,...,B_n$ are \d{all} the parents of $H$, we have that
