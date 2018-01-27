@@ -104,7 +104,7 @@ materialization on large-scale ontologies efficiently.
 Current work proposes parallel algorithms and employs computing
 platforms of high-performance to make materialization sufficiently efficient and scalable in practice.
 However, there do exist ontologies, for which
-materialization cannot always be improved by parallelism (we use experiments to show it in Section~\ref{sec:evaluation}).
+materialization cannot always be improved by parallelism (we use experiments to show this in Section~\ref{sec:evaluation}).
 On the other hand, some well-known large-scale ontologies, such as YAGO, have been shown to have
 good performance for parallel reasoning, but they are expressed in ontology languages
 that are not parallelly tractable in theory, i.e., the efficiency of reasoning may not be improved
@@ -155,12 +155,11 @@ can optimize query answering, ontology diagnosis and debugging. Since huge amoun
 are being generated at an increasing pace by sensor networks, government authorities and social
 media \cite{LehmbergRMB16,MeuselBP15}, it is challenging to conduct materialization on such large-scale ontologies efficiently.
 
-There has been work that proposes parallel reasoning algorithms and employs parallel computing platforms
+There has been work proposing parallel reasoning algorithms and employing parallel computing platforms
 for the ontology language RDFS and its extended
-fragments \cite{MotikNPHO14,PetersSZ15,SubercazeGCL16}. Several optimization strategies, e.g., dictionary encoding, balance workload,
-data partitioning, are further studied to enhance parallel RDFS reasoning. There are also parallel implementations for scalable
-reasoning of highly expressive ontology languages \cite{SteigmillerLG14,WuH12}. On the other hand, in order to make reasoning tasks more efficient
-in parallel, several work utilizes different kinds of high-performance computing platforms, like supercomputers \cite{Hoeksema2011,GoodmanJMAAH11},
+fragments \cite{MotikNPHO14,PetersSZ15,SubercazeGCL16}. Several optimization strategies, e.g., dictionary encoding, balancing workload
+and data partitioning, are further studied to enhance parallel RDFS reasoning. There are also parallel implementations for scalable
+reasoning of highly expressive ontology languages \cite{SteigmillerLG14,WuH12}. On the other hand, several work utilizes different kinds of computing platforms to make reasoning tasks more efficient in parallel, such as supercomputers \cite{Hoeksema2011,GoodmanJMAAH11},
 MapReduce \cite{UrbaniKMHB12} and GPU servers \cite{HeinoP12}.
 
 The above work verifies the effectiveness of parallel reasoning based on the evaluations on different test datasets.
@@ -169,10 +168,11 @@ which have \texttt{PTime}-complete or higher complexity of reasoning in the wors
 they are not parallelly tractable according to \cite{Raymond95}, i.e., the efficiency of reasoning may not be
 improved on a parallel implementation. A possible reason of the high performance of parallel
 reasoning is that the utilized test datasets do not fall in the worst cases in terms of computational complexity.
-It has also been shown that, some well-known large-scale ontologies, such as YAGO, have good performance for parallel
+It has also been shown that some well-known large-scale ontologies, such as YAGO, have good performance for parallel
 reasoning \cite{KolovskiWE10}, but they are expressed in ontology languages that are not parallelly tractable in theory.
-On the other hand, we show in Section~\ref{sec:evaluation} that, there do exist some ontologies, for which materialization cannot
-always be improved by parallelism. The current work of parallel ontology reasoning can hardly explain this.
+On the other hand, there do exist ontologies for which materialization cannot
+always be improved by parallelism (we use experiments to show this in Section~\ref{sec:evaluation}). 
+The current work of parallel ontology reasoning can hardly explain this.
 While one can try out different parallel implementations to see whether an ontology can be handled by (one of) them efficiently,
 we study the problem of parallel tractability in theory and identify properties that make an ontology parallelly tractable.
 These properties can be further used to optimize parallel algorithms and to guide ontology engineers in creating ontologies
@@ -345,7 +345,8 @@ An ontology
 expressed in DHL, DHL($\circ$), DL-Lite$_{core}$ or DL-Lite$_{\mathcal{R}}$ can be transformed to a datalog program
 (see the corresponding rules in the right column of Table~1).
 Note that, for an axiom of the form (T4) $A\sqsubseteq\exists R$, it should be transformed to
-a first-order logic rule `$A(x)\rightarrow \exists y(R(x,y))$' where $y$ is a free variable.
+a first-order logic rule `$A(x)\rightarrow \exists y(R(x,y))$' where $y$ is called a \emph{free variable} (it is
+not occurring in the head atom $A(x)$).
 In this work, such a free variable $y$ is eliminated via Skolemisation into a new individual $o_{R}^A$
 that corresponds to concept $A$ and role $R$. One can check that the elimination of free variables
 does not influence the results of materialization by according to \cite{CalvaneseGLLR07}.
@@ -456,12 +457,13 @@ denoted by $\mathcal{G}=\langle V, E\rangle$ where,
   \item $E$ is the edge set and $E\subseteq T_R^{\omega}(\textbf{I})\times T_R^{\omega}(\textbf{I})$.
 \end{enumerate}
 For each edge of the form $e(v_1, v_2)$ where $v_1$ and $v_2$ are the two nodes,
-we say that node $v_1$ is the parent node of node $v_2$ and node $v_2$ is the child node
-of node $v_1$. Further, $\mathcal{G}$ satisfies the following condition:
+we say that node $v_1$ is the parent (node) of node $v_2$ and node $v_2$ is the child (node)
+of node $v_1$. Further, $\forall H,B_1,...,B_n\in V$, $\mathcal{G}$ satisfies the following conditions:
 \begin{enumerate}[leftmargin=4ex,label=$\bullet$]
-  \item $\forall H,B_1,...,B_n\in V$ such that $e(B_1, H),...,e(B_n, H)\in E$ and
-  $B_1,...,B_n$ are \d{all} the parents of $H$, we have that
-  $B_1,...,B_n\rightarrow H\in P^*$.
+  \item $H$ has a parent node or a child node;
+  \item $H$ is the original fact of $P$ if $H$ has the in-degree of $0$;
+  \item $B_1,...,B_n\rightarrow H\in P^*$ is satisfied if $e(B_1, H),...,e(B_n, H)\in E$ and
+  $B_1,...,B_n$ are \d{all} the parents of $H$.
 \end{enumerate}
 \end{definition}
 
@@ -616,7 +618,7 @@ Lemma~\ref{lemma:a1}.
 \end{proof}
 
 Consider Example~\ref{exp:mg} again. Let the integer $k$ be a variable. We can
-get a class of datalog programs, denoted by $\mathbb{P}_{ex_1}$, where the rule set 
+get a class of datalog programs, denoted by $\mathbb{P}_{ex_1}$, where the rule set
 is $\{R(x,y),A(y)\rightarrow A(x), S(x,y),R(y,z)\rightarrow R(x,z)\}$ and the instance
 set varies according to $k$. The algorithm $\mathsf{A}_{bsc}^{\psi}$ is restricted in the sense that it cannot even work on the rather simple datalog program class $\mathbb{P}_{ex_1}$.
 It can be checked that, for some materialization graph $\mathcal{G}_{ex_1}$
@@ -941,7 +943,7 @@ each node of the form $A(a_i)$ (filled with black color,
 and $2\leq i\leq k$) has no SWD path until the $i^{th}$ iteration;
 in the $i^{th}$ iteration, the parent nodes of $A(a_i)$ have been added to $\mathcal{G}_{ex_6}$,
 and, $A(a_i)$ can also be added to $\mathcal{G}_{ex_6}$.
-Similar to the datalog program class $\mathbb{P}_{ex_1}$, we can also get a 
+Similar to the datalog program class $\mathbb{P}_{ex_1}$, we can also get a
 datalog program class $\mathbb{P}_{ex_6}$ for the ontology $\mathcal{O}_{ex_6}$
 when $k$ is a variable. Based on the above analysis, Algorithm~$\mathsf{A}_{opt}$ cannot complete the materialization
 for the datalog programs of $\mathbb{P}_{ex_6}$ in a poly-logarithmical
@@ -1201,31 +1203,33 @@ by the following algorithm.\\
 \noindent\texttt{Algorithm~$\mathsf{PRC}$}. This algorithm has inputs (1)
 a DHL$(\circ)$ ontology $\mathcal{O}=\langle\mathcal{T},\mathcal{R},\mathcal{A}\rangle$
 and its datalog program $P=\langle R, \textbf{I}\rangle$;
-(2) a (partial) materialization graph $\mathcal{G}$ that is constructed from $P$.
+(2) a (partial) materialization graph $\mathcal{G}=\langle V,E\rangle$ that is constructed from $P$.
 This algorithm outputs a \texttt{rch} relation $S_{\textit{\tiny rch}}$ that
-is computed from the following rule instantiations:
+is computed as follows:
 
 \begin{enumerate}[leftmargin=4ex,label=$\bullet$]
-\item $\forall A(a)\rightarrow B(a)$ where $\mathcal{O}\models A\sqsubseteq_* B$ and $A(a)\in\mathcal{G}$,
-    add \texttt{rch}$(A(a),B(a))$ to $S_{\textit{\tiny rch}}$;
+\item add \texttt{rch}$(A(a),B(a))$ to $S_{\textit{\tiny rch}}$ where $A(a)\rightarrow B(a)\in P^*$, $\mathcal{O}\models A\sqsubseteq_* B$ and $A(a)\in V$;
 
-\item $\forall R(a,b),A(b)\rightarrow B(a)$ where $\exists R.A\sqsubseteq B\in\mathcal{T}$
-    and $R(a,b)\in\mathcal{G}$, add \texttt{rch}$(A(b),B(a))$ to $S_{\textit{\tiny rch}}$;
+\item add \texttt{rch}$(A(b),B(a))$ to $S_{\textit{\tiny rch}}$ where $R(a,b),A(b)\rightarrow B(a)\in P^*$, $\exists R.A\sqsubseteq B\in\mathcal{T}$ and $R(a,b)\in V$;
 
-\item $\forall A_1(a),A_2(a)\rightarrow B(a)$ where $A_1\sqcap A_2\sqsubseteq B\in\mathcal{T}$,
-    if $A_1(a)\in\mathcal{G}$, add \texttt{rch}$(A_2(a),B(a))$ to $S_{\textit{\tiny rch}}$;
-    if $A_2(a)\in\mathcal{G}$, add \texttt{rch}$(A_1(a),B(a))$ to $S_{\textit{\tiny rch}}$;
+\item add \texttt{rch}$(A_2(a),B(a))$ to $S_{\textit{\tiny rch}}$ where $A_1(a),A_2(a)\rightarrow B(a)\in P^*$,
+    $A_1\sqcap A_2\sqsubseteq B\in\mathcal{T}$ and $A_1(a)\in V$;
 
-\item $\forall R(a,b)\rightarrow S(a,b)$ where $\mathcal{O}\models R\sqsubseteq_* S$ and $R(a,b)\in\mathcal{G}$,
-    add \texttt{rch}$(R(a,b)$, $S(a,b))$ to $S_{\textit{\tiny rch}}$;
+\item add \texttt{rch}$(A_1(a),B(a))$ to $S_{\textit{\tiny rch}}$ where $A_1(a),A_2(a)\rightarrow B(a)\in P^*$,
+    $A_1\sqcap A_2\sqsubseteq B\in\mathcal{T}$ and $A_2(a)\in V$;
 
-\item $\forall R(a,b)\rightarrow S(b,a)$ where $\mathcal{O}\models R\sqsubseteq_* S^-$
-    and $R(a,b)\in\mathcal{G}$, add \texttt{rch}$(R(a,b)$, $S(b,a))$ to $S_{\textit{\tiny rch}}$;
+\item add \texttt{rch}$(R(a,b)$, $S(a,b))$ to $S_{\textit{\tiny rch}}$ where $R(a,b)\rightarrow S(a,b)\in P^*$,
+    $\mathcal{O}\models R\sqsubseteq_* S$ and $R(a,b)\in V$;
 
-\item $\forall R_1(a,b),R_2(b,c)\rightarrow R_3(a,c)$ where $R_1\circ R_2\sqsubseteq R_3$ (the case
-    where $R_1\equiv R_2\equiv R_3$ is also involved),
-    if $R_1(a,b)\in\mathcal{G}$, add \texttt{rch}$(R_2(b,c),R_3(a,c))$ to $S_{\textit{\tiny rch}}$;
-    If $R_2(b,c)\in\mathcal{G}$, add \texttt{rch}$(R_1(a,b)$, $R_3(a,c))$ to $S_{\textit{\tiny rch}}$.\hfill$\Box$
+\item add \texttt{rch}$(R(a,b)$, $S(b,a))$ to $S_{\textit{\tiny rch}}$ where $R(a,b)\rightarrow S(b,a)\in P^*$,
+    $\mathcal{O}\models R\sqsubseteq_* S^-$ and $R(a,b)\in V$;
+
+\item add \texttt{rch}$(R_2(b,c),R_3(a,c))$ to $S_{\textit{\tiny rch}}$ where $R_1(a,b),R_2(b,c)\rightarrow R_3(a,c)\in P^*$, 
+    $R_1\circ R_2\sqsubseteq R_3\in\mathcal{R}$ (the case
+    where $R_1\equiv R_2\equiv R_3$ is also involved) and $R_1(a,b)\in V$;
+
+\item add \texttt{rch}$(R_1(a,b)$, $R_3(a,c))$ to $S_{\textit{\tiny rch}}$ where $R_1(a,b),R_2(b,c)\rightarrow R_3(a,c)\in P^*$,
+    $R_1\circ R_2\sqsubseteq R_3\in\mathcal{R}$ and $R_2(b,c)\in V$.\hfill$\Box$
 \end{enumerate}
 
 Based on Algorithm~$\mathsf{PRC}$, we modify Algorithm~$\mathsf{A}_{opt}$
@@ -1466,7 +1470,7 @@ corresponding to $k$ threads).
 We further process the collected data and fill the results in Table~3, where each cell corresponds
 to a test ontology (see the row label) and a new generated ABox (distinguished by the column labels);
 the three values from above to below in each cell are: (1) \emph{the minimal time ratio} - the minimal reasoning time
-of ParallelDHL devided by the minimal reasoning time of RDFox;
+of ParallelDHL divided by the minimal reasoning time of RDFox;
 (2) \emph{the average speedup of ParallelDHL};\footnote{Suppose $T_i$ is the reasoning time with $i$ threads allocated,
 the average speedup is $\frac{1}{4}(\frac{T_1}{T_2}+\frac{T_2}{T_4}+\frac{T_4}{T_6}+\frac{T_6}{T_8})$.}
 (3) \emph{the average speedup of RDFox}.

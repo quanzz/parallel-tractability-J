@@ -59,14 +59,18 @@ be materialzed tractably in parallel.  Instead there has to be a class of
 ontologies that cannot be so materialized.
 \end{quote}
 
-We did the revision for Example~6
+We did the revision for Example~6 (see the paragraph following Example~6),
+and Example~1 (see the last paragraph of Section~3.2).
+
 
 \begin{quote}
 It would be much better if the ontology names corresponded to the example
 numbers, i.e., the ontology in Example 6 was Oex6.
 \end{quote}
 
-...
+We made the ontology subscripts correspond to the examples numbers
+for Example~5, Example~6, Example~7 and Example~9.
+
 
 \begin{quote}
 The notion of a simple concept is very much tied to the algorithm developed
@@ -185,14 +189,6 @@ Wording and structural problems:
 
 The paper has so many grammatical errors near its beginning that I gave up
 marking them after the first two pages.  I give a few that I noticed here.\\
-- [high-performance] computing platforms [] to\\
-- do exist ontologies[] for which materialization\\
-- (we use experiments to show [this] in Section 6).\\
-- There has been work [] propos[ing] parallel reasoning algorithms and employ[ing] parallel\\
-- e.g., dictionary encoding, balanc[ing] workload, [and] data partitioning,\\
-- It has also been shown that[] some well-known large-scale ontologies,\\
-The paper needs to be carefully copy-edited before any publication to remove
-these errors.
 
 "parallely tractable" is very grating.  It would be better to rewrite
 sentences to not use it.
@@ -236,9 +232,6 @@ Finally, the algorithms assume each processor handling a rule instantiation. I w
 \begin{quote}
 I list some relatively minor issues regarding presentation and technical details:
 
-- p5, saying ``y is a free variable'' in $A(x) \to \exists y.R(x,y)$ is confusing\\
--  p6, the definition of (complete) materialisation graphs seems problematic. According to Definition~2, a graph containing all ground atoms in $T_R^\omega(I)$ but no edge is a materialisation graph and is complete. In particular,  it does not guarantee ``the nodes whose in-degree is $0$ are the original facts in I'' as claimed.\\
-- p6, the use of $\forall$ in Definition~2 is confusing and even worse in p18 Algorithm PRC.\\
 - p20, it mentions a group of materialisation rules in YAGO which belong to $D_{\text{dhl}}$. It deserves a clarification on what these rules are like and why they do not fall into existing parallel tractable classes.\\
 - p20, Table 2, it should mention how these ontologies were selected. \\
 - p21, ``devided'' —> ``divided''\\
