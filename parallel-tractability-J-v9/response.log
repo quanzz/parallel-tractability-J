@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2017.8.21)  26 JAN 2018 22:18
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2017.8.21)  27 JAN 2018 10:18
 entering extended mode
 **response.tex
 
@@ -85,7 +85,8 @@ LaTeX Info: Redefining \] on input line 2667.
 \Urlmuskip=\muskip11
 Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
 )
-No file response.aux.
+(C:\Users\Spring\Desktop\Work\Github\parallel-tractability-J\parallel-tractabil
+ity-J-v9\response.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
 LaTeX Font Info:    ... okay on input line 13.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
@@ -98,7 +99,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
 LaTeX Font Info:    ... okay on input line 13.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
 LaTeX Font Info:    ... okay on input line 13.
-[1
+ [1
 
 ] [2] [3] [4]
 Missing character: There is no â in font cmti10!
@@ -108,12 +109,12 @@ Missing character: There is no ” in font cmti10!
 (C:\Users\Spring\Desktop\Work\Github\parallel-tractability-J\parallel-tractabil
 ity-J-v9\response.aux) ) 
 Here is how much of TeX's memory you used:
- 889 strings out of 495355
- 10042 string characters out of 3183882
+ 891 strings out of 495355
+ 10240 string characters out of 3183882
  62449 words of memory out of 3000000
  4121 multiletter control sequences out of 15000+200000
  5743 words of font info for 21 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  27i,5n,20p,781b,180s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on response.dvi (5 pages, 21168 bytes).
+Output written on response.dvi (5 pages, 21608 bytes).

@@ -456,7 +456,7 @@ denoted by $\mathcal{G}=\langle V, E\rangle$ where,
   \item $E$ is the edge set and $E\subseteq T_R^{\omega}(\textbf{I})\times T_R^{\omega}(\textbf{I})$.
 \end{enumerate}
 For each edge of the form $e(v_1, v_2)$ where $v_1$ and $v_2$ are the two nodes,
-we say that node $v_1$ is the parent of node $v_2$ and node $v_2$ is the child
+we say that node $v_1$ is the parent node of node $v_2$ and node $v_2$ is the child node
 of node $v_1$. Further, $\mathcal{G}$ satisfies the following condition:
 \begin{enumerate}[leftmargin=4ex,label=$\bullet$]
   \item $\forall H,B_1,...,B_n\in V$ such that $e(B_1, H),...,e(B_n, H)\in E$ and
@@ -513,6 +513,7 @@ a complete materialization graph.
 We pay our attention to complete materialization graphs and do not distinguish it to the
 notion `materialization graph'.
 It should also be noted that there may exist several materialization graphs for a datalog program.
+
 
 \subsection{A Basic Parallel Algorithm}
 
@@ -614,17 +615,20 @@ graph. This theorem then follows by considering
 Lemma~\ref{lemma:a1}.
 \end{proof}
 
-The algorithm $\mathsf{A}_{bsc}^{\psi}$ is restricted in the sense that it cannot even work on the
-rather simple datalog program $P_{ex_1}$ in Example~\ref{exp:mg}.
-The graph $\mathcal{G}_{ex_1}$ in Figure~\ref{fig:mg} is the unique materialization graph of $P_{ex_1}$.
-One can also check that \texttt{depth}($\mathcal{G}_{ex_1}$)$=k$.
-This means that the depth of $\mathcal{G}_{ex_1}$ is linearly bounded by $k$.
-On the other hand, the size of $P_{ex_1}$ is a polynomial of the integer $k$.
+Consider Example~\ref{exp:mg} again. Let the integer $k$ be a variable. We can
+get a class of datalog programs, denoted by $\mathbb{P}_{ex_1}$, where the rule set 
+is $\{R(x,y),A(y)\rightarrow A(x), S(x,y),R(y,z)\rightarrow R(x,z)\}$ and the instance
+set varies according to $k$. The algorithm $\mathsf{A}_{bsc}^{\psi}$ is restricted in the sense that it cannot even work on the rather simple datalog program class $\mathbb{P}_{ex_1}$.
+It can be checked that, for some materialization graph $\mathcal{G}_{ex_1}$
+corresponding to a datalog program in $\mathbb{P}_{ex_1}$, \texttt{depth}($\mathcal{G}_{ex_1}$)$=k$ for some $k$.
+This means that the depths of the materialization graphs are linearly bounded by $k$.
+On the other hand, the sizes of the datalog programs in $\mathbb{P}_{ex_1}$ are polynomial of $k$.
 Thus, for any $\psi$ that is poly-logarithmically bounded, we can always find a $k$ large
 enough such that $\mathsf{A}_{bsc}^{\psi}$ terminates without constructing a materialization
-graph of $P_{ex_1}$.
-However there indeed exists an \texttt{NC} algorithm that can handle $P_{ex_1}$.
+graph for each datalog program in $\mathbb{P}_{ex_1}$.
+However there indeed exists an \texttt{NC} algorithm that can handle $\mathbb{P}_{ex_1}$.
 We discuss this in the next part.
+
 
 \subsection{Optimizing Algorithm~$\mathsf{A}_{bsc}$ via the Single-Way Derivability}
 
@@ -794,7 +798,7 @@ based on Algorithm~$\mathsf{A}_{opt}$.
 We show that, for any DL-Lite$_{core}$ or DL-Lite$_\mathcal{R}$ ontology $\mathcal{O}$,
 there exists a poly-logarithmically bounded function $\psi$
 such that Algorithm~$\mathsf{A}_{opt}^{\psi}$ can handle materialization of $\mathcal{O}$.
-However, for DHL and DHL($\circ$), there exist ontologies such that Algorithm~$\mathsf{A}_{opt}^\psi$
+However, for DHL and DHL($\circ$), there exist ontology classes such that Algorithm~$\mathsf{A}_{opt}^\psi$
 does not work. We illustrate the reason why Algorithm~$\mathsf{A}_{opt}^\psi$ cannot always
 work by studying specific cases.
 Further, we propose to restrict the usage of DHL and DHL($\circ$) in order to achieve parallel tractability
@@ -814,40 +818,40 @@ In order to show how Algorithm~$\mathsf{A}_{opt}$ handles DL-Lite materializatio
 we use the following example.
 
 \begin{example}\label{exp:dllite}
-Given a DL-Lite ontology $\mathcal{O}_{ex_2}$
+Given a DL-Lite ontology $\mathcal{O}_{ex_5}$
 where its TBox and RBox contain the following axioms:
 $A\sqsubseteq B_1$, $A\sqsubseteq B_2$, $B_1\sqcap B_2\sqsubseteq\bot$,
 $\exists R.B_2\sqsubseteq\bot$, $Q\sqsubseteq S^-$, $S\sqsubseteq R$;
 its ABox contains an assertion $Q(a,b)$.
-We denote the corresponding datalog program of $\mathcal{O}_{ex_2}$ by $P_{ex_2}=\langle R, \textbf{I}\rangle$,
+We denote the corresponding datalog program of $\mathcal{O}_{ex_5}$ by $P_{ex_5}=\langle R, \textbf{I}\rangle$,
 where $R$ contains the rules that are transformed from the above axioms; $\textbf{I}$ contains $Q(a,b)$
 as the only fact.
-The unique materialization graph of $P_{ex_2}$ is denoted by $\mathcal{G}_{ex_2}$ (see Figure~\ref{fig:ex2}).
+The unique materialization graph of $P_{ex_5}$ is denoted by $\mathcal{G}_{ex_5}$ (see Figure~\ref{fig:ex2}).
 \end{example}
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=0.6\textwidth]{fig-dllite.eps}
-\caption{The materialization graph of $\mathcal{O}_{ex_2}$.}
+\caption{The materialization graph of $\mathcal{O}_{ex_5}$.}
 \label{fig:ex2}
 \end{center}
 \end{figure}
 
-Consider performing Algorithm~$\mathsf{A}_{opt}$ on the ontology $\mathcal{O}_{ex_2}$ in Example~\ref{exp:dllite}.
+Consider performing Algorithm~$\mathsf{A}_{opt}$ on the ontology $\mathcal{O}_{ex_5}$ in Example~\ref{exp:dllite}.
 (\uppercase\expandafter{\romannumeral1}) First, Algorithm~$\mathsf{A}_{opt}$ adds all ABox assertions (only $Q(a,b)$ here)
-to $\mathcal{G}_{ex_2}$ that is initially an empty graph (\ref{alg3:addFacts} of Algorithm~$\mathsf{A}_{opt}$).
+to $\mathcal{G}_{ex_5}$ that is initially an empty graph (\ref{alg3:addFacts} of Algorithm~$\mathsf{A}_{opt}$).
 (\uppercase\expandafter{\romannumeral2}) In the first iteration of
 \ref{alg3:updateG}, Algorithm~$\mathsf{A}_{opt}$ checks that all of the nodes
 $A(a)$, $S(b,a)$, $B_1(a)$, $B_2(a)$ and $R(b,a)$ have corresponding SWD paths
 starting from $Q(a,b)$. Thus, Algorithm~$\mathsf{A}_{opt}$
-adds these nodes to $\mathcal{G}_{ex_2}$ immediately. We take an example of node $B_1(a)$,
+adds these nodes to $\mathcal{G}_{ex_5}$ immediately. We take an example of node $B_1(a)$,
 for which an SWD path $(Q(a,b),A(a),B_1(a))$ exists.
-When updating $\mathcal{G}_{ex_2}$ by adding $B_1(a)$ to it,
+When updating $\mathcal{G}_{ex_5}$ by adding $B_1(a)$ to it,
 Algorithm~$\mathsf{A}_{opt}$ first checks whether the parent node $A(a)$ of $B_1(a)$
-has been in $\mathcal{G}_{ex_2}$; if $A(a)$ is already in $\mathcal{G}_{ex_2}$, $B_1(a)$
-is added to $\mathcal{G}_{ex_2}$ by creating an edge pointing from $A(a)$ to $B_1(a)$;
-if $A(a)$ has not been added to $\mathcal{G}_{ex_2}$, Algorithm~$\mathsf{A}_{opt}$ adds $A(a)$ (resp., $B_1(a)$)
-to $\mathcal{G}_{ex_2}$ and creates an edge pointing from $Q(a,b)$ to $A(a)$ (resp.,
+has been in $\mathcal{G}_{ex_5}$; if $A(a)$ is already in $\mathcal{G}_{ex_5}$, $B_1(a)$
+is added to $\mathcal{G}_{ex_5}$ by creating an edge pointing from $A(a)$ to $B_1(a)$;
+if $A(a)$ has not been added to $\mathcal{G}_{ex_5}$, Algorithm~$\mathsf{A}_{opt}$ adds $A(a)$ (resp., $B_1(a)$)
+to $\mathcal{G}_{ex_5}$ and creates an edge pointing from $Q(a,b)$ to $A(a)$ (resp.,
 an edge pointing from $A(a)$ to $B_1(a)$).\footnote{These two cases may happen simultaneously,
 since node $A(a)$ and node $B_1(a)$ are being processed in parallel.} The other nodes
 $A(a)$, $S(b,a)$, $B_2(a)$ and $R(b,a)$ are processed similarly.
@@ -856,7 +860,7 @@ The two nodes $\bot(a)$ and $\bot(b)$
 have no SWD path in the first iteration of \ref{alg3:updateG}.
 They are left to be processed in the second iteration.
 (\uppercase\expandafter{\romannumeral4})
-Finally, Algorithm~$\mathsf{A}_{opt}$ finishes constructing $\mathcal{G}_{ex_2}$
+Finally, Algorithm~$\mathsf{A}_{opt}$ finishes constructing $\mathcal{G}_{ex_5}$
 after two iterations (\ref{alg3:halt}).
 
 From the above example, we can observe that SWD paths exist
@@ -873,7 +877,7 @@ have to be added to the constructed materialization graph in the first iteration
 \ref{alg3:updateG} by applying Algorithm~$\mathsf{A}_{opt}$.
 For each atom of the form $\bot(x)$, there may not exist an SWD path in the first iteration
 of \ref{alg3:updateG}, since its derivability depends on its two parent nodes
-(see nodes $\bot(a)$ and $\bot(b)$ in $\mathcal{G}_{ex_2}$ of
+(see nodes $\bot(a)$ and $\bot(b)$ in $\mathcal{G}_{ex_5}$ of
 Example~\ref{exp:dllite}). On the other hand, according to the syntaxes of DL-Lite,
 $\bot$ dose not occur on the left hand of any axiom. In other words,
 an atom of the form $\bot(x)$ cannot be the parent of any other node.
@@ -893,12 +897,13 @@ There exists a poly-logarithmically bounded function $\psi$ s.t.
 $\mathcal{D}_{\textit{\text{dl\_lite}}}\subseteq\mathcal{D}_{\mathsf{A}_{opt}^{\psi}}$.
 \end{theorem}
 
+
 \subsection{Parallelly Tractable Materialization of DHL}
 
 In this part, we study whether Algorithm~$\mathsf{A}_{opt}^\psi$ can handle DHL ontologies.
-Unfortunately there exist DHL ontologies such that Algorithm~$\mathsf{A}_{opt}^\psi$
+Unfortunately there exist DHL ontology classes such that Algorithm~$\mathsf{A}_{opt}^\psi$
 does not work for any poly-logarithmically bounded function $\psi$.
-In the following, we first give such an ontology
+In the following, we first give such a case
 to illustrate the reason why Algorithm~$\mathsf{A}_{opt}^\psi$ cannot work.
 Based on the analysis of this case, we propose to restrict
 the usage of DHL in order to achieve parallel tractability
@@ -906,43 +911,46 @@ of materialization.
 
 We find that, an unlimited usage of axioms of the
 form $B_1\sqcap B_2\sqsubseteq A$
-may make it impossible for Algorithm~$\mathsf{A}_{opt}$ to construct a materialization graph
+makes it impossible for Algorithm~$\mathsf{A}_{opt}$ to construct a materialization graph
 in a poly-logarithmical number of iterations of \ref{alg3:updateG}.
 We use the following example to illustrate it.
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=0.9\textwidth]{fig-pathtwist.eps}
-\caption{(left) The materialization graph of $\mathcal{O}_{ex_3}$;
-(right) The materialization graph of $\mathcal{O}_{ex_4}$.}
+\caption{(left) The materialization graph of $\mathcal{O}_{ex_6}$;
+(right) The materialization graph of $\mathcal{O}_{ex_7}$.}
 \label{fig:ex3_4}
 \end{center}
 \end{figure}
 
 \begin{example}\label{exp:dhl}
-Given a DHL ontology $\mathcal{O}_{ex_3}$ where its TBox contains three axioms:
+Given a DHL ontology $\mathcal{O}_{ex_6}$ where its TBox contains three axioms:
 $B_1\sqcap B_2\sqsubseteq A$, $\exists S.A\sqsubseteq B_1$ and $\exists R.A\sqsubseteq B_2$;
 the ABox is $\{S(a_i,a_{i-1}), R(a_i,a_{i-1}), A(a_1)\}$
 for $2\leq i\leq k$ and $k$ is an integer greater than 2.
-We denote the corresponding datalog program of $\mathcal{O}_{ex_3}$ by $P_{ex_3}=\langle R, \textbf{I}\rangle$,
+We denote the corresponding datalog program of $\mathcal{O}_{ex_6}$ by $P_{ex_6}=\langle R, \textbf{I}\rangle$,
 where $R$ contains three rules: `$B_1(x),B_2(x)\rightarrow A(x)$',`$S(x,y),A(y)\rightarrow B_1(x)$' and `$R(x,y),A(y)\rightarrow B_2(x)$'.
-The materialization graph of $P_{ex_3}$ constructed by $\mathsf{A}_{opt}$ is denoted by $\mathcal{G}_{ex_3}$ (see Figure~\ref{fig:ex3_4}(left)).
+The materialization graph of $P_{ex_6}$ constructed by $\mathsf{A}_{opt}$ is denoted by $\mathcal{G}_{ex_6}$ (see Figure~\ref{fig:ex3_4}(left)).
 \end{example}
 
-One can check that $\mathcal{G}_{ex_3}$ is the unique materialization graph of $P_{ex_3}$.
+One can check that $\mathcal{G}_{ex_6}$ is the unique materialization graph of $P_{ex_6}$.
 Observe that there exists a path (e.g., $A(a_1),B_1(a_2),A(a_2),...,A(a_k)$) between $A(a_1)$ and $A(a_k)$.
-When performing Algorithm~$\mathsf{A}_{opt}$ on $P_{ex_3}$, it can be checked that
+When performing Algorithm~$\mathsf{A}_{opt}$ on $P_{ex_6}$, it can be checked that
 each node of the form $A(a_i)$ (filled with black color,
 and $2\leq i\leq k$) has no SWD path until the $i^{th}$ iteration;
-in the $i^{th}$ iteration, the parent nodes of $A(a_i)$ have been added to $\mathcal{G}_{ex_2}$,
-and, $A(a_i)$ can also be added to $\mathcal{G}_{ex_2}$.
-Thus, Algorithm~$\mathsf{A}_{opt}$ cannot handle $P_{ex_3}$ in a poly-logarithmical
+in the $i^{th}$ iteration, the parent nodes of $A(a_i)$ have been added to $\mathcal{G}_{ex_6}$,
+and, $A(a_i)$ can also be added to $\mathcal{G}_{ex_6}$.
+Similar to the datalog program class $\mathbb{P}_{ex_1}$, we can also get a 
+datalog program class $\mathbb{P}_{ex_6}$ for the ontology $\mathcal{O}_{ex_6}$
+when $k$ is a variable. Based on the above analysis, Algorithm~$\mathsf{A}_{opt}$ cannot complete the materialization
+for the datalog programs of $\mathbb{P}_{ex_6}$ in a poly-logarithmical
 number of iterations.
 The intuitive reason is that, at least two paths exist
 starting from $A(a_1)$ to $A(a_k)$. These paths \emph{twist} mutually and share the same joint nodes (see the black nodes).
 It makes the optimization of acceleration used in Algorithm~$\mathsf{A}_{opt}$ invalid.
 That is, for each node $A(a_i)$ ($2\leq i\leq k$), until its parents ($B_1(a_i)$ and $B_2(a_i)$) are added
-to $\mathcal{G}_{ex_2}$, there would not exist an available SWD path for $A(a_i)$.
+to $\mathcal{G}_{ex_6}$, there would not exist an available SWD path for $A(a_i)$.
 We use `\emph{path twisting}' to represent such cases.
 
 In order to make Algorithm~$\mathsf{A}_{opt}$ terminate in a poly-logarithmical number of iterations,
@@ -954,24 +962,24 @@ We explain it by using the following example where the ontology is modified from
 that in Example~\ref{exp:dhl}.
 
 \begin{example}\label{exp:simpleC}
-Consider an ontology where the TBox contains three axioms:
+Consider an ontology $\mathcal{O}_{ex_7}$ where the TBox contains three axioms:
 $B_1\sqcap B_2\sqsubseteq A$, $\exists S.A\sqsubseteq B_1$ and $B_3\sqsubseteq B_2$;
 the ABox is $\{S(a_i,a_{i-1}), B_3(a_i), A(a_1)\}$
 for $2\leq i\leq k$ and $k$ is an integer greater than 2.
-We denote the corresponding datalog program by $P_{ex_4}$ where the rule set contains:
+We denote the corresponding datalog program by $P_{ex_7}$ where the rule set contains:
 `$B_1(x),B_2(x)\rightarrow A(x)$',`$S(x,y),A(y)\rightarrow B_1(x)$' and `$B_3(x)\rightarrow B_2(x)$'.
-$P_{ex_3}$ has a unique materialization graph denoted by $\mathcal{G}_{ex_4}$ (see Figure~\ref{fig:ex3_4}(right)).
+$P_{ex_7}$ has a unique materialization graph denoted by $\mathcal{G}_{ex_7}$ (see Figure~\ref{fig:ex3_4}(right)).
 \end{example}
 
 In the above example, for the axiom $B_1\sqcap B_2\sqsubseteq A$, all derived atoms
 of the form $B_2(x)$ must not be child nodes of an atom $A(y)$ for some $y$.
 This ensures that only one path exists between each two nodes among $A(a_2),...,A(a_k)$.
-Further, when constructing $\mathcal{G}_{ex_4}$, Algorithm~$\mathsf{A}_{opt}$ can terminate after
+Further, when constructing $\mathcal{G}_{ex_7}$, Algorithm~$\mathsf{A}_{opt}$ can terminate after
 two iterations of \ref{alg3:updateG}. Specifically, in the first iteration, Algorithm~$\mathsf{A}_{opt}$
-adds all of the nodes $B_3(a_i)$ and $B_2(a_i)$ ($2\leq i\leq k$) to $\mathcal{G}_{ex_4}$,
+adds all of the nodes $B_3(a_i)$ and $B_2(a_i)$ ($2\leq i\leq k$) to $\mathcal{G}_{ex_7}$,
 since they have corresponding SWD paths;
 after that, all the other nodes
-can be added to $\mathcal{G}_{ex_4}$ in the second iteration (because each
+can be added to $\mathcal{G}_{ex_7}$ in the second iteration (because each
 node has an SWD path).
 Motivated by this example, we consider restricting the usage of
 the axioms $B_1\sqcap B_2\sqsubseteq A$
@@ -1032,7 +1040,7 @@ We next show that complex RIAs may also cause the situation of `path twisting'.
 Consider the following example.
 
 \begin{example}\label{exp:complexRIA}
-Given a DHL$(\circ)$ ontology $\mathcal{O}_{ex_5}$ where its TBox is empty;
+Given a DHL$(\circ)$ ontology $\mathcal{O}_{ex_9}$ where its TBox is empty;
 the RBox $\mathcal{R}$ contains three axioms:
 $R_1\circ R_2\sqsubseteq R$, $R_3\circ R\sqsubseteq R_1$ and $R\circ R_4\sqsubseteq R_2$;
 the ABox $\mathcal{A}$ is $\{R(a_1,a_1), R_3(a_i,a_{i-1}), R_4(a_{i-1},a_i)\}$
@@ -1040,12 +1048,12 @@ for $2\leq i\leq k$ and $k$ is an integer greater than 2.
 The corresponding datalog program $P_{ex_5}$
 contains three rules: `$R_1(x,y),R_2(y,z)\rightarrow R(x,z)$',
 `$R_3(x,y),R(y,z)\rightarrow R_1(x,z)$' and `$R(x,y),R_4(y,z)\rightarrow R_2(x,z)$'.
-The materialization graph of $P_{ex_5}$ constructed by Algorithm~$\mathsf{A}_{opt}$ is denoted by $\mathcal{G}_{ex_5}$.
+The materialization graph of $P_{ex_5}$ constructed by Algorithm~$\mathsf{A}_{opt}$ is denoted by $\mathcal{G}_{ex_9}$.
 \end{example}
 
-One can check that the materialization graph $\mathcal{G}_{ex_5}$ has the same shape as that
-of $\mathcal{G}_{ex_3}$ in Figure~\ref{fig:ex3_4}.
-A twisted path exists in $\mathcal{G}_{ex_5}$ involving $R(a_i,a_i) (2\leq i\leq k)$ as the joint nodes.
+One can check that the materialization graph $\mathcal{G}_{ex_9}$ has the same shape as that
+of $\mathcal{G}_{ex_6}$ in Figure~\ref{fig:ex3_4}.
+A twisted path exists in $\mathcal{G}_{ex_9}$ involving $R(a_i,a_i) (2\leq i\leq k)$ as the joint nodes.
 Further, all the roles $R_1$, $R_2$, $R_3$, $R_4$ and $R$ in this example are non-transitive roles.
 
 Inspired by what we do for axioms $B_1\sqcap B_2\sqsubseteq A$,
@@ -1090,8 +1098,8 @@ conditions are satisfied:
 \end{definition}
 
 \begin{example}
-For the ontology $\mathcal{O}_{ex_4}$ in Example~\ref{exp:complexRIA}, all of the roles
-$R_1$, $R_2$ and $R$ are non-simple roles. Thus, $\mathcal{O}_{ex_4}$ does not follow
+For the ontology $\mathcal{O}_{ex_7}$ in Example~\ref{exp:complexRIA}, all of the roles
+$R_1$, $R_2$ and $R$ are non-simple roles. Thus, $\mathcal{O}_{ex_7}$ does not follow
 the simple-role restriction because of $R_1\circ R_2\sqsubseteq R$.
 Consider the ontology $\mathcal{O}_{ex_1}$
 in Example~\ref{exp:mg} again. The role $R$ is a non-simple role, while $S$ is a simple role.

@@ -34,7 +34,7 @@ We added xxx to adress this...
 \end{quote}
 
 We made it clear that the rule set is fixed for a class of Datalog programs.
-We also revised the similar presentations in Section 2.
+We also revised the similar presentations in Section~2.
 
 \begin{quote}
 It is not clear whether the classes of Datalog programs considered in the
@@ -43,14 +43,15 @@ Definition 1 seems to so indicate, but there is nothing in the definition
 that says so.
 \end{quote}
 
-We did...
+We modified Definition~1 to make it clear that the Datalog programs
+in a class share the same rule set.
 
 \begin{quote}
 There is no definition of what the parents of a node in a graph are.
 However, it is quite obvious what the definition should be.
 \end{quote}
 
-...
+We added the definition of the parents of a node in a materialization graph in Definition~2.
 
 \begin{quote}
 Example 6 does need a bit of revision.  It is not the case that Oex3 cannot
@@ -58,7 +59,7 @@ be materialzed tractably in parallel.  Instead there has to be a class of
 ontologies that cannot be so materialized.
 \end{quote}
 
-...
+We did the revision for Example~6
 
 \begin{quote}
 It would be much better if the ontology names corresponded to the example
