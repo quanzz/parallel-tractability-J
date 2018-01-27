@@ -234,7 +234,6 @@ I list some relatively minor issues regarding presentation and technical details
 
 - p20, it mentions a group of materialisation rules in YAGO which belong to $D_{\text{dhl}}$. It deserves a clarification on what these rules are like and why they do not fall into existing parallel tractable classes.\\
 - p20, Table 2, it should mention how these ontologies were selected. \\
-- p21, ``devided'' —> ``divided''\\
 - p21, the discussion on line graph lg1 is confusing (i.e.\ ``line-2 stays higher than line-6, but lower than line-4''). Maybe I was looking at the wrong place. \\
 - p25, the section heading ``Reference'' occur twice.
 \end{quote}

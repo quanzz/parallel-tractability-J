@@ -171,7 +171,7 @@ reasoning is that the utilized test datasets do not fall in the worst cases in t
 It has also been shown that some well-known large-scale ontologies, such as YAGO, have good performance for parallel
 reasoning \cite{KolovskiWE10}, but they are expressed in ontology languages that are not parallelly tractable in theory.
 On the other hand, there do exist ontologies for which materialization cannot
-always be improved by parallelism (we use experiments to show this in Section~\ref{sec:evaluation}). 
+always be improved by parallelism (we use experiments to show this in Section~\ref{sec:evaluation}).
 The current work of parallel ontology reasoning can hardly explain this.
 While one can try out different parallel implementations to see whether an ontology can be handled by (one of) them efficiently,
 we study the problem of parallel tractability in theory and identify properties that make an ontology parallelly tractable.
@@ -578,17 +578,20 @@ its depth equals the depth of the stage.
 \end{proof}
 
 We now discuss how Algorithm~$\mathsf{A}_{bsc}$ can be restricted to an \texttt{NC} version.
-(\uppercase\expandafter{\romannumeral1}) Since Algorithm~$\mathsf{A}_{bsc}$ does not introduce
-new constants and each predicate has a constant arity,
-one can check that $|P^*|$ is polynomial in the size of $P$. This also means that
-the number of processors is polynomially bounded.
+(\uppercase\expandafter{\romannumeral1}) Given a class of datalog programs $\mathbb{P}$ where
+a rule set is shared for each datalog program $P=\langle R, \textbf{I}\rangle$ in $\mathbb{P}$,
+it can be checked that $|P^*|$ is polynomial in the size of $\textbf{I}$. 
+This is because that each predicate occurring in $\mathbb{P}$ has a constant arity
+and Algorithm~$\mathsf{A}_{bsc}$ does not introduce
+new constants. This also means that the number of processors is polynomially bounded.
 (\uppercase\expandafter{\romannumeral2}) The computing time of \ref{alg1:addFacts}
 and \ref{alg1:halt} occupies constant time units because of parallelism.
 (\uppercase\expandafter{\romannumeral3}) The main computation part in Algorithm~$\mathsf{A}_{bsc}$ is the
-iteration of \ref{alg1:updateG}.
-In each iteration of \ref{alg1:updateG}, all processors work independently from each other.
-Thus, in theory, \ref{alg1:updateG} costs one time unit.
-The whole computing time turns out to be bounded by the number of iterations of \ref{alg1:updateG}. (\uppercase\expandafter{\romannumeral4})
+iteration of \ref{alg1:updateG}. Since each processor handles one rule instance, 
+\ref{alg1:updateG} costs one time unit on each processor in theory. 
+Assume that there is no delay and other communication problems among all the processors.
+We have that the computing time of \ref{alg1:updateG} of the whole algorithm costs one time unit as well.
+Further, the whole computing time turns out to be bounded by the number of iterations of \ref{alg1:updateG}. (\uppercase\expandafter{\romannumeral4})
 We use the symbol $\psi$ to denote a poly-logarithmically bounded function.
 The input of $\psi$ is the size of $P$ and the output is a non-negative integer.
 Based on (\uppercase\expandafter{\romannumeral1}, \uppercase\expandafter{\romannumeral2},
@@ -619,7 +622,7 @@ Lemma~\ref{lemma:a1}.
 
 Consider Example~\ref{exp:mg} again. Let the integer $k$ be a variable. We can
 get a class of datalog programs, denoted by $\mathbb{P}_{ex_1}$, where the rule set
-is $\{R(x,y),A(y)\rightarrow A(x), S(x,y),R(y,z)\rightarrow R(x,z)\}$ and the instance
+is $\{R(x,y),A(y)\rightarrow A(x), S(x,y),R(y,z)\rightarrow R(x,z)\}$ and the fact
 set varies according to $k$. The algorithm $\mathsf{A}_{bsc}^{\psi}$ is restricted in the sense that it cannot even work on the rather simple datalog program class $\mathbb{P}_{ex_1}$.
 It can be checked that, for some materialization graph $\mathcal{G}_{ex_1}$
 corresponding to a datalog program in $\mathbb{P}_{ex_1}$, \texttt{depth}($\mathcal{G}_{ex_1}$)$=k$ for some $k$.
@@ -694,7 +697,7 @@ relation (denoted by $S_{\textit{\tiny rch}}$) by performing the following proce
 
 \begin{description}[leftmargin=2ex]
 \item[(\textbf{\dag})] \emph{For each rule instantiation of the form $B_1,..,B_i,..,B_n\rightarrow H$
-where $H$ has been added to $\mathcal{G}$}:
+where $H$ has not been added to $\mathcal{G}$}:
 \begin{enumerate}[leftmargin=2ex]
 \item \emph{if the body atoms $B_1,...,B_n$ have all been added to $\mathcal{G}$, put \texttt{rch}$(B_1,H),...,$ \texttt{rch}$(B_n,H)$ in $S_{\textit{\tiny rch}}$};
 \item \emph{if $B_i$ is the only node in the body that has not been added to $\mathcal{G}$,
@@ -1224,7 +1227,7 @@ is computed as follows:
 \item add \texttt{rch}$(R(a,b)$, $S(b,a))$ to $S_{\textit{\tiny rch}}$ where $R(a,b)\rightarrow S(b,a)\in P^*$,
     $\mathcal{O}\models R\sqsubseteq_* S^-$ and $R(a,b)\in V$;
 
-\item add \texttt{rch}$(R_2(b,c),R_3(a,c))$ to $S_{\textit{\tiny rch}}$ where $R_1(a,b),R_2(b,c)\rightarrow R_3(a,c)\in P^*$, 
+\item add \texttt{rch}$(R_2(b,c),R_3(a,c))$ to $S_{\textit{\tiny rch}}$ where $R_1(a,b),R_2(b,c)\rightarrow R_3(a,c)\in P^*$,
     $R_1\circ R_2\sqsubseteq R_3\in\mathcal{R}$ (the case
     where $R_1\equiv R_2\equiv R_3$ is also involved) and $R_1(a,b)\in V$;
 
