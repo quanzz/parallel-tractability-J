@@ -215,19 +215,33 @@ Indeed, the abstract has been shortened significantly now.
 First, in the discussion under Lemma 1, it says $|P^*|$ is polynomial in the size of $P$, which is imprecise, as $|P^*|$ is polynomial in the size of $I$ but not necessarily in the size of $R$. This is not a big issue if one considers NC for data complexity. What is less straightforward and more of concern is the statement that Step~2 costs only one time unit. As Step~2 involves checking the applicability of $B_1, \ldots, B_n \to H$ in $G$ and updating $G$, it depends on the size of $G$ and the size of $G$ is not a constant w.r.t.\ that of $I$. Footnote~4 suggests checking applicability of the rule can be done in constant time via an index. What about updating $G$ and maintaining the index?
 \end{quote}
 
-...
+In the paragraph under Lemma~1, we made it clear that $|P^*|$ is polynomial in the size of $I$ for a class of datalog programs.
+
+The statement that Step~2 costs only one time unit is based on the context of one processor. Since one processor
+is allocated one rule instance (see the first paragraph of Algorithm~$\mathsf{A}_{bsc}$),
+the procedure can be completed in constant time units. We rewrote these sentences by clarifying this.
+
+The constant time of checking applicability ......
+
 
 \begin{quote}
 The computation of the rch relation $S_{\text{rch}}$ ($\dag$) looks problematic, as it requires ``H has been added to G''. If it were the case, then in Example~4 the $S_{\text{rch}}$ would always be empty, as none of the rule heads $H$ would be added to $G$. Again, the complexity analysis of $A_{\text{opt}}$ is unclear and possibly flawed. Step~2 uses an NC algorithm to compute the transitive closure of $S_{\text{rch}}$, which runs in poly-logarithmic time w.r.t.\ the size of $S_{\text{rch}}$ not necessarily so w.r.t.\ the size of $I$. What is the size of $S_{\text{rch}}$ w.r.t.\ that of $I$? Similarly as above, it involves updating $G$, which depends on the sizes of both $G$ and $S_{\text{rch}}$. Would it be still in poly-logarithmic time?
 \end{quote}
 
-...
+The requirement ``H has been added to G'' in the description of computing the rch relation $S_{\text{rch}}$ ($\dag$) is indeed
+incorrect. It should be ``H has not been added to G''. We fixed this error.
+
+(TODO) We added a paragraph to discuss the complexity of Algorithm~$\mathsf{A}_{opt}$.
+In Step~2 of Algorithm~$\mathsf{A}_{opt}$, an NC algorithm is used to compute the transitive closure of $S_{\text{rch}}$.
+It can be checked that the scale of $S_{\text{rch}}$ is less than that of $P^*$ and is in polynomial of
+the size of inputs. Thus, the NC complexity of the computation of the transitive closure can be guaranteed.
+
 
 \begin{quote}
 Finally, the algorithms assume each processor handling a rule instantiation. I wonder how it is implemented in ParallelDHL.
 \end{quote}
 
-...
+(TODO) We used a paragraph to discuss this after Algorithm~$\mathsf{A}_{prc}$.
 
 \begin{quote}
 I list some relatively minor issues regarding presentation and technical details:
