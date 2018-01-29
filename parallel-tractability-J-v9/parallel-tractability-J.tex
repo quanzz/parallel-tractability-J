@@ -120,7 +120,7 @@ Materialization: Technique and Practice}
 \end{abstract}
 
 \begin{keyword}
-ontology \sep materialization \sep datalog \sep parallel tractability \sep \texttt{NC} complexity
+ontology \sep materialization \sep datalog \sep parallel tractability \sep NC complexity
 \end{keyword}
 
 \end{frontmatter}
@@ -139,12 +139,11 @@ can optimize query answering, ontology diagnosis and debugging. Since huge amoun
 are being generated at an increasing pace by sensor networks, government authorities and social
 media \cite{LehmbergRMB16,MeuselBP15}, it is challenging to conduct materialization on such large-scale ontologies efficiently.
 
-There has been work that proposes parallel reasoning algorithms and employs parallel computing platforms
+There has been work proposing parallel reasoning algorithms and employing parallel computing platforms
 for the ontology language RDFS and its extended
-fragments \cite{MotikNPHO14,PetersSZ15,SubercazeGCL16}. Several optimization strategies, e.g., dictionary encoding, balance workload,
-data partitioning, are further studied to enhance parallel RDFS reasoning. There are also parallel implementations for scalable
-reasoning of highly expressive ontology languages \cite{SteigmillerLG14,WuH12}. On the other hand, in order to make reasoning tasks more efficient
-in parallel, several work utilizes different kinds of high-performance computing platforms, like supercomputers \cite{Hoeksema2011,GoodmanJMAAH11},
+fragments \cite{MotikNPHO14,PetersSZ15,SubercazeGCL16}. Several optimization strategies, e.g., dictionary encoding, balancing workload
+and data partitioning, are further studied to enhance parallel RDFS reasoning. There are also parallel implementations for scalable
+reasoning of highly expressive ontology languages \cite{SteigmillerLG14,WuH12}. On the other hand, several work utilizes different kinds of computing platforms to make reasoning tasks more efficient in parallel, such as supercomputers \cite{Hoeksema2011,GoodmanJMAAH11},
 MapReduce \cite{UrbaniKMHB12} and GPU servers \cite{HeinoP12}.
 
 The above work verifies the effectiveness of parallel reasoning based on the evaluations on different test datasets.
@@ -153,10 +152,11 @@ which have \texttt{PTime}-complete or higher complexity of reasoning in the wors
 they are not parallelly tractable according to \cite{Raymond95}, i.e., the efficiency of reasoning may not be
 improved on a parallel implementation. A possible reason of the high performance of parallel
 reasoning is that the utilized test datasets do not fall in the worst cases in terms of computational complexity.
-It has also been shown that, some well-known large-scale ontologies, such as YAGO, have good performance for parallel
+It has also been shown that some well-known large-scale ontologies, such as YAGO, have good performance for parallel
 reasoning \cite{KolovskiWE10}, but they are expressed in ontology languages that are not parallelly tractable in theory.
-On the other hand, we show in Section~\ref{sec:evaluation} that, there do exist some ontologies, for which materialization cannot
-always be improved by parallelism. The current work of parallel ontology reasoning can hardly explain this.
+On the other hand, there do exist ontologies for which materialization cannot
+always be improved by parallelism (we use experiments to show this in Section~\ref{sec:evaluation}).
+The current work of parallel ontology reasoning can hardly explain this.
 While one can try out different parallel implementations to see whether an ontology can be handled by (one of) them efficiently,
 we study the problem of parallel tractability in theory and identify properties that make an ontology parallelly tractable.
 These properties can be further used to optimize parallel algorithms and to guide ontology engineers in creating ontologies
@@ -165,40 +165,40 @@ for which parallel tractability can be guaranteed theoretically.
 According to \cite{MotikNPHO14}, many real large-scale ontologies are essentially expressed in the ontology languages
 that can be rewritten into datalog rules. Thus, we focus on such datalog rewritable ontology languages in this paper.
 The main target of this paper is to identify the classes of datalog rewritable ontologies such that materialization
-over these ontologies is parallelly tractable, i.e., in the parallel complexity class $\texttt{NC}$ \cite{Raymond95}.
+over these ontologies is parallelly tractable, i.e., in the parallel complexity class NC \cite{Raymond95}.
 This complexity class consists of problems that can be solved efficiently in parallel.
-To show that a problem is in the \texttt{NC} class, one can give an \emph{\texttt{NC} algorithm} that handles this problem
+To show that a problem is in the NC class, one can give an \emph{NC algorithm} that handles this problem
 in parallel computation \cite{Raymond95}.
-An \texttt{NC} algorithm is required to terminate in parallel poly-logarithmic time.
+An NC algorithm is required to terminate in parallel poly-logarithmic time.
 However, current materialization algorithms of datalog rewritable ontology languages
-(e.g., the core algorithm used in RDFox \cite{MotikNPHO14}) are not \texttt{NC} algorithms,
+(e.g., the core algorithm used in RDFox \cite{MotikNPHO14}) are not NC algorithms,
 since they are designed for general datalog programs and has \texttt{PTime}-complete complexity.
-Thus, we first give \texttt{NC} algorithms that perform materialization,
+Thus, we first give NC algorithms that perform materialization,
 and then identify the corresponding classes of datalog rewritable ontologies (called \emph{parallelly tractable classes})
-that can be handled by these \texttt{NC} algorithms. To make the proposed \texttt{NC} algorithms practical,
+that can be handled by these NC algorithms. To make the proposed NC algorithms practical,
 we also discuss how to optimize and implement them.
 
 In the practical part of this work, we study specific datalog rewritable ontology languages.
-We first focus on the ontology language DL-Lite to clarify how to apply the above \texttt{NC} algorithms
+We first focus on the ontology language DL-Lite to clarify how to apply the above NC algorithms
 to study the parallel tractability of ontology materialization.
 We show that DL-Lite$_{core}$ and DL-Lite$_\mathcal{R}$ are parallelly tractable.
 We then study the ontology language Description Horn Logic (DHL) \cite{GrosofHVD03}, which is the intersection of datalog and OWL
 in terms of expressivity. We give a case of a DHL ontology where materialization can hardly be parallelized.
 Based on the analysis of this case, we propose to restrict the usage of DHL such that materialization over the
-restricted ontologies can be handled by the proposed \texttt{NC} algorithms.
+restricted ontologies can be handled by the proposed NC algorithms.
 We further extend the results to an extension of DHL that also allows complex role inclusion axioms.
 Finally, we analyze well-known benchmarks and real-world datasets and show that many real ontologies following the
 proposed restrictions belong to the parallelly tractable classes.
-We implement a system based on an optimized \texttt{NC} algorithm for DHL materialization.
+We implement a system based on an optimized NC algorithm for DHL materialization.
 We compare our system to the state-of-the-art reasoner RDFox.
 The experimental results show that the optimization proposed in this paper results in a better performance on parallelly
 tractable ontologies compared with RDFox.
 
 The rest of the paper is organized as follows. In Section~\ref{sec:background}, we introduce some basic notions.
-We then give two \texttt{NC} algorithms for ontology materialization in Section~\ref{sec:ptclass}.
+We then give two NC algorithms for ontology materialization in Section~\ref{sec:ptclass}.
 We study the parallelly tractable materialization of DL-Lite, DHL and an extension of DHL in Section~\ref{sec:ptonto} respectively.
 In Section~\ref{sec:practicalAlg},
-we discuss how to optimize and implement the given \texttt{NC} algorithms.
+we discuss how to optimize and implement the given NC algorithms.
 We analyze real-world datasets and evaluate our implementation in Section~\ref{sec:evaluation}.
 We then discuss related work in Section~\ref{sec:related} and conclude in Section~\ref{sec:conclusion}.
 The detailed proofs of the theorems and the lemmas in this paper are given in the appendix.
@@ -208,6 +208,7 @@ The detailed proofs of the theorems and the lemmas in this paper are given in th
 \label{sec:background}
 
 In this section, we introduce some basic notions that are needed to introduce our approach.
+
 
 \subsection{Datalog}
 
@@ -232,6 +233,7 @@ Furthermore the ground instantiation of $P$, denoted by $P^*$,
 consists of all ground instantiations of rules in $P$.
 The predicates occurring only in the body  of some rules are called \emph{EDB predicates},
 while the predicates that may occur as head atoms are called \emph{IDB predicates}.
+
 
 \subsection{DHL and DL-Lite}
 
@@ -320,13 +322,15 @@ which allows involving RBoxes that contain axioms of the forms (R1-R2).
 If not specially specified, \emph{a DL-Lite ontology denotes a DL-Lite$_{\mathcal{R}}$ ontology
 in the following paragraphs}.
 
+
 \subsection{Ontology Materialization via Datalog Programs}
 
 An ontology
 expressed in DHL, DHL($\circ$), DL-Lite$_{core}$ or DL-Lite$_{\mathcal{R}}$ can be transformed to a datalog program
 (see the corresponding rules in the right column of Table~1).
 Note that, for an axiom of the form (T4) $A\sqsubseteq\exists R$, it should be transformed to
-a first-order logic rule `$A(x)\rightarrow \exists y(R(x,y))$' where $y$ is a free variable.
+a first-order logic rule `$A(x)\rightarrow \exists y(R(x,y))$' where $y$ is called a \emph{free variable} (it is
+not occurring in the head atom $A(x)$).
 In this work, such a free variable $y$ is eliminated via Skolemisation into a new individual $o_{R}^A$
 that corresponds to concept $A$ and role $R$. One can check that the elimination of free variables
 does not influence the results of materialization by according to \cite{CalvaneseGLLR07}.
@@ -354,24 +358,27 @@ and \emph{materialization} refers to the computation of $T_R^{n}(\textbf{I})$ wi
 $T_R^{n}(\textbf{I})$ is also called the \emph{fixpoint} and denoted by $T_R^{\omega}(\textbf{I})$.
 We say that an atom $A$ is \emph{derivable} or can be \emph{derived} with respect
 to the datalog program $P=\langle R, \textbf{I}\rangle$ if $A\in T_R^{\omega}(\textbf{I})$.
-In this paper, we consider the data complexity of materialization, i.e., we \emph{assume that the rule set $R$ is fixed}.
+In this paper, we consider the data complexity of materialization, i.e., we \emph{assume that the rule set $R$ is fixed}
+for any class of datalog programs.
 
-\subsection{The $\texttt{NC}$ Complexity}
 
-The parallel complexity class $\texttt{NC}$, known as Nick$'$s
+\subsection{The NC Complexity}
+
+The parallel complexity class NC, known as Nick$'$s
 Class \cite{Raymond95}, is studied by theorists as a parallel complexity class
 where each decision problem can be efficiently solved in parallel.
-Specifically, a decision problem in the $\texttt{NC}$ class
-can be solved in poly-logarithmic time on a parallel machine with a polynomial number of processors.
-We also say that an $\texttt{NC}$ problem can be solved in \emph{parallel poly-logarithmic time}.
-Although the $\texttt{NC}$ complexity is a theoretical analysis tool,
-it has been shown that many $\texttt{NC}$ problems can be solved efficiently in practice \cite{Raymond95}.
+Specifically, a decision problem in the NC class
+can be solved in poly-logarithmic time on a PRAM (parallel, random-access machine) with
+a polynomial number of processors. We also say that an NC problem can be solved
+in \emph{parallel poly-logarithmic time}.
+Although the NC complexity is a theoretical analysis tool,
+it has been shown that many NC problems can be solved efficiently in practice \cite{Raymond95}.
 
-From the perspective of implementations, the $\texttt{NC}$ problems are also highly
+From the perspective of implementations, the NC problems are also highly
 parallel feasible for other parallel models like BSP \cite{Valiant90}
-and MapReduce \cite{KarloffSV10}. The \texttt{NC} complexity is originally defined
+and MapReduce \cite{KarloffSV10}. The NC complexity is originally defined
 as a class of decision problems. Since we study the problem of materialization, we do not
-require in this work that a problem should be a decision problem in $\texttt{NC}$.
+require in this work that a problem should be a decision problem in NC.
 In addition, since many parallel reasoning systems (see related work in Section~\ref{sec:related})
 are implemented on shared-memory platforms, we
 study all the issues in this work by assuming that the running machines are in
@@ -383,39 +390,39 @@ shared-memory configurations.
 
 Our target is to find for which kinds of ontologies (not ontology languages)
 materialization is parallelly tractable.
-Since we assume that for any datalog program $\langle R, \textbf{I}\rangle$ the rule
-set $R$ is fixed, the materialization problem is thus in data complexity
+Since we assume that for any class of datalog programs where the rule
+set of each datalog program is fixed, the materialization problem is thus in data complexity
 $\texttt{PTime}$-complete, which is considered to be inherently sequential in the worst
 case \cite{Raymond95}. In other words, the materialization problem on general
-datalog programs cannot be solved in parallel poly-logarithmic time unless \texttt{P}=\texttt{NC}.
+datalog programs cannot be solved in parallel poly-logarithmic time unless P=NC.
 Thus, we say that \emph{materialization on a class of datalog programs is parallelly tractable
 if there exists an algorithm that handles this class of datalog programs and runs in parallel
-poly-logarithmic time (this algorithm is also called an \texttt{NC} algorithm)}.
-In this section, we identify such classes of datalog programs by studying different \texttt{NC} algorithms.
+poly-logarithmic time (this algorithm is also called an NC algorithm)}.
+In this section, we identify such classes of datalog programs by studying different NC algorithms.
 
 
 \subsection{Parallel Tractable Classes}
 
 We first give the following definition for a parallel tractable class of datalog programs
-where an \texttt{NC} algorithm exists for handling each datalog program in this class.
+where an NC algorithm exists for handling each datalog program in this class.
 
 \begin{definition}\label{def:ptd}
-\textbf{(Parallelly Tractable Class)} Given a class $\mathcal{D}$ of datalog programs,
-we say that $\mathcal{D}$ is a parallelly tractable datalog program (\texttt{PTD}) class
-if there exists an \texttt{NC} algorithm that performs sound and complete materialization for each datalog program
+\textbf{(Parallelly Tractable Class)} Given a class $\mathcal{D}$ of datalog programs where the
+same rule set is shared, we say that $\mathcal{D}$ is a parallelly tractable datalog program (\texttt{PTD}) class
+if there exists an NC algorithm that performs sound and complete materialization for each datalog program
 in $\mathcal{D}$. The corresponding class of ontologies of $\mathcal{D}$ is called a
 parallelly tractable ontology (\texttt{PTO}) class.
 \end{definition}
 
-According to the above definition, if we find an \texttt{NC} algorithm $\mathsf{A}$
+According to the above definition, if we find an NC algorithm $\mathsf{A}$
 for datalog materialization, then we can identify a \texttt{PTD} class $\mathcal{D}_{\mathsf{A}}$,
 which is the class of all datalog programs that can be handled by $\mathsf{A}$.
 However, current materialization algorithms of datalog rewritable ontology languages
-(e.g., the core algorithm used in RDFox \cite{MotikNPHO14}) are not \texttt{NC} algorithms
+(e.g., the core algorithm used in RDFox \cite{MotikNPHO14}) are not NC algorithms
 due to their \texttt{PTime}-complete complexity, since they are designed for handling general datalog programs.
-Thus we give our $\texttt{NC}$ algorithms.
+Thus we give our NC algorithms.
 In the following, we first give a parallel materialization algorithm that works for
-general datalog programs. We then restrict this algorithm to an \texttt{NC} version
+general datalog programs. We then restrict this algorithm to an NC version
 and identify the target \texttt{PTD} class.
 
 
@@ -432,13 +439,16 @@ a datalog program $P=\langle R, \textbf{I}\rangle$, is a directed acyclic graph
 denoted by $\mathcal{G}=\langle V, E\rangle$ where,
 \begin{enumerate}[leftmargin=4ex,label=$\bullet$]
   \item $V$ is the node set and $V\subseteq T_R^{\omega}(\textbf{I})$;
-  \item $E$ is the edge set and $E\subseteq T_R^{\omega}(\textbf{I})\times T_R^{\omega}(\textbf{I})$;
+  \item $E$ is the edge set and $E\subseteq T_R^{\omega}(\textbf{I})\times T_R^{\omega}(\textbf{I})$.
 \end{enumerate}
-~~$\mathcal{G}$ satisfies the following condition:
+For each edge of the form $e(v_1, v_2)$ where $v_1$ and $v_2$ are the two nodes,
+we say that node $v_1$ is the parent (node) of node $v_2$ and node $v_2$ is the child (node)
+of node $v_1$. Further, $\forall H,B_1,...,B_n\in V$, $\mathcal{G}$ satisfies the following conditions:
 \begin{enumerate}[leftmargin=4ex,label=$\bullet$]
-  \item $\forall H,B_1,...,B_n\in V$ such that $e(B_1, H),...,e(B_n, H)\in E$ and
-  $B_1,...,B_n$ are \d{all} the parents of $H$, we have that
-  $B_1,...,B_n\rightarrow H\in P^*$.
+  \item $H$ has a parent node or a child node;
+  \item $H$ is the original fact of $P$ if $H$ has the in-degree of $0$;
+  \item $B_1,...,B_n\rightarrow H\in P^*$ is satisfied if $e(B_1, H),...,e(B_n, H)\in E$ and
+  $B_1,...,B_n$ are \d{all} the parents of $H$.
 \end{enumerate}
 \end{definition}
 
@@ -491,26 +501,31 @@ We pay our attention to complete materialization graphs and do not distinguish i
 notion `materialization graph'.
 It should also be noted that there may exist several materialization graphs for a datalog program.
 
+
 \subsection{A Basic Parallel Algorithm}
+\label{sec:alg-bsc}
 
 In this part, we propose a parallel algorithm
-(denoted by $\mathsf{A}_{bsc}$) that constructs a materialization graph for a given datalog program.\\
+(denoted by Algorithm~$\mathsf{A}_{bsc}$) that constructs a materialization graph for a given datalog program.
+Our computational model is a PRAM (parallel, random-access machine) that is mostly used to analyze the parallel
+complexity. This model allows us giving \emph{the parallel assumption}:
+for any datalog program $P=\langle R, \textbf{I}\rangle$,
+any substitution of some atom and any rule instance in $P^*$ can be mapped to a unique memory
+location; further, a one-to-one relation can be established between processors and rule instances.
+Under this assumption, a processor can check the applicability of its corresponding
+rule instance and access the state of an atom occurring in this rule instance in constant time.
+Algorithm~$\mathsf{A}_{bsc}$ is then given as follows.\\
 
-\noindent\texttt{Algorithm $\mathsf{A}_{bsc}$}. Given a datalog program $P=\langle R, \textbf{I}\rangle$,
+
+\noindent\texttt{Algorithm~$\mathsf{A}_{bsc}$}. Given a datalog program $P=\langle R, \textbf{I}\rangle$,
 the algorithm returns a materialization graph $\mathcal{G}$ of $P$.
-Recall that $P^*$ denotes the ground instantiation of $P$,
-which consists of all possible ground instantiations of rules in $R$.
 Suppose we have $|P^*|$ processors, and each rule instantiation in $P^*$ is
-assigned to one processor.\footnote{This might not be practically feasible,
-but we focus on a theoretical analysis here.}
+assigned to one processor.
 Initially $\mathcal{G}$ is empty. The following three steps are then performed:
 \begin{enumerate}[leftmargin=8ex,label=(\textit{Step \arabic*}),ref=Step~\arabic*]
 \item Add all facts in $\textbf{I}$ to $\mathcal{G}$.\label{alg1:addFacts}
 \item For each rule instantiation $B_1,...,B_n\rightarrow H$, if the body atoms are all
-    in $\mathcal{G}$ while $H$ is not in $\mathcal{G}$,\footnote{Suppose that each processor
-    can use $O(1)$ time units to access the state of ground atoms, i.e., whether this ground
-    atom has been added to the materialization graph. This can be implemented by maintaining an
-    index of polynomial size.}
+    in $\mathcal{G}$ while $H$ is not in $\mathcal{G}$,
     the corresponding processor adds $H$ to $\mathcal{G}$ and creates edges pointing
     from $B_1,...,B_n$ to $H$.\label{alg1:updateG}
 \item If no processor can add more nodes and edges to $\mathcal{G}$, terminate, otherwise iterate \ref{alg1:updateG}.\label{alg1:halt}\hfill$\Box$
@@ -551,26 +566,33 @@ one can further check that, for the materialization graph $\mathcal{G}$ construc
 its depth equals the depth of the stage.
 \end{proof}
 
-We now discuss how Algorithm~$\mathsf{A}_{bsc}$ can be restricted to an \texttt{NC} version.
-(\uppercase\expandafter{\romannumeral1}) Since Algorithm~$\mathsf{A}_{bsc}$ does not introduce
-new constants and each predicate has a constant arity,
-one can check that $|P^*|$ is polynomial in the size of $P$. This also means that
-the number of processors is polynomially bounded.
-(\uppercase\expandafter{\romannumeral2}) The computing time of \ref{alg1:addFacts}
-and \ref{alg1:halt} occupies constant time units because of parallelism.
-(\uppercase\expandafter{\romannumeral3}) The main computation part in Algorithm~$\mathsf{A}_{bsc}$ is the
-iteration of \ref{alg1:updateG}.
-In each iteration of \ref{alg1:updateG}, all processors work independently from each other.
-Thus, in theory, \ref{alg1:updateG} costs one time unit.
-The whole computing time turns out to be bounded by the number of iterations of \ref{alg1:updateG}. (\uppercase\expandafter{\romannumeral4})
+We now discuss the parallel complexity of Algorithm~$\mathsf{A}_{bsc}$.
+Given a class of datalog programs $\mathbb{P}$ where
+a rule set is shared for each datalog program $P=\langle R, \textbf{I}\rangle$ in $\mathbb{P}$.
+Let $e$, $v$ and $r$ represent the maximum arity of any EDB predicate, the maximum number of variables
+in any datalog rule, and the number of datalog rules respectively.
+We then have that the number of
+constants is at most $|\textbf{I}|e$, and the number of all possible rule instances in $P^*$
+is at most $r(|\textbf{I}|e)^v$.
+Note that $e, v$ and $r$ depend only on the rule set $R$ and not on the fact set $\textbf{I}$.
+Thus, the memory space for storing the atoms and the rule instances is polynomial in the size of $\textbf{I}$.
+This also means that the number of processors is polynomially bounded.
+The computing time of \ref{alg1:addFacts} and \ref{alg1:halt} occupy constant time (denoted by $c_1$) because of parallelism.
+Since Algorithm~$\mathsf{A}_{bsc}$ works under the parallel assumption, one iteration of
+\ref{alg1:updateG} also costs constant time (denoted by $c_2$). Thus,
+the whole computing time of Algorithm~$\mathsf{A}_{bsc}$ turns out to be $c_1+l\cdot c_2$
+where $l$ denotes the number of iterations of \ref{alg1:updateG}.
+
+When we say that an algorithm is an NC algorithm. It should meet two requirements: first,
+it works on a polynomial number of processors; second, it halts in poly-logarithmic time.
+As discussed above, Algorithm~$\mathsf{A}_{bsc}$ meets the first requirement.
+If we want to restrict Algorithm~$\mathsf{A}_{bsc}$ to be an NC algorithm,
+we can make the number of iterations of \ref{alg1:updateG} to be poly-logarithmically bounded.
 We use the symbol $\psi$ to denote a poly-logarithmically bounded function.
-The input of $\psi$ is the size of $P$ and the output is a non-negative integer.
-Based on (\uppercase\expandafter{\romannumeral1}, \uppercase\expandafter{\romannumeral2},
-\uppercase\expandafter{\romannumeral3}, \uppercase\expandafter{\romannumeral4}),
-for any datalog program $P$, if we use $\psi(|P|)$ to
-bound the number of iterations of \ref{alg1:updateG}, then Algorithm~$\mathsf{A}_{bsc}$
-is an \texttt{NC} algorithm, denoted by $\mathsf{A}_{bsc}^{\psi}$ (this symbol also
-means that $\psi$ occurs as a configuration for Algorithm~$\mathsf{A}_{bsc}$).
+For any datalog program, if we restrict that the number of iterations of \ref{alg1:updateG} is bounded by $\psi(|\textbf{I}|)$,
+the computing time of Algorithm~$\mathsf{A}_{bsc}$
+is $c_1+\psi(|\textbf{I}|)\cdot c_2$. With this restriction, Algorithm~$\mathsf{A}_{bsc}$ is an NC algorithm denoted by
+$\mathsf{A}_{bsc}^{\psi}$.
 
 Based on $\mathsf{A}_{bsc}^{\psi}$, we can identify a class of datalog programs
 $\mathcal{D}_{\mathsf{A}_{bsc}^{\psi}}$ such that all the datalog programs in it can be handled
@@ -591,17 +613,20 @@ graph. This theorem then follows by considering
 Lemma~\ref{lemma:a1}.
 \end{proof}
 
-The algorithm $\mathsf{A}_{bsc}^{\psi}$ is restricted in the sense that it cannot even work on the
-rather simple datalog program $P_{ex_1}$ in Example~\ref{exp:mg}.
-The graph $\mathcal{G}_{ex_1}$ in Figure~\ref{fig:mg} is the unique materialization graph of $P_{ex_1}$.
-One can also check that \texttt{depth}($\mathcal{G}_{ex_1}$)$=k$.
-This means that the depth of $\mathcal{G}_{ex_1}$ is linearly bounded by $k$.
-On the other hand, the size of $P_{ex_1}$ is a polynomial of the integer $k$.
+Consider Example~\ref{exp:mg} again. Let the integer $k$ be a variable. We can
+get a class of datalog programs, denoted by $\mathbb{P}_{ex_1}$, where the rule set
+is $\{R(x,y),A(y)\rightarrow A(x), S(x,y),R(y,z)\rightarrow R(x,z)\}$ and the fact
+set varies according to $k$. The algorithm $\mathsf{A}_{bsc}^{\psi}$ is restricted in the sense that it cannot even work on the rather simple datalog program class $\mathbb{P}_{ex_1}$.
+It can be checked that, for some materialization graph $\mathcal{G}_{ex_1}$
+corresponding to a datalog program in $\mathbb{P}_{ex_1}$, \texttt{depth}($\mathcal{G}_{ex_1}$)$=k$ for some $k$.
+This means that the depths of the materialization graphs are linearly bounded by $k$.
+On the other hand, the sizes of the datalog programs in $\mathbb{P}_{ex_1}$ are polynomial of $k$.
 Thus, for any $\psi$ that is poly-logarithmically bounded, we can always find a $k$ large
 enough such that $\mathsf{A}_{bsc}^{\psi}$ terminates without constructing a materialization
-graph of $P_{ex_1}$.
-However there indeed exists an \texttt{NC} algorithm that can handle $P_{ex_1}$.
+graph for each datalog program in $\mathbb{P}_{ex_1}$.
+However there indeed exists an NC algorithm that can handle $\mathbb{P}_{ex_1}$.
 We discuss this in the next part.
+
 
 \subsection{Optimizing Algorithm~$\mathsf{A}_{bsc}$ via the Single-Way Derivability}
 
@@ -665,7 +690,7 @@ relation (denoted by $S_{\textit{\tiny rch}}$) by performing the following proce
 
 \begin{description}[leftmargin=2ex]
 \item[(\textbf{\dag})] \emph{For each rule instantiation of the form $B_1,..,B_i,..,B_n\rightarrow H$
-where $H$ has been added to $\mathcal{G}$}:
+where $H$ has not been added to $\mathcal{G}$}:
 \begin{enumerate}[leftmargin=2ex]
 \item \emph{if the body atoms $B_1,...,B_n$ have all been added to $\mathcal{G}$, put \texttt{rch}$(B_1,H),...,$ \texttt{rch}$(B_n,H)$ in $S_{\textit{\tiny rch}}$};
 \item \emph{if $B_i$ is the only node in the body that has not been added to $\mathcal{G}$,
@@ -694,15 +719,18 @@ that corresponds to `$B_1,..,B_i,..$ $,B_n\rightarrow H$'
     \texttt{rch}$(B_j,H)\in S_{\textit{\tiny rch}}$.\label{updateG}\hfill$\Box$
 \end{enumerate}
 
-It is well known that there is an \texttt{NC} algorithm for computing the
+It is well known that there is an NC algorithm for computing the
 transitive closure \cite{Allender07}.
 Based on this result and Algorithm~$\mathsf{OPT}$, we propose an optimized variant of Algorithm~$\mathsf{A}_{bsc}$:\\
 
 \noindent\texttt{Algorithm~$\mathsf{A}_{opt}$}. Given a datalog program $P=\langle R, \textbf{I}\rangle$, the algorithm
-returns a materialization graph $\mathcal{G}$ of $P$. Initially $\mathcal{G}$ is empty. The following steps are then performed:
+returns a materialization graph $\mathcal{G}$ of $P$.
+Suppose we have $|P^*|$ processors, and each rule instantiation in $P^*$ is
+assigned to one processor.
+Initially $\mathcal{G}$ is empty. The following steps are then performed:
 \begin{enumerate}[leftmargin=8ex,label=(\textit{Step \arabic*}),ref=Step~\arabic*]
 \item Add all facts in $\textbf{I}$ to $\mathcal{G}$.\label{alg3:addFacts}
-\item Compute $S_{\textit{\tiny rch}}$ by performing \ref{rch} in Algorithm~$\mathsf{OPT}$; use an \texttt{NC}
+\item Compute $S_{\textit{\tiny rch}}$ by performing \ref{rch} in Algorithm~$\mathsf{OPT}$; use an NC
     algorithm to compute the transitive closure $S^*_{\textit{\tiny rch}}$ (see \ref{transClos} in Algorithm~$\mathsf{OPT}$);
     update $\mathcal{G}$ by performing \ref{updateG}  in Algorithm~$\mathsf{OPT}$.\label{alg3:updateG}
 \item If no node has been added to $\mathcal{G}$ (in \ref{alg3:updateG}), terminate,
@@ -732,14 +760,31 @@ Thus, $R(a_i,b)$ and $A(a_i)$ ($2\leq i\leq k$) can all be added to $\mathcal{G}
 in the first iteration of \ref{alg3:updateG}.
 \end{example}
 
-We obtain an \texttt{NC} variant of $\mathsf{A}_{opt}$ analogously to the process for Algorithm~$\mathsf{A}_{bsc}$.
-It can be checked that an iteration of \ref{alg3:updateG} in $\mathsf{A}_{opt}$ costs poly-logarithmic
-time, since the main part is computing $S^*_{\textit{\tiny rch}}$ by an \texttt{NC} algorithm.
-Thus, if the number of iterations of \ref{alg3:updateG} is upper-bounded by a poly-logarithmical function,
-$\mathsf{A}_{opt}$ is an \texttt{NC} algorithm.
-Analogously to $\mathsf{A}_{bsc}^{\psi}$, we use $\mathsf{A}_{opt}^{\psi}$ to denote an \texttt{NC} variant.
-Specifically, for any datalog program $P$, the number of iterations of \ref{alg3:updateG} in $\mathsf{A}_{opt}$
-is bounded by $\psi(|P|)$, where $\psi$ is a poly-logarithmically bounded function.
+The analysis of the parallel complexity of Algorithm~$\mathsf{A}_{opt}$ is given as follows.
+We use the same symbols $e$, $v$ and $r$ that are used for analyzing the complexity of Algorithm~$\mathsf{A}_{bsc}$
+(see Section~\ref{sec:alg-bsc}). Similarly to the analysis for Algorithm~$\mathsf{A}_{bsc}$, it can be checked that
+the number of processors is polynomial of $|\textbf{I}|$, i.e., $r(|\textbf{I}|e)^v$.
+We now consider the computing time of Algorithm~$\mathsf{A}_{opt}$. It is obvious that \ref{alg3:addFacts}
+\ref{alg3:halt} occupy constant time (denoted by $c_1$). In \ref{alg3:updateG}, the phases of
+computing $S_{\textit{\tiny rch}}$ and updating $\mathcal{G}$ also take constant time (denoted by $c_2$)
+under the parallel assumption. Recall that the number of constants is at most $|\textbf{I}|e$ (see Section~\ref{sec:alg-bsc}).
+Let $w$ and $p$ represent the maximum arity of any predicate and the number of predicates respectively.
+We have that the number of all possible substitutions of atoms is at most $p(|\textbf{I}|e)^w$.
+The relation $S_{\textit{\tiny rch}}$ consists of pairs of the atoms. Thus, the size of $S_{\textit{\tiny rch}}$
+is bounded by $p^2(|\textbf{I}|e)^{2w}$. It can be checked that the computing time of the NC algorithm for computing the transitive
+closure of $S_{\textit{\tiny rch}}$ is poly-logarithmical in the size of $\textbf{I}$, more precisely,
+it is upper bounded to $\log^2(p^2(|\textbf{I}|e)^{2w})$ ($=4\log^2(p)+4w^2\log^2(|\textbf{I}|e)+8w\log(p)\log(|\textbf{I}|e)$).
+We now have that the total computing time of Algorithm~$\mathsf{A}_{opt}$ is $c_1+lc_3 + lc_4\log(|\textbf{I}|e) +lc_5\log^2(|\textbf{I}|e)$
+where $c_3=c_2+4\log^2(p)$, $c_4=8w\log(p)$, $c_5=4w^2$ and $l$ denotes the number of iterations of \ref{alg3:updateG}.
+
+Algorithm~$\mathsf{A}_{opt}$ can be restricted to an NC algorithm analogously to the process
+for Algorithm~$\mathsf{A}_{bsc}$. That is the number of iterations of \ref{alg3:updateG}
+is poly-logarithmically bounded, i.e., it is bounded by $\psi(|\textbf{I}|)$
+where $\psi$ is a poly-logarithmical function. In this way, the computing time of
+Algorithm~$\mathsf{A}_{bsc}$ turns out to be $c_1+c_3\psi(|\textbf{I}|)+c_4\psi(|\textbf{I}|)\log(|\textbf{I}|e)+
+c_5\psi(|\textbf{I}|)\log^2(|\textbf{I}|e)$,
+which is still poly-logarithmical in the size of $\textbf{I}$. We denote the
+NC variant of Algorithm~$\mathsf{A}_{opt}$ by $\mathsf{A}_{opt}^{\psi}$.
 
 Based on $\mathsf{A}_{opt}^{\psi}$, we can identify a \texttt{PTD} class $\mathcal{D}_{\mathsf{A}_{opt}^{\psi}}$.
 Further, we have the following corollary which implies that $\mathsf{A}_{opt}^{\psi}$ performs better
@@ -771,7 +816,7 @@ based on Algorithm~$\mathsf{A}_{opt}$.
 We show that, for any DL-Lite$_{core}$ or DL-Lite$_\mathcal{R}$ ontology $\mathcal{O}$,
 there exists a poly-logarithmically bounded function $\psi$
 such that Algorithm~$\mathsf{A}_{opt}^{\psi}$ can handle materialization of $\mathcal{O}$.
-However, for DHL and DHL($\circ$), there exist ontologies such that Algorithm~$\mathsf{A}_{opt}^\psi$
+However, for DHL and DHL($\circ$), there exist ontology classes such that Algorithm~$\mathsf{A}_{opt}^\psi$
 does not work. We illustrate the reason why Algorithm~$\mathsf{A}_{opt}^\psi$ cannot always
 work by studying specific cases.
 Further, we propose to restrict the usage of DHL and DHL($\circ$) in order to achieve parallel tractability
@@ -791,40 +836,40 @@ In order to show how Algorithm~$\mathsf{A}_{opt}$ handles DL-Lite materializatio
 we use the following example.
 
 \begin{example}\label{exp:dllite}
-Given a DL-Lite ontology $\mathcal{O}_{ex_2}$
+Given a DL-Lite ontology $\mathcal{O}_{ex_5}$
 where its TBox and RBox contain the following axioms:
 $A\sqsubseteq B_1$, $A\sqsubseteq B_2$, $B_1\sqcap B_2\sqsubseteq\bot$,
 $\exists R.B_2\sqsubseteq\bot$, $Q\sqsubseteq S^-$, $S\sqsubseteq R$;
 its ABox contains an assertion $Q(a,b)$.
-We denote the corresponding datalog program of $\mathcal{O}_{ex_2}$ by $P_{ex_2}=\langle R, \textbf{I}\rangle$,
+We denote the corresponding datalog program of $\mathcal{O}_{ex_5}$ by $P_{ex_5}=\langle R, \textbf{I}\rangle$,
 where $R$ contains the rules that are transformed from the above axioms; $\textbf{I}$ contains $Q(a,b)$
 as the only fact.
-The unique materialization graph of $P_{ex_2}$ is denoted by $\mathcal{G}_{ex_2}$ (see Figure~\ref{fig:ex2}).
+The unique materialization graph of $P_{ex_5}$ is denoted by $\mathcal{G}_{ex_5}$ (see Figure~\ref{fig:ex2}).
 \end{example}
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=0.6\textwidth]{fig-dllite.eps}
-\caption{The materialization graph of $\mathcal{O}_{ex_2}$.}
+\caption{The materialization graph of $\mathcal{O}_{ex_5}$.}
 \label{fig:ex2}
 \end{center}
 \end{figure}
 
-Consider performing Algorithm~$\mathsf{A}_{opt}$ on the ontology $\mathcal{O}_{ex_2}$ in Example~\ref{exp:dllite}.
+Consider performing Algorithm~$\mathsf{A}_{opt}$ on the ontology $\mathcal{O}_{ex_5}$ in Example~\ref{exp:dllite}.
 (\uppercase\expandafter{\romannumeral1}) First, Algorithm~$\mathsf{A}_{opt}$ adds all ABox assertions (only $Q(a,b)$ here)
-to $\mathcal{G}_{ex_2}$ that is initially an empty graph (\ref{alg3:addFacts} of Algorithm~$\mathsf{A}_{opt}$).
+to $\mathcal{G}_{ex_5}$ that is initially an empty graph (\ref{alg3:addFacts} of Algorithm~$\mathsf{A}_{opt}$).
 (\uppercase\expandafter{\romannumeral2}) In the first iteration of
 \ref{alg3:updateG}, Algorithm~$\mathsf{A}_{opt}$ checks that all of the nodes
 $A(a)$, $S(b,a)$, $B_1(a)$, $B_2(a)$ and $R(b,a)$ have corresponding SWD paths
 starting from $Q(a,b)$. Thus, Algorithm~$\mathsf{A}_{opt}$
-adds these nodes to $\mathcal{G}_{ex_2}$ immediately. We take an example of node $B_1(a)$,
+adds these nodes to $\mathcal{G}_{ex_5}$ immediately. We take an example of node $B_1(a)$,
 for which an SWD path $(Q(a,b),A(a),B_1(a))$ exists.
-When updating $\mathcal{G}_{ex_2}$ by adding $B_1(a)$ to it,
+When updating $\mathcal{G}_{ex_5}$ by adding $B_1(a)$ to it,
 Algorithm~$\mathsf{A}_{opt}$ first checks whether the parent node $A(a)$ of $B_1(a)$
-has been in $\mathcal{G}_{ex_2}$; if $A(a)$ is already in $\mathcal{G}_{ex_2}$, $B_1(a)$
-is added to $\mathcal{G}_{ex_2}$ by creating an edge pointing from $A(a)$ to $B_1(a)$;
-if $A(a)$ has not been added to $\mathcal{G}_{ex_2}$, Algorithm~$\mathsf{A}_{opt}$ adds $A(a)$ (resp., $B_1(a)$)
-to $\mathcal{G}_{ex_2}$ and creates an edge pointing from $Q(a,b)$ to $A(a)$ (resp.,
+has been in $\mathcal{G}_{ex_5}$; if $A(a)$ is already in $\mathcal{G}_{ex_5}$, $B_1(a)$
+is added to $\mathcal{G}_{ex_5}$ by creating an edge pointing from $A(a)$ to $B_1(a)$;
+if $A(a)$ has not been added to $\mathcal{G}_{ex_5}$, Algorithm~$\mathsf{A}_{opt}$ adds $A(a)$ (resp., $B_1(a)$)
+to $\mathcal{G}_{ex_5}$ and creates an edge pointing from $Q(a,b)$ to $A(a)$ (resp.,
 an edge pointing from $A(a)$ to $B_1(a)$).\footnote{These two cases may happen simultaneously,
 since node $A(a)$ and node $B_1(a)$ are being processed in parallel.} The other nodes
 $A(a)$, $S(b,a)$, $B_2(a)$ and $R(b,a)$ are processed similarly.
@@ -833,7 +878,7 @@ The two nodes $\bot(a)$ and $\bot(b)$
 have no SWD path in the first iteration of \ref{alg3:updateG}.
 They are left to be processed in the second iteration.
 (\uppercase\expandafter{\romannumeral4})
-Finally, Algorithm~$\mathsf{A}_{opt}$ finishes constructing $\mathcal{G}_{ex_2}$
+Finally, Algorithm~$\mathsf{A}_{opt}$ finishes constructing $\mathcal{G}_{ex_5}$
 after two iterations (\ref{alg3:halt}).
 
 From the above example, we can observe that SWD paths exist
@@ -850,7 +895,7 @@ have to be added to the constructed materialization graph in the first iteration
 \ref{alg3:updateG} by applying Algorithm~$\mathsf{A}_{opt}$.
 For each atom of the form $\bot(x)$, there may not exist an SWD path in the first iteration
 of \ref{alg3:updateG}, since its derivability depends on its two parent nodes
-(see nodes $\bot(a)$ and $\bot(b)$ in $\mathcal{G}_{ex_2}$ of
+(see nodes $\bot(a)$ and $\bot(b)$ in $\mathcal{G}_{ex_5}$ of
 Example~\ref{exp:dllite}). On the other hand, according to the syntaxes of DL-Lite,
 $\bot$ dose not occur on the left hand of any axiom. In other words,
 an atom of the form $\bot(x)$ cannot be the parent of any other node.
@@ -870,12 +915,14 @@ There exists a poly-logarithmically bounded function $\psi$ s.t.
 $\mathcal{D}_{\textit{\text{dl\_lite}}}\subseteq\mathcal{D}_{\mathsf{A}_{opt}^{\psi}}$.
 \end{theorem}
 
+
 \subsection{Parallelly Tractable Materialization of DHL}
+\label{sec:DHL}
 
 In this part, we study whether Algorithm~$\mathsf{A}_{opt}^\psi$ can handle DHL ontologies.
-Unfortunately there exist DHL ontologies such that Algorithm~$\mathsf{A}_{opt}^\psi$
+Unfortunately there exist DHL ontology classes such that Algorithm~$\mathsf{A}_{opt}^\psi$
 does not work for any poly-logarithmically bounded function $\psi$.
-In the following, we first give such an ontology
+In the following, we first give such a case
 to illustrate the reason why Algorithm~$\mathsf{A}_{opt}^\psi$ cannot work.
 Based on the analysis of this case, we propose to restrict
 the usage of DHL in order to achieve parallel tractability
@@ -883,43 +930,46 @@ of materialization.
 
 We find that, an unlimited usage of axioms of the
 form $B_1\sqcap B_2\sqsubseteq A$
-may make it impossible for Algorithm~$\mathsf{A}_{opt}$ to construct a materialization graph
+makes it impossible for Algorithm~$\mathsf{A}_{opt}$ to construct a materialization graph
 in a poly-logarithmical number of iterations of \ref{alg3:updateG}.
 We use the following example to illustrate it.
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=0.9\textwidth]{fig-pathtwist.eps}
-\caption{(left) The materialization graph of $\mathcal{O}_{ex_3}$;
-(right) The materialization graph of $\mathcal{O}_{ex_4}$.}
+\caption{(left) The materialization graph of $\mathcal{O}_{ex_6}$;
+(right) The materialization graph of $\mathcal{O}_{ex_7}$.}
 \label{fig:ex3_4}
 \end{center}
 \end{figure}
 
 \begin{example}\label{exp:dhl}
-Given a DHL ontology $\mathcal{O}_{ex_3}$ where its TBox contains three axioms:
+Given a DHL ontology $\mathcal{O}_{ex_6}$ where its TBox contains three axioms:
 $B_1\sqcap B_2\sqsubseteq A$, $\exists S.A\sqsubseteq B_1$ and $\exists R.A\sqsubseteq B_2$;
 the ABox is $\{S(a_i,a_{i-1}), R(a_i,a_{i-1}), A(a_1)\}$
 for $2\leq i\leq k$ and $k$ is an integer greater than 2.
-We denote the corresponding datalog program of $\mathcal{O}_{ex_3}$ by $P_{ex_3}=\langle R, \textbf{I}\rangle$,
+We denote the corresponding datalog program of $\mathcal{O}_{ex_6}$ by $P_{ex_6}=\langle R, \textbf{I}\rangle$,
 where $R$ contains three rules: `$B_1(x),B_2(x)\rightarrow A(x)$',`$S(x,y),A(y)\rightarrow B_1(x)$' and `$R(x,y),A(y)\rightarrow B_2(x)$'.
-The materialization graph of $P_{ex_3}$ constructed by $\mathsf{A}_{opt}$ is denoted by $\mathcal{G}_{ex_3}$ (see Figure~\ref{fig:ex3_4}(left)).
+The materialization graph of $P_{ex_6}$ constructed by $\mathsf{A}_{opt}$ is denoted by $\mathcal{G}_{ex_6}$ (see Figure~\ref{fig:ex3_4}(left)).
 \end{example}
 
-One can check that $\mathcal{G}_{ex_3}$ is the unique materialization graph of $P_{ex_3}$.
+One can check that $\mathcal{G}_{ex_6}$ is the unique materialization graph of $P_{ex_6}$.
 Observe that there exists a path (e.g., $A(a_1),B_1(a_2),A(a_2),...,A(a_k)$) between $A(a_1)$ and $A(a_k)$.
-When performing Algorithm~$\mathsf{A}_{opt}$ on $P_{ex_3}$, it can be checked that
+When performing Algorithm~$\mathsf{A}_{opt}$ on $P_{ex_6}$, it can be checked that
 each node of the form $A(a_i)$ (filled with black color,
 and $2\leq i\leq k$) has no SWD path until the $i^{th}$ iteration;
-in the $i^{th}$ iteration, the parent nodes of $A(a_i)$ have been added to $\mathcal{G}_{ex_2}$,
-and, $A(a_i)$ can also be added to $\mathcal{G}_{ex_2}$.
-Thus, Algorithm~$\mathsf{A}_{opt}$ cannot handle $P_{ex_3}$ in a poly-logarithmical
+in the $i^{th}$ iteration, the parent nodes of $A(a_i)$ have been added to $\mathcal{G}_{ex_6}$,
+and, $A(a_i)$ can also be added to $\mathcal{G}_{ex_6}$.
+Similar to the datalog program class $\mathbb{P}_{ex_1}$, we can also get a
+datalog program class $\mathbb{P}_{ex_6}$ for the ontology $\mathcal{O}_{ex_6}$
+when $k$ is a variable. Based on the above analysis, Algorithm~$\mathsf{A}_{opt}$ cannot complete the materialization
+for the datalog programs of $\mathbb{P}_{ex_6}$ in a poly-logarithmical
 number of iterations.
 The intuitive reason is that, at least two paths exist
 starting from $A(a_1)$ to $A(a_k)$. These paths \emph{twist} mutually and share the same joint nodes (see the black nodes).
 It makes the optimization of acceleration used in Algorithm~$\mathsf{A}_{opt}$ invalid.
 That is, for each node $A(a_i)$ ($2\leq i\leq k$), until its parents ($B_1(a_i)$ and $B_2(a_i)$) are added
-to $\mathcal{G}_{ex_2}$, there would not exist an available SWD path for $A(a_i)$.
+to $\mathcal{G}_{ex_6}$, there would not exist an available SWD path for $A(a_i)$.
 We use `\emph{path twisting}' to represent such cases.
 
 In order to make Algorithm~$\mathsf{A}_{opt}$ terminate in a poly-logarithmical number of iterations,
@@ -931,24 +981,24 @@ We explain it by using the following example where the ontology is modified from
 that in Example~\ref{exp:dhl}.
 
 \begin{example}\label{exp:simpleC}
-Consider an ontology where the TBox contains three axioms:
+Consider an ontology $\mathcal{O}_{ex_7}$ where the TBox contains three axioms:
 $B_1\sqcap B_2\sqsubseteq A$, $\exists S.A\sqsubseteq B_1$ and $B_3\sqsubseteq B_2$;
 the ABox is $\{S(a_i,a_{i-1}), B_3(a_i), A(a_1)\}$
 for $2\leq i\leq k$ and $k$ is an integer greater than 2.
-We denote the corresponding datalog program by $P_{ex_4}$ where the rule set contains:
+We denote the corresponding datalog program by $P_{ex_7}$ where the rule set contains:
 `$B_1(x),B_2(x)\rightarrow A(x)$',`$S(x,y),A(y)\rightarrow B_1(x)$' and `$B_3(x)\rightarrow B_2(x)$'.
-$P_{ex_3}$ has a unique materialization graph denoted by $\mathcal{G}_{ex_4}$ (see Figure~\ref{fig:ex3_4}(right)).
+$P_{ex_7}$ has a unique materialization graph denoted by $\mathcal{G}_{ex_7}$ (see Figure~\ref{fig:ex3_4}(right)).
 \end{example}
 
 In the above example, for the axiom $B_1\sqcap B_2\sqsubseteq A$, all derived atoms
 of the form $B_2(x)$ must not be child nodes of an atom $A(y)$ for some $y$.
 This ensures that only one path exists between each two nodes among $A(a_2),...,A(a_k)$.
-Further, when constructing $\mathcal{G}_{ex_4}$, Algorithm~$\mathsf{A}_{opt}$ can terminate after
+Further, when constructing $\mathcal{G}_{ex_7}$, Algorithm~$\mathsf{A}_{opt}$ can terminate after
 two iterations of \ref{alg3:updateG}. Specifically, in the first iteration, Algorithm~$\mathsf{A}_{opt}$
-adds all of the nodes $B_3(a_i)$ and $B_2(a_i)$ ($2\leq i\leq k$) to $\mathcal{G}_{ex_4}$,
+adds all of the nodes $B_3(a_i)$ and $B_2(a_i)$ ($2\leq i\leq k$) to $\mathcal{G}_{ex_7}$,
 since they have corresponding SWD paths;
 after that, all the other nodes
-can be added to $\mathcal{G}_{ex_4}$ in the second iteration (because each
+can be added to $\mathcal{G}_{ex_7}$ in the second iteration (because each
 node has an SWD path).
 Motivated by this example, we consider restricting the usage of
 the axioms $B_1\sqcap B_2\sqsubseteq A$
@@ -1001,6 +1051,7 @@ $\mathcal{D}_{\textit{\text{dhl}}}\subseteq\mathcal{D}_{\mathsf{A}_{opt}^{\psi}}
 
 
 \subsection{Parallelly Tractable Materialization of DHL($\circ$)}
+\label{sec:DHLo}
 
 In this part, we study parallelly tractable materialization
 of DHL($\circ$) ontologies.
@@ -1009,7 +1060,7 @@ We next show that complex RIAs may also cause the situation of `path twisting'.
 Consider the following example.
 
 \begin{example}\label{exp:complexRIA}
-Given a DHL$(\circ)$ ontology $\mathcal{O}_{ex_5}$ where its TBox is empty;
+Given a DHL$(\circ)$ ontology $\mathcal{O}_{ex_9}$ where its TBox is empty;
 the RBox $\mathcal{R}$ contains three axioms:
 $R_1\circ R_2\sqsubseteq R$, $R_3\circ R\sqsubseteq R_1$ and $R\circ R_4\sqsubseteq R_2$;
 the ABox $\mathcal{A}$ is $\{R(a_1,a_1), R_3(a_i,a_{i-1}), R_4(a_{i-1},a_i)\}$
@@ -1017,12 +1068,12 @@ for $2\leq i\leq k$ and $k$ is an integer greater than 2.
 The corresponding datalog program $P_{ex_5}$
 contains three rules: `$R_1(x,y),R_2(y,z)\rightarrow R(x,z)$',
 `$R_3(x,y),R(y,z)\rightarrow R_1(x,z)$' and `$R(x,y),R_4(y,z)\rightarrow R_2(x,z)$'.
-The materialization graph of $P_{ex_5}$ constructed by Algorithm~$\mathsf{A}_{opt}$ is denoted by $\mathcal{G}_{ex_5}$.
+The materialization graph of $P_{ex_5}$ constructed by Algorithm~$\mathsf{A}_{opt}$ is denoted by $\mathcal{G}_{ex_9}$.
 \end{example}
 
-One can check that the materialization graph $\mathcal{G}_{ex_5}$ has the same shape as that
-of $\mathcal{G}_{ex_3}$ in Figure~\ref{fig:ex3_4}.
-A twisted path exists in $\mathcal{G}_{ex_5}$ involving $R(a_i,a_i) (2\leq i\leq k)$ as the joint nodes.
+One can check that the materialization graph $\mathcal{G}_{ex_9}$ has the same shape as that
+of $\mathcal{G}_{ex_6}$ in Figure~\ref{fig:ex3_4}.
+A twisted path exists in $\mathcal{G}_{ex_9}$ involving $R(a_i,a_i) (2\leq i\leq k)$ as the joint nodes.
 Further, all the roles $R_1$, $R_2$, $R_3$, $R_4$ and $R$ in this example are non-transitive roles.
 
 Inspired by what we do for axioms $B_1\sqcap B_2\sqsubseteq A$,
@@ -1067,8 +1118,8 @@ conditions are satisfied:
 \end{definition}
 
 \begin{example}
-For the ontology $\mathcal{O}_{ex_4}$ in Example~\ref{exp:complexRIA}, all of the roles
-$R_1$, $R_2$ and $R$ are non-simple roles. Thus, $\mathcal{O}_{ex_4}$ does not follow
+For the ontology $\mathcal{O}_{ex_7}$ in Example~\ref{exp:complexRIA}, all of the roles
+$R_1$, $R_2$ and $R$ are non-simple roles. Thus, $\mathcal{O}_{ex_7}$ does not follow
 the simple-role restriction because of $R_1\circ R_2\sqsubseteq R$.
 Consider the ontology $\mathcal{O}_{ex_1}$
 in Example~\ref{exp:mg} again. The role $R$ is a non-simple role, while $S$ is a simple role.
@@ -1084,6 +1135,71 @@ all the datalog programs in $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$ for some 
 There exists a poly-logarithmically bounded function $\psi$ s.t. $\mathcal{D}_{\textit{\text{dhl}}(\circ)}\subseteq\mathcal{D}_{\mathsf{A}_{opt}^{\psi}}$.
 \end{theorem}
 
+\subsection{The Parallel Tractability of the Reasoning on RDFS Ontologies}
+
+In this part, we discuss about the parallel tractability of the reasoning on RDFS ontologies.
+Although RDFS is not a standard description logic, it can be described by a subset of the DL axioms \cite{GrosofHVD03}.
+The correspondence between the RDFS statements and the DL axioms is listed in Table~\ref{tab:rdfs}.
+We call the RDFS statements in the form of (1-4) \emph{the schema data}
+(which correspond to TBox axioms), the statements in the form of (5) and (6)
+\emph{the instance data} (which correspond to ABox axioms).
+
+\begin{table}
+\begin{center}
+\begin{tabular}{lcc}
+\multicolumn{3}{c}{\textbf{Table~\ref{tab:rdfs}: The RDFS statements and the corresponding DL axioms}}\\
+\hline
+&~~~~~~~~~~~~~RDFS statements~~~~~~~~~~~~~&~~~~~~~~~~~~~~Axiom~~~~~~~~~~~~~~\\
+\hline
+\hline
+(1)&$P~~\texttt{rdfs:domain}~~C$& $\top\sqsubseteq\forall P^-.C$\\
+
+(2)&$P~~\texttt{rdfs:range}~~C$& $\top\sqsubseteq\forall P.C$\\
+
+(3)&$B~~\texttt{rdfs:subClassOf}~~C$& $B\sqsubseteq C$\\
+
+(4)&$R~~\texttt{rdfs:subPropertyOf}~~S$& $R\sqsubseteq S$\\
+\hline
+(5)&$a~~\texttt{rdf:type}~~C$& $C(a)$\\
+
+(6)&$a~~R~~b$& $R(a,b)$\\
+\hline
+\end{tabular}
+\label{tab:rdfs}
+\end{center}
+\end{table}
+
+
+The original rule set for the reasoning task of RDFS ontologies is
+given in \cite{RDFSrec04}. By applying the rules in this rule set,
+new schema data would be derived. Thus, the reasoning task of RDFS
+is different from the task of materialization. Further, an RDFS ontology allows
+statements about blank nodes which play as variables. This semantically
+leads to infinite entailments. The author of \cite{Horst05} proves that
+the original rule set is incomplete with the restriction that
+blank nodes cannot occur in predicate positions. By loosening this restriction,
+the rule set turns out to be complete. The computational complexity
+of the reasoning task on RDFS ontologies is shown to be NC-complete \cite{Horst05},
+which is not considered to be prallel-tractable.
+
+The situation of path twisting may also happen when conducting reasoning
+on RDFS ontologies. Suppose $R_{subp}$ denotes the RDFS built-in property $\texttt{rdfs:subPropertyOf}$.
+We define the other three properties $R_1$, $R_2$ and $R_3$ by the following axioms:
+$R_1\sqsubseteq R_{subp}, R_2\sqsubseteq R_{subp}$ and $R_{subp}\sqsubseteq R_3$.
+It can be checked that these three axioms entail the complex RIA $R_1\circ R_2\sqsubseteq R_3$ (denoted by $\beta$).
+If axiom $\beta$ does not meet the simple-role restriction (see Section~\ref{sec:DHLo}),
+the situation of path twisting may also happen as shown in Example~\ref{exp:complexRIA}.
+
+In this work, we study the task of materialization. Similarly, we can only focus on
+the entailments of new instance data for the target RDFS ontologies. To this end,
+we assume that any class of RDFS ontologies has the same schema data (\uppercase\expandafter{\romannumeral1}). In this way,
+the axioms like $\beta$ cannot contribute to the computational complexity, since they
+only apply to schema data. Further, we restrict that blank nodes cannot occur in
+any class of RDFS ontologies (\uppercase\expandafter{\romannumeral2}). This allows an RDFS ontology
+being expressed in DHL (see Table~\ref{tab:rdfs}). Based on the two restrictions (\uppercase\expandafter{\romannumeral1})
+and (\uppercase\expandafter{\romannumeral2}), the reasoning task on RDFS ontologies
+is parallel-tractable (see Section~\ref{sec:DHL}).
+
 
 \section{A Further Optimized Algorithm for DHL$(\circ)$ Materialization}
 \label{sec:practicalAlg}
@@ -1091,7 +1207,7 @@ There exists a poly-logarithmically bounded function $\psi$ s.t. $\mathcal{D}_{\
 In this section, we first discuss that Algorithm~$\mathsf{A}_{opt}$ can hardly work in practice.
 In order to make Algorithm~$\mathsf{A}_{opt}$ more practical,
 we propose to modify Algorithm~$\mathsf{A}_{opt}$ and give an algorithm variant Algorithm~$\mathsf{A}_{prc}$.
-We show that Algorithm~$\mathsf{A}_{prc}$ can also be restricted to an $\texttt{NC}$ version
+We show that Algorithm~$\mathsf{A}_{prc}$ can also be restricted to an NC version
 when materializing DHL$(\circ)$ ontologies that follow both of the simple-concept
 and the role-concept restrictions.
 
@@ -1170,31 +1286,33 @@ by the following algorithm.\\
 \noindent\texttt{Algorithm~$\mathsf{PRC}$}. This algorithm has inputs (1)
 a DHL$(\circ)$ ontology $\mathcal{O}=\langle\mathcal{T},\mathcal{R},\mathcal{A}\rangle$
 and its datalog program $P=\langle R, \textbf{I}\rangle$;
-(2) a (partial) materialization graph $\mathcal{G}$ that is constructed from $P$.
+(2) a (partial) materialization graph $\mathcal{G}=\langle V,E\rangle$ that is constructed from $P$.
 This algorithm outputs a \texttt{rch} relation $S_{\textit{\tiny rch}}$ that
-is computed from the following rule instantiations:
+is computed as follows:
 
 \begin{enumerate}[leftmargin=4ex,label=$\bullet$]
-\item $\forall A(a)\rightarrow B(a)$ where $\mathcal{O}\models A\sqsubseteq_* B$ and $A(a)\in\mathcal{G}$,
-    add \texttt{rch}$(A(a),B(a))$ to $S_{\textit{\tiny rch}}$;
+\item add \texttt{rch}$(A(a),B(a))$ to $S_{\textit{\tiny rch}}$ where $A(a)\rightarrow B(a)\in P^*$, $\mathcal{O}\models A\sqsubseteq_* B$ and $A(a)\in V$;
 
-\item $\forall R(a,b),A(b)\rightarrow B(a)$ where $\exists R.A\sqsubseteq B\in\mathcal{T}$
-    and $R(a,b)\in\mathcal{G}$, add \texttt{rch}$(A(b),B(a))$ to $S_{\textit{\tiny rch}}$;
+\item add \texttt{rch}$(A(b),B(a))$ to $S_{\textit{\tiny rch}}$ where $R(a,b),A(b)\rightarrow B(a)\in P^*$, $\exists R.A\sqsubseteq B\in\mathcal{T}$ and $R(a,b)\in V$;
 
-\item $\forall A_1(a),A_2(a)\rightarrow B(a)$ where $A_1\sqcap A_2\sqsubseteq B\in\mathcal{T}$,
-    if $A_1(a)\in\mathcal{G}$, add \texttt{rch}$(A_2(a),B(a))$ to $S_{\textit{\tiny rch}}$;
-    if $A_2(a)\in\mathcal{G}$, add \texttt{rch}$(A_1(a),B(a))$ to $S_{\textit{\tiny rch}}$;
+\item add \texttt{rch}$(A_2(a),B(a))$ to $S_{\textit{\tiny rch}}$ where $A_1(a),A_2(a)\rightarrow B(a)\in P^*$,
+    $A_1\sqcap A_2\sqsubseteq B\in\mathcal{T}$ and $A_1(a)\in V$;
 
-\item $\forall R(a,b)\rightarrow S(a,b)$ where $\mathcal{O}\models R\sqsubseteq_* S$ and $R(a,b)\in\mathcal{G}$,
-    add \texttt{rch}$(R(a,b)$, $S(a,b))$ to $S_{\textit{\tiny rch}}$;
+\item add \texttt{rch}$(A_1(a),B(a))$ to $S_{\textit{\tiny rch}}$ where $A_1(a),A_2(a)\rightarrow B(a)\in P^*$,
+    $A_1\sqcap A_2\sqsubseteq B\in\mathcal{T}$ and $A_2(a)\in V$;
 
-\item $\forall R(a,b)\rightarrow S(b,a)$ where $\mathcal{O}\models R\sqsubseteq_* S^-$
-    and $R(a,b)\in\mathcal{G}$, add \texttt{rch}$(R(a,b)$, $S(b,a))$ to $S_{\textit{\tiny rch}}$;
+\item add \texttt{rch}$(R(a,b)$, $S(a,b))$ to $S_{\textit{\tiny rch}}$ where $R(a,b)\rightarrow S(a,b)\in P^*$,
+    $\mathcal{O}\models R\sqsubseteq_* S$ and $R(a,b)\in V$;
 
-\item $\forall R_1(a,b),R_2(b,c)\rightarrow R_3(a,c)$ where $R_1\circ R_2\sqsubseteq R_3$ (the case
-    where $R_1\equiv R_2\equiv R_3$ is also involved),
-    if $R_1(a,b)\in\mathcal{G}$, add \texttt{rch}$(R_2(b,c),R_3(a,c))$ to $S_{\textit{\tiny rch}}$;
-    If $R_2(b,c)\in\mathcal{G}$, add \texttt{rch}$(R_1(a,b)$, $R_3(a,c))$ to $S_{\textit{\tiny rch}}$.\hfill$\Box$
+\item add \texttt{rch}$(R(a,b)$, $S(b,a))$ to $S_{\textit{\tiny rch}}$ where $R(a,b)\rightarrow S(b,a)\in P^*$,
+    $\mathcal{O}\models R\sqsubseteq_* S^-$ and $R(a,b)\in V$;
+
+\item add \texttt{rch}$(R_2(b,c),R_3(a,c))$ to $S_{\textit{\tiny rch}}$ where $R_1(a,b),R_2(b,c)\rightarrow R_3(a,c)\in P^*$,
+    $R_1\circ R_2\sqsubseteq R_3\in\mathcal{R}$ (the case
+    where $R_1\equiv R_2\equiv R_3$ is also involved) and $R_1(a,b)\in V$;
+
+\item add \texttt{rch}$(R_1(a,b)$, $R_3(a,c))$ to $S_{\textit{\tiny rch}}$ where $R_1(a,b),R_2(b,c)\rightarrow R_3(a,c)\in P^*$,
+    $R_1\circ R_2\sqsubseteq R_3\in\mathcal{R}$ and $R_2(b,c)\in V$.\hfill$\Box$
 \end{enumerate}
 
 Based on Algorithm~$\mathsf{PRC}$, we modify Algorithm~$\mathsf{A}_{opt}$
@@ -1209,7 +1327,7 @@ returns a materialization graph $\mathcal{G}$ of $P$.
 Initially $\mathcal{G}$ is empty. The following steps are then performed:
 \begin{enumerate}[leftmargin=8ex,label=(\textit{Step \arabic*}),ref=Step~\arabic*]
 \item Add all facts in $\textbf{I}$ to $\mathcal{G}$.\label{alg4:addFacts}
-\item Compute $S_{\textit{\tiny rch}}$ by performing Algorithm~$\mathsf{PRC}$; use an \texttt{NC}
+\item Compute $S_{\textit{\tiny rch}}$ by performing Algorithm~$\mathsf{PRC}$; use an NC
     algorithm to compute the transitive closure $S^*_{\textit{\tiny rch}}$ (see \ref{transClos} in Algorithm~$\mathsf{OPT}$);
     update $\mathcal{G}$ by performing \ref{updateG} in Algorithm~$\mathsf{OPT}$.\label{alg4:updateG}
 \item If no node has been added to $\mathcal{G}$ (in \ref{alg4:updateG}), terminate,
@@ -1248,7 +1366,7 @@ by Algorithm~$\mathsf{A}_{prc}$.
 
 From the above example, one can find that Algorithm~$\mathsf{A}_{prc}$ terminates after two iterations
 of \ref{alg4:updateG}. This is the same as Algorithm~$\mathsf{A}_{opt}$ (see Example~\ref{exp:opt}).
-We use Theorem~\ref{theorem:aprcpt} to show that Algorithm~$\mathsf{A}_{prc}$ also has an $\texttt{NC}$ version when handling ontologies
+We use Theorem~\ref{theorem:aprcpt} to show that Algorithm~$\mathsf{A}_{prc}$ also has an NC version when handling ontologies
 that follow the simple-concept and the simple-role restrictions.
 The correctness of this theorem is based on that the method of narrowing down the scope of rule instantiations in Algorithm~$\mathsf{A}_{prc}$
 does not influence the determination of the existence of SWD paths. The detailed analysis
@@ -1435,7 +1553,7 @@ corresponding to $k$ threads).
 We further process the collected data and fill the results in Table~3, where each cell corresponds
 to a test ontology (see the row label) and a new generated ABox (distinguished by the column labels);
 the three values from above to below in each cell are: (1) \emph{the minimal time ratio} - the minimal reasoning time
-of ParallelDHL devided by the minimal reasoning time of RDFox;
+of ParallelDHL divided by the minimal reasoning time of RDFox;
 (2) \emph{the average speedup of ParallelDHL};\footnote{Suppose $T_i$ is the reasoning time with $i$ threads allocated,
 the average speedup is $\frac{1}{4}(\frac{T_1}{T_2}+\frac{T_2}{T_4}+\frac{T_4}{T_6}+\frac{T_6}{T_8})$.}
 (3) \emph{the average speedup of RDFox}.
@@ -1558,12 +1676,12 @@ Different from the above work, the purpose of this paper is to study the issue o
 In this paper, we studied the problem of parallel tractability of
 materialization on the datalog rewritable ontologies.
 To identify the parallelly tractable classes,
-we proposed two \texttt{NC} algorithms, Algorithm~$\mathsf{A}_{bsc}^\psi$
+we proposed two NC algorithms, Algorithm~$\mathsf{A}_{bsc}^\psi$
 and Algorithm~$\mathsf{A}_{opt}^\psi$, that perform materialization on
 datalog rewritable ontology languages.
 Based on these algorithms, we identified the corresponding
 parallelly tractable datalog program (\texttt{PTD}) classes such that materialization
-on the datalog programs in these classes is in the complexity class \texttt{NC}.
+on the datalog programs in these classes is in the complexity class NC.
 We further studied two specific ontology languages, DL-Lite and DHL (including one of its extension).
 We showed that any ontology expressed in DL-Lite$_{core}$ or DL-Lite$_{\mathcal{R}}$ is parallelly tractable.
 For DHL and DHL($\circ$), we proposed two restrictions such that materialization is parallelly tractable.
@@ -1580,7 +1698,7 @@ to create large-scale ontologies for which parallel tractability
 is theoretically guaranteed. On the other hand,
 we used an optimization strategy based on SWD paths
 to give a practical algorithm variant Algorithm~$\mathsf{A}_{prc}$, which can
-also be restricted to an \texttt{NC} version, and can be implemented for practice.
+also be restricted to an NC version, and can be implemented for practice.
 We implemented a system based on Algorithm~$\mathsf{A}_{prc}$ and compared it to
 the state-of-the-art reasoner RDFox.
 The experimental results showed that the optimization proposed in this paper results
@@ -1604,7 +1722,7 @@ This work was partially supported by NSFC
 grant 61672153 and the 863 program under Grant
 2015AA015406.
 
-\section*{Reference}
+
 
 \bibliographystyle{elsarticle-num}
 \bibliography{reference}
@@ -1817,7 +1935,7 @@ such a poly-logarithmical function $\psi$ exists.
 In Stage~1, the rules of the forms (R1-R3)
 are applied to add new nodes to the constructed materialization graph.
 We can observe that, rule (R3) is used for computation of transitive roles.
-As mentioned before, there exists an \texttt{NC} algorithm for transitivity computation.
+As mentioned before, there exists an NC algorithm for transitivity computation.
 Inspired by this, we can prove that \emph{$\mathcal{A}_{opt}^\psi$
 handles Stage~1 for some poly-logarithmical function $\psi$}.
 The proof of this result can be shown by separately considering non-transitive roles and
@@ -1852,7 +1970,7 @@ In this sense, Lemma~\ref{lemma:ti} also indicates that:
 (1) for each implicit node $R(a,b)$ where $R$ is an NTI role,
 it can be added to a materialization graph by only applying (R1) and (R2);
 (2) for each transitive role $R$, all implicit nodes of the form $R(a,b)$ are in the transitive closure $\delta^*_{R}$,
-which can be computed by an \texttt{NC} algorithm on $\delta_{R}$;
+which can be computed by an NC algorithm on $\delta_{R}$;
 (3) for each role $R$ that is a TI role but not a transitive role,
 one can further perform (R1) and (R2) iteratively based on all transitive closures $\delta^*_{R'}$
 where $R'$ is a transitive role.
@@ -2026,7 +2144,7 @@ The above lemma says:
 (1) for each implicit node $R(a,b)$ where $R$ is an NTI role,
 it can be added to a materialization graph by only applying (R1), (R2) and (R4);
 (2) for transitive roles $R$, all implicit nodes are in the transitive closure $\delta^*_{R}$,
-which can be computed by an \texttt{NC} algorithm on $\delta_{R}$;
+which can be computed by an NC algorithm on $\delta_{R}$;
 (3) for each role $R$ that is a TI but not a transitive role,
 one can further perform (R1), (R2) and (R4) iteratively based on all
 transitive closures $\delta^*_{R'}$ where $R'$ is a transitive role.
