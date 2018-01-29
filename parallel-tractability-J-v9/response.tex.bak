@@ -221,7 +221,35 @@ The statement that Step~2 costs only one time unit is based on the context of on
 is allocated one rule instance (see the first paragraph of Algorithm~$\mathsf{A}_{bsc}$),
 the procedure can be completed in constant time units. We rewrote these sentences by clarifying this.
 
-The constant time of checking applicability ......
+The constant time of checking applicability by a processor is based on an assumption:
+for any datalog program $P=\langle R, \textbf{I}\rangle$,
+any substitution of some atom and any rule instance in $P^*$ can be mapped to a unique memory
+location; further, a one-to-one relation can be established between processors and rule instances.
+Under this assumption, a processor can check the applicability of its corresponding
+rule instance and access the state of an atom occurring in this rule instance in constant time.
+Algorithm~$\mathsf{A}_{bsc}$ is then given as follows.
+
+
+ when
+analyzing the parallel complexity. That is the problem is encoded on a parallel configuration.
+Consider materializing datalog programs by Algorithm~$\mathsf{A}_{bsc}$. This assumption allows
+us mapping all possible substitutions of the atoms and all rule instances in $P^*$ to a unique memory
+location. Since each rule instance is allocated to a processor, there is a one-to-one relation between
+processors and rule instances. In this way, a processor can check the applicability of its corresponding
+rule instance and access the states of an atom occurring in this rule instance in constant time.
+Let $a$, $b$ and $c$ represent the maximum arity of any EDB predicate, the maximum number of variables
+in any datalog rule, and the number of datalog rules respectively.
+Since $a, b$ and $c$ depend only on the rule set, they are constants.
+We further have that the number of
+constant is at most $|\textbf{I}|a$ and the number of all possible rule instances in $P^*$
+is at most $c(|\textbf{I}|a)^b$.
+Thus, the memory space for storing atoms and rule instances is polynomial in the size of $\textbf{I}$.
+It is like that there is a polynomial size of index that maps each atom and rule instance to
+the corresponding memory location.
+
+The above assumption is also used for analying the computation of transitive closures and
+the problem of boolean matrix multiplication.
+In the revision, we gave detailed information about the assumption.
 
 
 \begin{quote}

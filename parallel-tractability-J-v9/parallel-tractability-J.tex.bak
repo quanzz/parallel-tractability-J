@@ -384,7 +384,7 @@ The parallel complexity class NC, known as Nick$'$s
 Class \cite{Raymond95}, is studied by theorists as a parallel complexity class
 where each decision problem can be efficiently solved in parallel.
 Specifically, a decision problem in the NC class
-can be solved in poly-logarithmic time on a PRAM (parallel, random-access machine) with 
+can be solved in poly-logarithmic time on a PRAM (parallel, random-access machine) with
 a polynomial number of processors. We also say that an NC problem can be solved
 in \emph{parallel poly-logarithmic time}.
 Although the NC complexity is a theoretical analysis tool,
@@ -524,7 +524,7 @@ It should also be noted that there may exist several materialization graphs for 
 In this part, we propose a parallel algorithm
 (denoted by Algorithm~$\mathsf{A}_{bsc}$) that constructs a materialization graph for a given datalog program.
 Our computational model is a PRAM (parallel, random-access machine) that is mostly used to analyze the parallel
-complexity. This model allows us giving \emph{the parallel assumption}: 
+complexity. This model allows us giving \emph{the parallel assumption}:
 for any datalog program $P=\langle R, \textbf{I}\rangle$,
 any substitution of some atom and any rule instance in $P^*$ can be mapped to a unique memory
 location; further, a one-to-one relation can be established between processors and rule instances.
@@ -541,10 +541,7 @@ Initially $\mathcal{G}$ is empty. The following three steps are then performed:
 \begin{enumerate}[leftmargin=8ex,label=(\textit{Step \arabic*}),ref=Step~\arabic*]
 \item Add all facts in $\textbf{I}$ to $\mathcal{G}$.\label{alg1:addFacts}
 \item For each rule instantiation $B_1,...,B_n\rightarrow H$, if the body atoms are all
-    in $\mathcal{G}$ while $H$ is not in $\mathcal{G}$,\footnote{Suppose that each processor
-    can use $O(1)$ time units to access the state of ground atoms, i.e., whether this ground
-    atom has been added to the materialization graph. This can be implemented by maintaining an
-    index of polynomial size.}
+    in $\mathcal{G}$ while $H$ is not in $\mathcal{G}$,
     the corresponding processor adds $H$ to $\mathcal{G}$ and creates edges pointing
     from $B_1,...,B_n$ to $H$.\label{alg1:updateG}
 \item If no processor can add more nodes and edges to $\mathcal{G}$, terminate, otherwise iterate \ref{alg1:updateG}.\label{alg1:halt}\hfill$\Box$
@@ -598,7 +595,7 @@ Thus, the memory space for storing the atoms and the rule instances is polynomia
 This also means that the number of processors is polynomially bounded.
 The computing time of \ref{alg1:addFacts} and \ref{alg1:halt} occupy constant time (denoted by $c_1$) because of parallelism.
 Since Algorithm~$\mathsf{A}_{bsc}$ works under the parallel assumption, one iteration of
-\ref{alg1:updateG} also costs constant time (denoted by $c_2$). Thus, 
+\ref{alg1:updateG} also costs constant time (denoted by $c_2$). Thus,
 the whole computing time of Algorithm~$\mathsf{A}_{bsc}$ turns out to be $c_1+l\cdot c_2$
 where $l$ denotes the number of iterations of \ref{alg1:updateG}.
 
@@ -608,7 +605,7 @@ As discussed above, Algorithm~$\mathsf{A}_{bsc}$ meets the first requirement.
 If we want to restrict Algorithm~$\mathsf{A}_{bsc}$ to be an NC algorithm,
 we can make the number of iterations of \ref{alg1:updateG} to be poly-logarithmically bounded.
 We use the symbol $\psi$ to denote a poly-logarithmically bounded function.
-For any datalog program, if we restrict that the number of iterations of \ref{alg1:updateG} is bounded by $\psi(|\textbf{I}|)$, 
+For any datalog program, if we restrict that the number of iterations of \ref{alg1:updateG} is bounded by $\psi(|\textbf{I}|)$,
 the computing time of Algorithm~$\mathsf{A}_{bsc}$
 is $c_1+\psi(|\textbf{I}|)\cdot c_2$. With this restriction, Algorithm~$\mathsf{A}_{bsc}$ is an NC algorithm denoted by
 $\mathsf{A}_{bsc}^{\psi}$.
@@ -743,7 +740,7 @@ transitive closure \cite{Allender07}.
 Based on this result and Algorithm~$\mathsf{OPT}$, we propose an optimized variant of Algorithm~$\mathsf{A}_{bsc}$:\\
 
 \noindent\texttt{Algorithm~$\mathsf{A}_{opt}$}. Given a datalog program $P=\langle R, \textbf{I}\rangle$, the algorithm
-returns a materialization graph $\mathcal{G}$ of $P$. 
+returns a materialization graph $\mathcal{G}$ of $P$.
 Suppose we have $|P^*|$ processors, and each rule instantiation in $P^*$ is
 assigned to one processor.
 Initially $\mathcal{G}$ is empty. The following steps are then performed:
@@ -781,7 +778,7 @@ in the first iteration of \ref{alg3:updateG}.
 
 The analysis of the parallel complexity of Algorithm~$\mathsf{A}_{opt}$ is given as follows.
 We use the same symbols $e$, $v$ and $r$ that are used for analyzing the complexity of Algorithm~$\mathsf{A}_{bsc}$
-(see Section~\ref{sec:alg-bsc}). Similarly to the analysis for Algorithm~$\mathsf{A}_{bsc}$, it can be checked that 
+(see Section~\ref{sec:alg-bsc}). Similarly to the analysis for Algorithm~$\mathsf{A}_{bsc}$, it can be checked that
 the number of processors is polynomial of $|\textbf{I}|$, i.e., $r(|\textbf{I}|e)^v$.
 We now consider the computing time of Algorithm~$\mathsf{A}_{opt}$. It is obvious that \ref{alg3:addFacts}
 \ref{alg3:halt} occupy constant time (denoted by $c_1$). In \ref{alg3:updateG}, the phases of
@@ -790,19 +787,18 @@ under the parallel assumption. Recall that the number of constants is at most $|
 Let $w$ and $p$ represent the maximum arity of any predicate and the number of predicates respectively.
 We have that the number of all possible substitutions of atoms is at most $p(|\textbf{I}|e)^w$.
 The relation $S_{\textit{\tiny rch}}$ consists of pairs of the atoms. Thus, the size of $S_{\textit{\tiny rch}}$
-is bounded by $p(|\textbf{I}|e)^{2w}$. It can be checked that the computing time of the NC algorithm for computing the transitive
-closure of $S_{\textit{\tiny rch}}$ is poly-logarithmical in the size of $\textbf{I}$, more precisely $2w\log(p(|\textbf{I}|e))$.
+is bounded by $p^2(|\textbf{I}|e)^{2w}$. It can be checked that the computing time of the NC algorithm for computing the transitive
+closure of $S_{\textit{\tiny rch}}$ is poly-logarithmical in the size of $\textbf{I}$, more precisely $2\log(p)+2w\log(|\textbf{I}|e)$.
+We now have that the total computing time of Algorithm~$\mathsf{A}_{opt}$ is $c_1+lc_3+2lw\log(|\textbf{I}|e)$
+where $c_3=c_2+2\log(p)$ and $l$ denotes the number of iterations of \ref{alg3:updateG}.
 
-
-
-We obtain an NC variant of $\mathsf{A}_{opt}$ analogously to the process for Algorithm~$\mathsf{A}_{bsc}$.
-It can be checked that an iteration of \ref{alg3:updateG} in $\mathsf{A}_{opt}$ costs poly-logarithmic
-time, since the main part is computing $S^*_{\textit{\tiny rch}}$ by an NC algorithm.
-Thus, if the number of iterations of \ref{alg3:updateG} is upper-bounded by a poly-logarithmical function,
-$\mathsf{A}_{opt}$ is an NC algorithm.
-Analogously to $\mathsf{A}_{bsc}^{\psi}$, we use $\mathsf{A}_{opt}^{\psi}$ to denote an NC variant.
-Specifically, for any datalog program $P$, the number of iterations of \ref{alg3:updateG} in $\mathsf{A}_{opt}$
-is bounded by $\psi(|P|)$, where $\psi$ is a poly-logarithmically bounded function.
+Algorithm~$\mathsf{A}_{opt}$ can be restricted to an NC algorithm analogously to the process
+for Algorithm~$\mathsf{A}_{bsc}$. That is the number of iterations of \ref{alg3:updateG}
+is poly-logarithmically bounded, i.e., it is bounded by $\psi(|\textbf{I}|)$
+where $\psi$ is a poly-logarithmical function. In this way, the computing time of
+Algorithm~$\mathsf{A}_{bsc}$ turns out to be $c_1+c_3\psi(|\textbf{I}|)+2w\psi(|\textbf{I}|)\log(|\textbf{I}|e)$,
+which is still poly-logarithmical in the size of $\textbf{I}$. We denote the
+NC variant of Algorithm~$\mathsf{A}_{opt}$ by $\mathsf{A}_{opt}^{\psi}$.
 
 Based on $\mathsf{A}_{opt}^{\psi}$, we can identify a \texttt{PTD} class $\mathcal{D}_{\mathsf{A}_{opt}^{\psi}}$.
 Further, we have the following corollary which implies that $\mathsf{A}_{opt}^{\psi}$ performs better

@@ -215,32 +215,25 @@ Indeed, the abstract has been shortened significantly now.
 First, in the discussion under Lemma 1, it says $|P^*|$ is polynomial in the size of $P$, which is imprecise, as $|P^*|$ is polynomial in the size of $I$ but not necessarily in the size of $R$. This is not a big issue if one considers NC for data complexity. What is less straightforward and more of concern is the statement that Step~2 costs only one time unit. As Step~2 involves checking the applicability of $B_1, \ldots, B_n \to H$ in $G$ and updating $G$, it depends on the size of $G$ and the size of $G$ is not a constant w.r.t.\ that of $I$. Footnote~4 suggests checking applicability of the rule can be done in constant time via an index. What about updating $G$ and maintaining the index?
 \end{quote}
 
-In the paragraph under Lemma~1, we made it clear that $|P^*|$ is polynomial in the size of $I$ for a class of datalog programs.
+We rewrote the paragraph under Lemma~1 to analyze the parallel complexity of Algorithm~$\mathsf{A}_{bsc}$. 
+We made it clear that $|P^*|$ is polynomial in the size of $I$ for a class of datalog programs.\\
 
 The statement that Step~2 costs only one time unit is based on the context of one processor. Since one processor
 is allocated one rule instance (see the first paragraph of Algorithm~$\mathsf{A}_{bsc}$),
-the procedure can be completed in constant time units. We rewrote these sentences by clarifying this.
+the procedure can be completed in constant time units. \\
 
-The constant time of checking applicability by a processor is based on a common assumption when
-analyzing the parallel complexity. That is the problem is encoded on a parallel configuration.
-Consider materializing datalog programs by Algorithm~$\mathsf{A}_{bsc}$. This assumption allows
-us mapping all possible substitutions of the atoms and all rule instances in $P^*$ to a unique memory
-location. Since each rule instance is allocated to a processor, there is a one-to-one relation between
-processors and rule instances. In this way, a processor can check the applicability of its corresponding
-rule instance and access the states of an atom occurring in this rule instance in constant time.
-Let $a$, $b$ and $c$ represent the maximum arity of any EDB predicate, the maximum number of variables
-in any datalog rule, and the number of datalog rules respectively. 
-Since $a, b$ and $c$ depend only on the rule set, they are constants.
-We further have that the number of 
-constant is at most $|\textbf{I}|a$ and the number of all possible rule instances in $P^*$
-is at most $c(|\textbf{I}|a)^b$. 
-Thus, the memory space for storing atoms and rule instances is polynomial in the size of $\textbf{I}$. 
-It is like that there is a polynomial size of index that maps each atom and rule instance to
-the corresponding memory location.
+The constant time of checking applicability by a processor is based on an assumption:
+for any datalog program $P=\langle R, \textbf{I}\rangle$,
+any substitution of some atom and any rule instance in $P^*$ can be mapped to a unique memory
+location; further, a one-to-one relation can be established between processors and rule instances.
+Under this assumption, a processor can check the applicability of its corresponding
+rule instance and access the state of an atom occurring in this rule instance in constant time.
+This assumption also applies to analyzing the computation of transitive closures \cite{Allender07} and
+the problem of boolean matrix multiplication \cite{Raymond95}. Without this assumption, the program
+costs at least linear time to load the inputs. Thus, the requirements of the NC algorithms
+cannot be satisfied.\\
 
-The above assumption is also used for analying the computation of transitive closures and
-the problem of boolean matrix multiplication.
-In the revision, we gave detailed information about the assumption.
+We gave detailed information about the above assumption before Algorithm~$\mathsf{A}_{bsc}$.
 
 
 \begin{quote}
@@ -248,12 +241,12 @@ The computation of the rch relation $S_{\text{rch}}$ ($\dag$) looks problematic,
 \end{quote}
 
 The requirement ``H has been added to G'' in the description of computing the rch relation $S_{\text{rch}}$ ($\dag$) is indeed
-incorrect. It should be ``H has not been added to G''. We fixed this error.
+incorrect. It should be ``H has not been added to G''. We fixed this error.\\
 
-(TODO) We added a paragraph to discuss the complexity of Algorithm~$\mathsf{A}_{opt}$.
+We rewrote the paragraph under Lemma~2 to analyze the parallel complexity of Algorithm~$\mathsf{A}_{opt}$.
 In Step~2 of Algorithm~$\mathsf{A}_{opt}$, an NC algorithm is used to compute the transitive closure of $S_{\text{rch}}$.
-It can be checked that the scale of $S_{\text{rch}}$ is less than that of $P^*$ and is in polynomial of
-the size of inputs. Thus, the NC complexity of the computation of the transitive closure can be guaranteed.
+It can be checked that the scale of $S_{\text{rch}}$ is polynomial in the size of inputs.
+The total computing time is still in poly-logarithmic time (see the detailed analysis in the revision).
 
 
 \begin{quote}
@@ -275,5 +268,8 @@ TODO: remove the quote once the issues are fixed.
 
 All minor issues have been fixed.
 
+
+\bibliographystyle{elsarticle-num}
+\bibliography{response}
 
 \end{document}
