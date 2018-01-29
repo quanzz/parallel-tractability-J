@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2017.8.21)  27 JAN 2018 15:17
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2017.8.21)  29 JAN 2018 09:33
 entering extended mode
 **parallel-tractability-J.tex
 
@@ -745,61 +745,62 @@ it/10 B[]; :::; B[] \OMS/txsy/m/n/10 !$
  []
 
 [5]
-LaTeX Font Info:    Try loading font information for OT1+txss on input line 432
+LaTeX Font Info:    Try loading font information for OT1+txss on input line 433
 .
  (C:\CTEX\MiKTeX\tex\latex\txfonts\ot1txss.fd
 File: ot1txss.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    Font shape `OT1/txss/m/n' will be
-(Font)              scaled to size 9.49997pt on input line 432.
+(Font)              scaled to size 9.49997pt on input line 433.
 LaTeX Font Info:    Font shape `OT1/txss/m/n' will be
-(Font)              scaled to size 6.64998pt on input line 432.
+(Font)              scaled to size 6.64998pt on input line 433.
 LaTeX Font Info:    Font shape `OT1/txss/m/n' will be
-(Font)              scaled to size 4.74998pt on input line 432.
+(Font)              scaled to size 4.74998pt on input line 433.
 
-Underfull \hbox (badness 10000) in paragraph at lines 470--481
+Underfull \hbox (badness 10000) in paragraph at lines 471--482
 
  []
 
 [6]
 File: fig-mg.eps Graphic file (type eps)
  <fig-mg.eps>
-Underfull \hbox (badness 10000) in paragraph at lines 522--524
+Underfull \hbox (badness 10000) in paragraph at lines 523--533
 
  []
 
 [7]
 LaTeX Font Info:    Font shape `OT1/txss/m/n' will be
-(Font)              scaled to size 7.59998pt on input line 531.
+(Font)              scaled to size 7.59998pt on input line 546.
 LaTeX Font Info:    Font shape `OT1/txss/m/n' will be
-(Font)              scaled to size 5.69998pt on input line 531.
+(Font)              scaled to size 5.69998pt on input line 546.
  [8]
 File: fig-general.eps Graphic file (type eps)
  <fig-general.eps> [9]
-LaTeX Font Info:    Try loading font information for OMS+txr on input line 700.
+LaTeX Font Info:    Try loading font information for OMS+txr on input line 710.
 
  (C:\CTEX\MiKTeX\tex\latex\txfonts\omstxr.fd
 File: omstxr.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    Font shape `OMS/txr/bx/n' in size <10> not available
-(Font)              Font shape `OMS/txsy/bx/n' tried instead on input line 700.
+(Font)              Font shape `OMS/txsy/bx/n' tried instead on input line 710.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 709--714
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 719--724
 
  []
 
-[10]
-Underfull \hbox (badness 10000) in paragraph at lines 730--733
+
+Underfull \hbox (badness 10000) in paragraph at lines 740--743
 
  []
 
 [11]
 File: fig-dllite.eps Graphic file (type eps)
- <fig-dllite.eps> [12]
+ <fig-dllite.eps> [12] [13]
 File: fig-pathtwist.eps Graphic file (type eps)
- <fig-pathtwist.eps> [13] [14]
-Overfull \hbox (3.0974pt too wide) in paragraph at lines 1049--1058
+ <fig-pathtwist.eps> [14] [15]
+Overfull \hbox (3.0974pt too wide) in paragraph at lines 1059--1068
 \OT1/txr/m/it/10 ax-iom-s: $\OML/txmi/m/it/10 R[] \OMS/txsy/m/n/10  \OML/txmi/
 m/it/10 R[] \OMS/txsy/m/n/10 v \OML/txmi/m/it/10 R$\OT1/txr/m/it/10 , $\OML/txm
 i/m/it/10 R[] \OMS/txsy/m/n/10  \OML/txmi/m/it/10 R \OMS/txsy/m/n/10 v \OML/tx
@@ -812,13 +813,13 @@ txmi/m/it/10 ; R[]\OT1/txr/m/n/10 (\OML/txmi/m/it/10 a[]; a[]\OT1/txr/m/n/10 )\
 OMS/txsy/m/n/10 g$
  []
 
-[15] [16]
-Underfull \hbox (badness 10000) in paragraph at lines 1197--1206
+[16] [17]
+Underfull \hbox (badness 10000) in paragraph at lines 1207--1216
 
  []
 
-[17]
-Underfull \hbox (badness 10000) in paragraph at lines 1239--1243
+
+Underfull \hbox (badness 10000) in paragraph at lines 1249--1253
 
  []
 
@@ -826,55 +827,55 @@ Underfull \hbox (badness 10000) in paragraph at lines 1239--1243
 File: fig-lineGraph.eps Graphic file (type eps)
  <fig-lineGraph.eps>
 
-LaTeX Warning: Float too large for page by 42.19998pt on input line 1538.
+LaTeX Warning: Float too large for page by 42.19998pt on input line 1548.
 
 [22] [23] [24] [25]
 (C:\Users\Spring\Desktop\Work\Github\parallel-tractability-J\parallel-tractabil
 ity-J-v9\parallel-tractability-J.bbl [26]) [27]
-Underfull \hbox (badness 10000) in paragraph at lines 1659--1663
+Underfull \hbox (badness 10000) in paragraph at lines 1669--1673
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1684--1687
+Underfull \hbox (badness 10000) in paragraph at lines 1694--1697
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1715--1718
+Underfull \hbox (badness 10000) in paragraph at lines 1725--1728
 
  []
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 1734.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1744.
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 1737.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1747.
 
 [28
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 1765--1768
+Underfull \hbox (badness 10000) in paragraph at lines 1775--1778
 
  []
 
 [29]
-Underfull \hbox (badness 10000) in paragraph at lines 1824--1827
+Underfull \hbox (badness 10000) in paragraph at lines 1834--1837
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1838--1841
+Underfull \hbox (badness 10000) in paragraph at lines 1848--1851
 
  []
 
 [30] [31]
-Underfull \hbox (badness 10000) in paragraph at lines 2010--2012
+Underfull \hbox (badness 10000) in paragraph at lines 2020--2022
 
  []
 
 [32] [33]
-Overfull \hbox (16.38573pt too wide) in paragraph at lines 2130--2132
+Overfull \hbox (16.38573pt too wide) in paragraph at lines 2140--2142
 [][]\OT1/txr/m/n/10 If there ex-ist-s a role se-quence $\OML/txmi/m/it/10 R[]R[
 ]; :::; R[] \OMS/txsy/m/n/10 2 L\OT1/txr/m/n/10 (\OML/txmi/m/it/10 R[]\OT1/txr/
 m/n/10 )$, where $\OML/txmi/m/it/10 R[]\OT1/txr/m/n/10 (\OML/txmi/m/it/10 x[]; 
@@ -882,12 +883,12 @@ x[]\OT1/txr/m/n/10 ) \OMS/txsy/m/n/10 2$
  []
 
 [34] [35]
-Underfull \hbox (badness 10000) in paragraph at lines 2260--2263
+Underfull \hbox (badness 10000) in paragraph at lines 2270--2273
 
  []
 
 [36]
-Underfull \hbox (badness 10000) in paragraph at lines 2286--2292
+Underfull \hbox (badness 10000) in paragraph at lines 2296--2302
 
  []
 
@@ -901,6 +902,6 @@ Here is how much of TeX's memory you used:
  7932 multiletter control sequences out of 15000+200000
  34571 words of font info for 103 fonts, out of 3000000 for 9000
  15 hyphenation exceptions out of 8191
- 32i,12n,30p,1757b,367s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 32i,12n,30p,1757b,369s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on parallel-tractability-J.dvi (38 pages, 238252 bytes).
+Output written on parallel-tractability-J.dvi (38 pages, 239496 bytes).
