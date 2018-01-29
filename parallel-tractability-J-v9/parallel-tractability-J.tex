@@ -1,4 +1,3 @@
-
 %\documentclass[preprint,12pt]{elsarticle}
 
 %% Use the option review to obtain double line spacing
@@ -92,47 +91,32 @@ Materialization: Technique and Practice}
 }
 
 \address[add2]{
-    Institution of Artificial Intelligence, University of Ulm
+    Institute of Artificial Intelligence, University of Ulm
 }
 
 
 \begin{abstract}
-Materialization is an important reasoning service for applications built
-on the ontology languages, such as OWL. With a
-rapid growth of semantic data, it is challenging to perform
-materialization on large-scale ontologies efficiently.
-Current work proposes parallel algorithms and employs computing
-platforms of high-performance to make materialization sufficiently efficient and scalable in practice.
-However, there do exist ontologies, for which
-materialization cannot always be improved by parallelism (we use experiments to show it in Section~\ref{sec:evaluation}).
-On the other hand, some well-known large-scale ontologies, such as YAGO, have been shown to have
-good performance for parallel reasoning, but they are expressed in ontology languages
-that are not parallelly tractable in theory, i.e., the efficiency of reasoning may not be improved
-on a parallel implementation.
-This motivates us to study the problem of \emph{parallel tractability} of ontology
-materialization from a theoretical perspective.
-That is, we aim to identify the ontologies for which materialization is
-parallelly tractable, i.e., in \texttt{NC} complexity.
-The results of the parallel tractability can be further used to optimize
-materialization algorithms and to guide ontology engineers in creating parallelly tractable ontologies.
-
-In this work, we focus on datalog rewritable ontology languages.
-We propose some algorithms, called \texttt{NC} algorithms, to identify several classes of datalog rewritable
-ontologies (called \emph{parallelly tractable classes})
-such that materialization over them is parallelly tractable.
-We then investigate the parallel tractability of materialization over
-two datalog rewritable ontology languages DL-Lite and DHL (\emph{Description Horn Logic}).
-We show that materialization over any ontology expressed in DL-Lite$_{core}$ or DL-Lite$_\mathcal{R}$ is parallelly tractable.
-For DHL, there exist ontologies where materialization can hardly be parallelized.
-We propose to restrict the usage of DHL such that the restricted ontologies are parallelly tractable.
-We further extend the results to an extension of DHL that also allows \emph{complex role inclusion axioms}.
-To verify the practical usability of the above results, we analyze real-world datasets and show
-that many ontologies expressed in DHL or its extension belong to
-the parallelly tractable classes. Based on the results of parallel tractability,
-we further implement an optimized parallel algorithm
-and compare it to the state-of-the-art reasoner RDFox. The experimental results show that the
-optimization used in our implementation results in a better
-performance on parallelly tractable ontologies compared with RDFox.
+  Materialization is an important reasoning service for many
+  ontology-based applications, but the rapid growth of semantic data
+  poses the challenge to efficiently perform materialization on
+  large-scale ontologies. Parallel materialization algorithms work
+  well for some ontologies, which is not always explained by the
+  theoretical results. For example, for the YAGO ontology
+  parallelization works well, although the reasoning problem for the
+  used ontology language is not in \texttt{NC}, i.e.\ the theoretical
+  complexity class for \emph{parallel tractability}. This motivates us
+  to study the problem of \emph{parallel tractability} of ontology
+  materialization from a theoretical perspective. We focus on the
+  datalog rewritable ontology languages DL-Lite and Description Horn
+  Logic (DHL) and propose algorithms, called \texttt{NC} algorithms,
+  to identify classes of ontologies for which materialization is
+  tractable in parallel. To verify the practical usability of the
+  above results, we analyze real-world datasets and show that for many
+  ontologies expressed in DHL materialization is tractable in
+  parallel. The implementation of our optimized parallel algorithm
+  shows performance improvements over the highly optimized
+  state-of-the-art reasoner RDFox on ontologies for which
+  materialization is tractable in parallel.
 \end{abstract}
 
 \begin{keyword}
