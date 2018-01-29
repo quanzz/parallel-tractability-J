@@ -788,15 +788,17 @@ Let $w$ and $p$ represent the maximum arity of any predicate and the number of p
 We have that the number of all possible substitutions of atoms is at most $p(|\textbf{I}|e)^w$.
 The relation $S_{\textit{\tiny rch}}$ consists of pairs of the atoms. Thus, the size of $S_{\textit{\tiny rch}}$
 is bounded by $p^2(|\textbf{I}|e)^{2w}$. It can be checked that the computing time of the NC algorithm for computing the transitive
-closure of $S_{\textit{\tiny rch}}$ is poly-logarithmical in the size of $\textbf{I}$, more precisely $2\log(p)+2w\log(|\textbf{I}|e)$.
-We now have that the total computing time of Algorithm~$\mathsf{A}_{opt}$ is $c_1+lc_3+2lw\log(|\textbf{I}|e)$
-where $c_3=c_2+2\log(p)$ and $l$ denotes the number of iterations of \ref{alg3:updateG}.
+closure of $S_{\textit{\tiny rch}}$ is poly-logarithmical in the size of $\textbf{I}$, more precisely,
+it is upper bounded to $\log^2(p^2(|\textbf{I}|e)^{2w})$ ($=4\log^2(p)+4w^2\log^2(|\textbf{I}|e)+8w\log(p)\log(|\textbf{I}|e)$).
+We now have that the total computing time of Algorithm~$\mathsf{A}_{opt}$ is $c_1+lc_3 + lc_4\log(|\textbf{I}|e) +lc_5\log^2(|\textbf{I}|e)$
+where $c_3=c_2+4\log^2(p)$, $c_4=8w\log(p)$, $c_5=4w^2$ and $l$ denotes the number of iterations of \ref{alg3:updateG}.
 
 Algorithm~$\mathsf{A}_{opt}$ can be restricted to an NC algorithm analogously to the process
 for Algorithm~$\mathsf{A}_{bsc}$. That is the number of iterations of \ref{alg3:updateG}
 is poly-logarithmically bounded, i.e., it is bounded by $\psi(|\textbf{I}|)$
 where $\psi$ is a poly-logarithmical function. In this way, the computing time of
-Algorithm~$\mathsf{A}_{bsc}$ turns out to be $c_1+c_3\psi(|\textbf{I}|)+2w\psi(|\textbf{I}|)\log(|\textbf{I}|e)$,
+Algorithm~$\mathsf{A}_{bsc}$ turns out to be $c_1+c_3\psi(|\textbf{I}|)+c_4\psi(|\textbf{I}|)\log(|\textbf{I}|e)+
+c_5\psi(|\textbf{I}|)\log^2(|\textbf{I}|e)$,
 which is still poly-logarithmical in the size of $\textbf{I}$. We denote the
 NC variant of Algorithm~$\mathsf{A}_{opt}$ by $\mathsf{A}_{opt}^{\psi}$.
 
@@ -931,6 +933,7 @@ $\mathcal{D}_{\textit{\text{dl\_lite}}}\subseteq\mathcal{D}_{\mathsf{A}_{opt}^{\
 
 
 \subsection{Parallelly Tractable Materialization of DHL}
+\label{sec:DHL}
 
 In this part, we study whether Algorithm~$\mathsf{A}_{opt}^\psi$ can handle DHL ontologies.
 Unfortunately there exist DHL ontology classes such that Algorithm~$\mathsf{A}_{opt}^\psi$
@@ -1669,7 +1672,7 @@ This work was partially supported by NSFC
 grant 61672153 and the 863 program under Grant
 2015AA015406.
 
-\section*{Reference}
+
 
 \bibliographystyle{elsarticle-num}
 \bibliography{reference}

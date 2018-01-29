@@ -933,6 +933,7 @@ $\mathcal{D}_{\textit{\text{dl\_lite}}}\subseteq\mathcal{D}_{\mathsf{A}_{opt}^{\
 
 
 \subsection{Parallelly Tractable Materialization of DHL}
+\label{sec:DHL}
 
 In this part, we study whether Algorithm~$\mathsf{A}_{opt}^\psi$ can handle DHL ontologies.
 Unfortunately there exist DHL ontology classes such that Algorithm~$\mathsf{A}_{opt}^\psi$
@@ -1066,6 +1067,7 @@ $\mathcal{D}_{\textit{\text{dhl}}}\subseteq\mathcal{D}_{\mathsf{A}_{opt}^{\psi}}
 
 
 \subsection{Parallelly Tractable Materialization of DHL($\circ$)}
+\label{sec:DHLo}
 
 In this part, we study parallelly tractable materialization
 of DHL($\circ$) ontologies.
@@ -1148,6 +1150,71 @@ all the datalog programs in $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$ for some 
 \begin{theorem}\label{theorem:dhlplus}
 There exists a poly-logarithmically bounded function $\psi$ s.t. $\mathcal{D}_{\textit{\text{dhl}}(\circ)}\subseteq\mathcal{D}_{\mathsf{A}_{opt}^{\psi}}$.
 \end{theorem}
+
+\subsection{The Parallel Tractability of the Reasoning on RDFS Ontologies}
+
+In this part, we discuss about the parallel tractability of the reasoning on RDFS ontologies.
+Although RDFS is not a standard description logic, it can be described by a subset of the DL axioms \cite{GrosofHVD03}.
+The correspondence between the RDFS statements and the DL axioms is listed in Table~\ref{tab:rdfs}.
+We call the RDFS statements in the form of (1-4) \emph{the schema data}
+(which correspond to TBox axioms), the statements in the form of (5) and (6)
+\emph{the instance data} (which correspond to ABox axioms).
+
+\begin{table}
+\begin{center}
+\begin{tabular}{lcc}
+\multicolumn{3}{c}{\textbf{Table~\ref{tab:rdfs}: The RDFS statements and the corresponding DL axioms}}\\
+\hline
+&~~~~~~~~~~~~~RDFS statements~~~~~~~~~~~~~&~~~~~~~~~~~~~~Axiom~~~~~~~~~~~~~~\\
+\hline
+\hline
+(1)&$P~~\texttt{rdfs:domain}~~C$& $\top\sqsubseteq\forall P^-.C$\\
+
+(2)&$P~~\texttt{rdfs:range}~~C$& $\top\sqsubseteq\forall P.C$\\
+
+(3)&$B~~\texttt{rdfs:subClassOf}~~C$& $B\sqsubseteq C$\\
+
+(4)&$R~~\texttt{rdfs:subPropertyOf}~~S$& $R\sqsubseteq S$\\
+\hline
+(5)&$a~~\texttt{rdf:type}~~C$& $C(a)$\\
+
+(6)&$a~~R~~b$& $R(a,b)$\\
+\hline
+\end{tabular}
+\label{tab:rdfs}
+\end{center}
+\end{table}
+
+
+The original rule set for the reasoning task of RDFS ontologies is
+given in \cite{RDFSrec04}. By applying the rules in this rule set,
+new schema data would be derived. Thus, the reasoning task of RDFS
+is different from the task of materialization. Further, an RDFS ontology allows
+statements about blank nodes which play as variables. This semantically
+leads to infinite entailments. The author of \cite{Horst05} proves that
+the original rule set is incomplete with the restriction that
+blank nodes cannot occur in predicate positions. By loosening this restriction,
+the rule set turns out to be complete. The computational complexity
+of the reasoning task on RDFS ontologies is shown to be NC-complete \cite{Horst05},
+which is not considered to be prallel-tractable.
+
+The situation of path twisting may also happen when conducting reasoning
+on RDFS ontologies. Suppose $R_{subp}$ denotes the RDFS built-in property $\texttt{rdfs:subPropertyOf}$.
+We define the other three properties $R_1$, $R_2$ and $R_3$ by the following axioms:
+$R_1\sqsubseteq R_{subp}, R_2\sqsubseteq R_{subp}$ and $R_{subp}\sqsubseteq R_3$.
+It can be checked that these three axioms entail the complex RIA $R_1\circ R_2\sqsubseteq R_3$ (denoted by $\beta$).
+If axiom $\beta$ does not meet the simple-role restriction (see Section~\ref{sec:DHLo}),
+the situation of path twisting may also happen as shown in Example~\ref{exp:complexRIA}.
+
+In this work, we study the task of materialization. Similarly, we can only focus on
+the entailments of new instance data for the target RDFS ontologies. To this end,
+we assume that any class of RDFS ontologies has the same schema data (\uppercase\expandafter{\romannumeral1}). In this way,
+the axioms like $\beta$ cannot contribute to the computational complexity, since they
+only apply to schema data. Further, we restrict that blank nodes cannot occur in
+any class of RDFS ontologies (\uppercase\expandafter{\romannumeral2}). This allows an RDFS ontology
+being expressed in DHL (see Table~\ref{tab:rdfs}). Based on the two restrictions (\uppercase\expandafter{\romannumeral1})
+and (\uppercase\expandafter{\romannumeral2}), the reasoning task on RDFS ontologies
+is parallel-tractable (see Section~\ref{sec:DHL}).
 
 
 \section{A Further Optimized Algorithm for DHL$(\circ)$ Materialization}

@@ -112,6 +112,10 @@ H.~J. Karloff, S.~Suri, S.~Vassilvitskii, A model of computation for mapreduce,
 E.~Allender, Reachability problems: An update, in: Proc. of CiE, 2007, pp.
   25--27.
 
+\bibitem{RDFSrec04}
+P.~Hayes, Rdf semantics, w3c recommendation 10 february 2004,
+  https://www.w3.org/TR/2004/REC-rdf-mt-20040210/.
+
 \bibitem{WeaverH09}
 J.~Weaver, J.~A. Hendler, Parallel materialization of the finite {RDFS} closure
   for hundreds of millions of triples, in: Proc. of ISWC, 2009, pp. 682--697.

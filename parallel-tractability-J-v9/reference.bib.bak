@@ -404,14 +404,6 @@
   pages     = {869-876},
 }
 
-@InProceedings{webpie_Harmelen_eswc10,
-  author    = {Jacopo Urbani and Spyros Kotoulas and Jason Maassen and Frank van Harmelen and Henri E. Bal},
-  title     = {{OWL Reasoning with WebPIE: Calculating the Closure of 100 Billion Triples}},
-  booktitle = {Proc. of ESWC},
-  year      = {2010},
-  publisher = {Springer},
-}
-
 @InProceedings{zhou-scale-wl4ai2013,
   author    = {Zhangquan Zhou and Guilin Qi and Chang Liu and Pascal Hitzler and Raghava Mutharaju},
   title     = {{Scale reasoning with fuzzy-EL+ ontologies based on MapReduce}},
@@ -419,6 +411,13 @@
   year      = {2013},
   pages     = {87-93},
   editors   = {Lluis Godo, Henri Prade, Guilin Qi},
+}
+
+@Article{RDFSrec04,
+  author  = {Patrick Hayes},
+  title   = {RDF Semantics, W3C Recommendation 10 February 2004},
+  journal = {https://www.w3.org/TR/2004/REC-rdf-mt-20040210/},
+  year    = {2004},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}
