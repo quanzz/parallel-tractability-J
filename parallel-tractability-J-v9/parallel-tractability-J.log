@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2017.8.21)  29 JAN 2018 09:33
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2017.8.21)  29 JAN 2018 10:54
 entering extended mode
 **parallel-tractability-J.tex
 
@@ -764,43 +764,43 @@ Underfull \hbox (badness 10000) in paragraph at lines 471--482
 [6]
 File: fig-mg.eps Graphic file (type eps)
  <fig-mg.eps>
-Underfull \hbox (badness 10000) in paragraph at lines 523--533
+Underfull \hbox (badness 10000) in paragraph at lines 524--534
 
  []
 
 [7]
 LaTeX Font Info:    Font shape `OT1/txss/m/n' will be
-(Font)              scaled to size 7.59998pt on input line 546.
+(Font)              scaled to size 7.59998pt on input line 547.
 LaTeX Font Info:    Font shape `OT1/txss/m/n' will be
-(Font)              scaled to size 5.69998pt on input line 546.
+(Font)              scaled to size 5.69998pt on input line 547.
  [8]
 File: fig-general.eps Graphic file (type eps)
  <fig-general.eps> [9]
-LaTeX Font Info:    Try loading font information for OMS+txr on input line 710.
+LaTeX Font Info:    Try loading font information for OMS+txr on input line 711.
 
  (C:\CTEX\MiKTeX\tex\latex\txfonts\omstxr.fd
 File: omstxr.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    Font shape `OMS/txr/bx/n' in size <10> not available
-(Font)              Font shape `OMS/txsy/bx/n' tried instead on input line 710.
+(Font)              Font shape `OMS/txsy/bx/n' tried instead on input line 711.
 
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 719--724
+Underfull \hbox (badness 10000) in paragraph at lines 720--725
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 740--743
+Underfull \hbox (badness 10000) in paragraph at lines 741--744
 
  []
 
-[11]
+[11] [12]
 File: fig-dllite.eps Graphic file (type eps)
- <fig-dllite.eps> [12] [13]
+ <fig-dllite.eps> [13]
 File: fig-pathtwist.eps Graphic file (type eps)
  <fig-pathtwist.eps> [14] [15]
-Overfull \hbox (3.0974pt too wide) in paragraph at lines 1059--1068
+Overfull \hbox (3.0974pt too wide) in paragraph at lines 1078--1087
 \OT1/txr/m/it/10 ax-iom-s: $\OML/txmi/m/it/10 R[] \OMS/txsy/m/n/10  \OML/txmi/
 m/it/10 R[] \OMS/txsy/m/n/10 v \OML/txmi/m/it/10 R$\OT1/txr/m/it/10 , $\OML/txm
 i/m/it/10 R[] \OMS/txsy/m/n/10  \OML/txmi/m/it/10 R \OMS/txsy/m/n/10 v \OML/tx
@@ -814,12 +814,12 @@ OMS/txsy/m/n/10 g$
  []
 
 [16] [17]
-Underfull \hbox (badness 10000) in paragraph at lines 1207--1216
+Underfull \hbox (badness 10000) in paragraph at lines 1226--1235
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1249--1253
+Underfull \hbox (badness 10000) in paragraph at lines 1268--1272
 
  []
 
@@ -827,55 +827,55 @@ Underfull \hbox (badness 10000) in paragraph at lines 1249--1253
 File: fig-lineGraph.eps Graphic file (type eps)
  <fig-lineGraph.eps>
 
-LaTeX Warning: Float too large for page by 42.19998pt on input line 1548.
+LaTeX Warning: Float too large for page by 42.19998pt on input line 1567.
 
 [22] [23] [24] [25]
 (C:\Users\Spring\Desktop\Work\Github\parallel-tractability-J\parallel-tractabil
 ity-J-v9\parallel-tractability-J.bbl [26]) [27]
-Underfull \hbox (badness 10000) in paragraph at lines 1669--1673
+Underfull \hbox (badness 10000) in paragraph at lines 1688--1692
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1694--1697
+Underfull \hbox (badness 10000) in paragraph at lines 1713--1716
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1725--1728
+Underfull \hbox (badness 10000) in paragraph at lines 1744--1747
 
  []
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 1744.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1763.
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 1747.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1766.
 
 [28
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 1775--1778
+Underfull \hbox (badness 10000) in paragraph at lines 1794--1797
 
  []
 
 [29]
-Underfull \hbox (badness 10000) in paragraph at lines 1834--1837
+Underfull \hbox (badness 10000) in paragraph at lines 1853--1856
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1848--1851
+Underfull \hbox (badness 10000) in paragraph at lines 1867--1870
 
  []
 
 [30] [31]
-Underfull \hbox (badness 10000) in paragraph at lines 2020--2022
+Underfull \hbox (badness 10000) in paragraph at lines 2039--2041
 
  []
 
 [32] [33]
-Overfull \hbox (16.38573pt too wide) in paragraph at lines 2140--2142
+Overfull \hbox (16.38573pt too wide) in paragraph at lines 2159--2161
 [][]\OT1/txr/m/n/10 If there ex-ist-s a role se-quence $\OML/txmi/m/it/10 R[]R[
 ]; :::; R[] \OMS/txsy/m/n/10 2 L\OT1/txr/m/n/10 (\OML/txmi/m/it/10 R[]\OT1/txr/
 m/n/10 )$, where $\OML/txmi/m/it/10 R[]\OT1/txr/m/n/10 (\OML/txmi/m/it/10 x[]; 
@@ -883,25 +883,29 @@ x[]\OT1/txr/m/n/10 ) \OMS/txsy/m/n/10 2$
  []
 
 [34] [35]
-Underfull \hbox (badness 10000) in paragraph at lines 2270--2273
+Underfull \hbox (badness 10000) in paragraph at lines 2289--2292
 
  []
 
 [36]
-Underfull \hbox (badness 10000) in paragraph at lines 2296--2302
+Underfull \hbox (badness 10000) in paragraph at lines 2315--2321
 
  []
 
 [37] [38]
 (C:\Users\Spring\Desktop\Work\Github\parallel-tractability-J\parallel-tractabil
-ity-J-v9\parallel-tractability-J.aux) ) 
+ity-J-v9\parallel-tractability-J.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 4867 strings out of 495355
- 60239 string characters out of 3183882
- 127241 words of memory out of 3000000
- 7932 multiletter control sequences out of 15000+200000
+ 4868 strings out of 495355
+ 60252 string characters out of 3183882
+ 127251 words of memory out of 3000000
+ 7933 multiletter control sequences out of 15000+200000
  34571 words of font info for 103 fonts, out of 3000000 for 9000
  15 hyphenation exceptions out of 8191
  32i,12n,30p,1757b,369s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on parallel-tractability-J.dvi (38 pages, 239496 bytes).
+Output written on parallel-tractability-J.dvi (38 pages, 241704 bytes).
