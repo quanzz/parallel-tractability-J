@@ -1,0 +1,771 @@
+\section*{Appendix}
+
+\appendix
+
+\section{Proof of Lemma~\ref{lemma:a1}}
+
+\textbf{Lemma~\ref{lemma:a1}}
+\emph{Given a datalog program $P=\langle R, \textbf{I}\rangle$, we have
+(1) $\mathsf{A}_{bsc}$ halts and returns a materialization graph $\mathcal{G}$ of $P$;
+(2) $\mathcal{G}$ has the the minimum depth among all the materialization graphs of $P$.}\\
+
+\noindent\emph{Proof}:
+(1) First, whenever a processor $p$ adds a new node $v$ to $\mathcal{G}$, it has to first
+check whether $v$ has already been in $\mathcal{G}$ and does nothing if $v$ is in $\mathcal{G}$.
+Thus $\mathcal{G}$ turns out to be an acyclic graph.
+Second, to show $\mathcal{G}$ is a
+complete materialization graph, we perform an induction on $T_R^{\omega}(\textbf{I})$.
+Specifically, all the facts in $T_R^{0}(\textbf{I})$ have to be in $\mathcal{G}$ by \ref{alg1:addFacts}
+of $\mathsf{A}_{bsc}$.
+For $i>0$, suppose that the ground atoms in $T_R^{i}(\textbf{I})$ are in $\mathcal{G}$.
+It can be checked that the atoms in $T_R^{i+1}(\textbf{I})$ have to be
+added to $\mathcal{G}$, since whenever a new node is derived from $T_R^{i}(\textbf{I})$,
+there has to be a processor that would add it to $\mathcal{G}$.
+
+(2) The \emph{stage} (see the related contents in Section~2.3) of $P$ is the lower bound of the depth
+of all materialization graphs. One can further check that, for the materialization graph $\mathcal{G}$
+constructed by $\mathsf{A}_{bsc}$, its depth equals to the stage based on the induction above.
+Thus, $\mathcal{G}$ has the minimal depth among all the materialization graphs of $P$. \hfill$\Box$
+
+\section{Proof of Theorem~\ref{theorem:a1}}
+
+\textbf{Theorem~\ref{theorem:a1}}
+\emph{For any datalog program $P$, $P\in\mathcal{D}_{\mathsf{A}_{bsc}^{\psi}}$ iff
+$P$ has a materialization graph whose depth is upper-bounded by $\psi(|P|)$.}\\
+
+\noindent\emph{Proof:} We first prove that the number of iterations of \ref{alg1:updateG}
+is actually the depth of the constructed materialization graph.
+We define the depths of nodes iteratively as follows:
+for each explicit node $v$, \texttt{depth}($v$)=0;
+for each implicit node $v'$ whose parents are $v_1,...,v_i$, \texttt{depth}($v'$)=$\max$$\{$ \texttt{depth}($v_1$), ..., \texttt{depth}($v_i$) $\}+1$.
+By performing an induction on the number of iterations of \ref{alg1:updateG},
+one can check that an implicit node $v'$ has to be added to $\mathcal{G}$ in the $n^{th}$ iteration
+where $n$=\texttt{depth}($v'$).
+Further, \texttt{depth}($\mathcal{G}$)=$\max$$\{$\texttt{depth}($v_i$)$|v_i$ is in $\mathcal{G}\}$.
+We then have that the number of iterations of \ref{alg1:updateG} is \texttt{depth}($\mathcal{G}$).
+
+($\Rightarrow$) $P\in\mathcal{D}_{\mathsf{A}_{bsc}^{\psi}}$ means that $\mathsf{A}_{bsc}^{\psi}$ can return
+a materialization graph $\mathcal{G}$ of $P$.
+Recall that the number of iterations of \ref{alg1:updateG} is bounded by $\psi(|P|)$.
+Thus \texttt{depth}($\mathcal{G}$) is also bounded by $\psi(|P|)$.
+
+($\Leftarrow$) Suppose $P$ has a materialization graph $\mathcal{G}$ whose depth
+is upper-bounded by $\psi(|P|)$.
+If $\mathcal{G}$ has the minimal depth among other materialization graphs of $P$,
+the number of iterations of \ref{alg1:updateG} is also \texttt{depth}($\mathcal{G}$) (Lemma~\ref{lemma:a1})
+and, thus, upper-bounded by $\psi(|P|)$.
+If $\mathsf{A}_{bsc}$ dose not return $\mathcal{G}$, then the returned graph $\mathcal{G}'$
+should have a smaller depth compared with $\mathcal{G}$.
+In this case, this conclusion still holds.\hfill$\Box$
+
+\section{Proof of Lemma~\ref{lemma:a3}}
+
+\textbf{Lemma~\ref{lemma:a3}}
+\emph{Given a datalog program $P=\langle R, \textbf{I}\rangle$,
+$\mathsf{A}_{opt}$ halts and the output $\mathcal{G}$ is a materialization graph of $P$.}\\
+
+\noindent\emph{Proof}: this lemma can be proved by two stages:
+(1) the graph $\mathcal{G}$ returned by $\mathsf{A}_{opt}$ is a materialization graph;
+(2) $\mathcal{G}$ is a complete materialization graph.
+We first show that (1) holds by an induction on the iterations of \ref{alg3:updateG} of $\mathsf{A}_{opt}$.
+
+\emph{Base case}. Initially, $\mathcal{G}$ only contains all the explicit nodes.
+In this case, $\mathcal{G}$ is obviously a materialization graph.
+
+\emph{Inductive case}.
+According to the induction hypothesis, the partial graph constructed after
+the $i^{th}$ ($i>1$) iteration is a materialization graph, denoted by $\mathcal{G}^{i}$.
+We have to show that the partial graph constructed after the $i+1^{th}$ iteration is
+also a materialization graph, denoted by $\mathcal{G}^{i+1}$.
+The partial graph $\mathcal{G}^{i+1}$ is updated in $\mathsf{A}_{opt}$ by performing the step $(\textbf{\romannumeral3})$
+of Algorithm~$\mathsf{Opt}$.
+Suppose that \texttt{rch}$(B_k,H)\in S_{\tiny rch}$ is checked.
+It corresponds to the rule instantiation $B_1,..,B_k,..,B_n\rightarrow H$.
+Algorithm~$\mathsf{Opt}$ next checks that there exists a node $B'$ such that
+\texttt{rch}$(B',B_k)\in S^*_{\tiny rch}$
+and $B'$ is in $\mathcal{G}$. This means that $B_k$ and $H$ are derivable.
+The algorithm then adds new nodes $B_k$ and $H$ to $\mathcal{G}^{i}$ in three cases.
+(1) if $H$ is not in $\mathcal{G}^{i}$ while $B_k$ is in $\mathcal{G}^{i}$,
+then $H$ is added to $\mathcal{G}^{i+1}$, and the edges $e(B_1, H),...,e(B_n, H)$ are created.
+(2) when neither of $H$ and $B_k$ is in $\mathcal{G}^{i}$,
+then $H$ and $B_k$ are added to $\mathcal{G}^{i+1}$, and the edges $e(B_1, H),...,e(B_n, H)$ are also created.
+In the above two cases, $H$ is a new node. Thus,
+$\mathcal{G}^{i+1}$ is acyclic.
+(3) if $H$ is in $\mathcal{G}^{i}$ and $H$ has no parent,
+$B_k$ is added to $\mathcal{G}^{i+1}$, and the edges $e(B_1, H),...,e(B_n, H)$ are also created.
+For the case that $H$ is in $\mathcal{G}^{i}$ and $H$ has parents,
+the algorithm does nothing.
+Thus, $\mathcal{G}^{i+1}$ is acyclic and satisfies the definition of materialization graph.
+
+To show that (2) holds, we use the same method in the proof for Lemma~\ref{lemma:a1}.
+We want to show that all the ground atoms in $T_R^{i+1}(\textbf{I})$ have to be added to $\mathcal{G}$,
+with the induction hypothesis that the ground atoms in $T_R^{i}(\textbf{I})$ are in $\mathcal{G}$.
+Suppose the ground atoms in $T_R^{i}(\textbf{I})$ have been added to $\mathcal{G}$ by
+performing $\mathsf{A}_{opt}$.
+For each atom $\alpha$ in $T_R^{i+1}(\textbf{I})$, $\alpha$ actually has a special SWD path
+of the length 1. This is because that all parents of $\alpha$ have been in $\mathcal{G}$.
+According to the optimization strategy, $\alpha$ has to be added to $\mathcal{G}$ by applying \ref{alg3:updateG}
+of $\mathsf{A}_{opt}$.\hfill$\Box$
+
+
+\section{Proof of Lemma~\ref{lemma:dllite}}
+
+\textbf{Lemma~\ref{lemma:dllite}}
+\emph{Given a DL-Lite ontology $\mathcal{O}$, for any materialization graph $\mathcal{G}$ of $\mathcal{O}$,
+each atom of the form $A(x)$ ($A\neq\bot$) or $R(x,y)$ in $\mathcal{G}$ has an SWD path.}\\
+
+\noindent\emph{Proof}: this lemma can be proved by an induction on applications of
+the datalog rules corresponding to DL-Lite axioms.
+
+\emph{Base case}. For each explicit node $v$ of the form $A(x)$ ($A\neq\bot$) or $R(x,y)$,
+$v$ has a special SWD path with $v$ as the unique node. This conclusion holds
+for any materialization graph.
+
+\emph{Inductive cases}. For each datalog rule of the form `$B_1,...,B_n\rightarrow H$'
+that is rewritten from some DL-Lite axiom, we have the induction hypothesis
+that $B_1,...,B_n$ have SWD paths.
+We are left to prove that $H$ has an SWD path as well
+in all materialization graphs of $\mathcal{O}$.
+
+If $H$ is in the form of $A(x)$ ($A\neq\bot$), it may be derived by
+applying (T1) and (T3). Thus, we conduct the induction by
+distinguish these two cases as follows.
+
+\begin{enumerate}[leftmargin=12ex,label=Case~1.\arabic*]
+\item $B\sqsubseteq A$. According to the induction hypothesis,
+node $B(x)$ has an SWD path, denoted by $(v_1,...,v_n,B(x))$.
+We have that, in some materialization graph, node $A(x)$
+has an SWD path of the form $(v_1,...,v_n,B(x),A(x))$.
+
+\item $\exists R\sqsubseteq A$. Node $R(x,y)$ has an SWD path,
+denoted by $(v_1,...,v_n,R(x,y))$,
+according to the induction hypothesis.
+It is obvious that node $A(x)$
+has an SWD path of the form $(v_1,...,v_n,B(x),R(x,y))$
+in some materialization graph.
+\end{enumerate}
+
+Since node $A(x)$ can only be derived in either Case~1.1
+or Case~1.2, we have that
+node $A(x)$ has an SWD path in all materialization graphs of $\mathcal{O}$.
+
+It is similar to prove the case where $H$ is in the form of $R(x,y)$.
+Since node $R(x,y)$ may be derived by
+applying (R1) and (R2), we discuss these two cases.
+
+\begin{enumerate}[leftmargin=12ex,label=Case~2.\arabic*]
+\item $S\sqsubseteq R$. According to the induction hypothesis,
+node $S(x,y)$ has an SWD path, denoted by $(v_1,...,v_n,S(x,y))$.
+Obviously, node $R(x,y)$
+has an SWD path of the form $(v_1,...,v_n,S(x,y),R(x,y))$
+in some materialization graph.
+
+\item $S\sqsubseteq R^-$. This case is similar to
+the above case.
+\end{enumerate}
+
+In both of Case~2.1 and Case~2.2, node $R(x,y)$ has an SWD path. Thus,
+node $R(x,y)$ has an SWD path in all materialization graphs of $\mathcal{O}$.\hfill$\Box$
+
+\section{Proof of Theorem~\ref{theorem:dl-lite}}
+
+\textbf{Theorem~\ref{theorem:dl-lite}}
+\emph{There exists a poly-logarithmically bounded function $\psi$ s.t.
+$\mathcal{D}_{\textit{\text{dl-lite}}}\subseteq\mathcal{D}_{\mathsf{A}_{opt}^{\psi}}$.}\\
+
+\noindent\emph{Proof}: this theorem can be easily proved based on Lemma~\ref{lemma:dllite}.
+Specifically, for any DL-lite ontology $\mathcal{O}$,
+there always exists a poly-logarithmically bounded function $\psi$ such that
+$\mathsf{A}_{opt}^{\psi}$ can handle the materialization of $\mathcal{O}$,
+since in any materialization graph, each node has an SWD path.
+More precisely, we can set that $\psi=2$.\hfill$\Box$
+
+
+\section{Proof of Theorem~\ref{theorem:dhl}}
+
+\textbf{Theorem~\ref{theorem:dhl}}
+\emph{There exists a poly-logarithmically bounded function $\psi$ s.t.
+$\mathcal{D}_{\textit{\text{dhl}}}\subseteq\mathcal{D}_{\mathsf{A}_{opt}^{\psi}}$.}\\
+
+\noindent\emph{Proof}: observe that, for a datalog program that is transformed from a DHL ontology,
+a rule with a binary atom as its head can only be either of the form (R1), (R2) or (R3).
+This also indicates that, the materialization of a DHL
+ontology can be separated into two stages: in the first stage (Stage~1), all the rules
+of the forms (R1-R3) are exhaustively applied; the consequences of the first stage
+also serve as the facts in the second stage (Stage~2). The rules of the forms (T1-T3)
+are then applied in Stage~2.
+It is obvious that, if both of Stage~1 and Stage~2 can be handled
+by performing $\mathcal{A}_{opt}^\psi$ for some poly-logarithmical function $\psi$, then
+the whole materialization can be handled by $\mathcal{A}_{opt}^\psi$.
+In what follows, we investigate the above two stages respectively, and show that,
+for any datalog program in $\mathcal{D}_{\textit{\text{dhl}}}$,
+such a poly-logarithmical function $\psi$ exists.
+
+In Stage~1, the rules of the forms (R1-R3)
+are applied to add new nodes to the constructed materialization graph.
+We can observe that, rule (R3) is used for computation of transitive roles.
+As mentioned before, there exists an NC algorithm for transitivity computation.
+Inspired by this, we can prove that \emph{$\mathcal{A}_{opt}^\psi$
+handles Stage~1 for some poly-logarithmical function $\psi$}.
+The proof of this result can be shown by separately considering non-transitive roles and
+the roles that are transitive or influenced by transitive roles.
+Specifically, we say that role $R$ is \emph{transitively influenced} (TI)
+if (1) $R\circ R\sqsubseteq R\in\mathcal{R}$; or
+(2) there exists a TI role $R'$ such that $R'\sqsubseteq_*R$ or $R'\sqsubseteq_*R^-$.
+We say that a role is an NTI (non-transitively influenced) role if it is not a TI role.
+We further define a set $\delta_R$ for each role $R\in\textbf{R}$ as follows:
+
+\begin{definition}\label{def:deltaRdhl}
+For each $R\in\textbf{R}$, let $\delta_R$ be the set of all assertions as follows:
+\begin{enumerate}[leftmargin=4ex,label=\arabic*.]
+\item for each $R(a,b)\in\mathcal{A}$;
+\item $R(a,b)$, for each $R'(a,b)\in\mathcal{A}$ and $R'\sqsubseteq_{*}R$;
+\item $R(a,b)$, for each $R'(b,a)\in\mathcal{A}$ and $R'\sqsubseteq_{*}R^-$.
+\end{enumerate}
+\end{definition}
+
+Let $\delta^*_R$ be the transitive closure of $\delta_R$ where $R$ is a transitive role.
+We then have the following lemma.
+
+\begin{lemma}\label{lemma:ti}
+$P\models R(a,b)$ implies: (1) if $R$ is an NTI role, $R(a,b)\in\delta_R$;
+(2) if $R$ is a transitive role, $R(a,b)\in\delta^*_{R}$;
+(3) if $R$ is a TI role, then $R(a,b)\in\delta_R$, or there exists a transitive
+role $R'$ such that $R'\sqsubseteq_* R$ and $R'(a,b)\in\delta^*_{R'}$.
+\end{lemma}
+
+Note that, for all roles $R$, $\delta_R$ can be computed by only applying (R1) and (R2).
+In this sense, Lemma~\ref{lemma:ti} also indicates that:
+(1) for each implicit node $R(a,b)$ where $R$ is an NTI role,
+it can be added to a materialization graph by only applying (R1) and (R2);
+(2) for each transitive role $R$, all implicit nodes of the form $R(a,b)$ are in the transitive closure $\delta^*_{R}$,
+which can be computed by an NC algorithm on $\delta_{R}$;
+(3) for each role $R$ that is a TI role but not a transitive role,
+one can further perform (R1) and (R2) iteratively based on all transitive closures $\delta^*_{R'}$
+where $R'$ is a transitive role.
+Since all nodes generated by only applying (R1) and (R2) have SWD paths,
+the computations of (1) and (3) can be handled by $\mathcal{A}_{opt}^\psi$.
+Further, transitive computation in part (2) can also be handled by $\mathcal{A}_{opt}^\psi$.
+Thus, there exists a poly-logarithmical function $\psi$
+such that $\mathcal{A}_{opt}^\psi$ handles Stage~1.
+
+The results of Stage~1 serve as the facts of Stage~2. In other words, all binary atoms
+are explicit nodes in Stage~2. This also means that the rules of the forms (T1) and (T3)
+generate nodes with SWD paths. Due to the simple-concept restriction, for each rule
+instantiation $A_1(a),A_2(a)\rightarrow B(a)$, one of $A_1(a)$ and $A_2(a)$ always has an SWD path.
+Thus, Stage~2 can be handled by $\mathcal{A}_{opt}$ in at most two iterations.
+Based on the above analysis, this theorem holds.
+
+We are now left to prove Lemma~\ref{lemma:ti}. We conduct the proof by an induction on
+the derivation of $P=\langle R,\textbf{I}\rangle$. We distinguish inductive cases by different rules (R1-R3)
+that are possibly applied to derive $R(a,b)$.
+
+\emph{Basic case}. If $R(a,b)\in\textbf{I}$, $R(a,b)\in\delta_{R}$. In this case,
+regardless of that $R$ is a TI or an NTI role, all of (1), (2) and (3) hold.
+
+\emph{Inductive case}. We first study the case where $R$ is an NTI role.
+
+\begin{enumerate}[leftmargin=12ex,label=Case~1.\arabic*, ref=Case~1.\arabic*]
+\item $R(a,b)$ is derived by applying the rule (R1), w.l.o.g., $R'(a,b)\rightarrow R(a,b)$,
+    which also means that $R'\sqsubseteq R\in\mathcal{R}$. Since $R$ is an NTI role, $R'$ has to
+    be an NTI role according to Definition~\ref{def:deltaRdhl}. According to the induction hypothesis,
+    $R'(a,b)\in\delta_{R'}$. (Case~1.1.1) If $R'(a,b)\in\mathcal{A}$, $R(a,b)\in\delta_{R}$
+    holds according to Definition~\ref{def:deltaRdhl}; (Case~1.1.2) If there exists some
+    role $R''$ such that $R''(a,b)\in\mathcal{A}$ and $R''\sqsubseteq R'$, we also have
+    $R(a,b)\in\delta_{R}$ since $R''\sqsubseteq_* R$ holds; (Case~1.1.3) If there exists some
+    role $R''$ such that $R''(b,a)\in\mathcal{A}$ and $R''\sqsubseteq R'^-$, this case is
+    similar to (Case~1.1.2).\label{dhl:NTIcaseR1}
+
+\item $R(a,b)$ is derived by applying the rule (R2), w.l.o.g., $R'(a,b)\rightarrow R(b,a)$,
+    which also means that $R'\sqsubseteq R^-\in\mathcal{R}$. This case is similar
+    to \ref{dhl:NTIcaseR1}.\label{dhl:NTIcaseR2}
+
+\item $R(a,b)$ is derived by applying the rule (R3). This case is impossible, since $R$ is
+    an NTI role.
+\end{enumerate}
+
+We next study the case where $R$ is a transitive role.
+
+\begin{enumerate}[leftmargin=12ex,label=Case~2.\arabic*, ref=Case~2.\arabic*]
+\item $R(a,b)$ is derived by applying the rule (R1), w.l.o.g., $R'(a,b)\rightarrow R(a,b)$,
+    which also means that $R'\sqsubseteq R\in\mathcal{R}$.\label{dhl:TcaseR1}
+    \begin{enumerate}[leftmargin=8ex,label=Case~2.1.\arabic*]
+    \item $R'$ is an NTI role. By the induction hypothesis, $R'(a,b)\in\delta_{R'}$.
+        Similar to (Case~1.1.1), $R(a,b)\in\delta_{R}$ holds.
+        Obviously, $R(a,b)\in\delta_{R}^*$ also holds.
+
+    \item $R'$ is a TI role. By the induction hypothesis, if $R'(a,b)\in\delta_{R'}$,
+        then $R(a,b)\in\delta_R$ also holds. On the other hand, if there exists a transitive role
+        $R''$ (if $R'$ is a transitive role, then $R''\equiv R'$) such that
+        $R''\sqsubseteq_* R'$ and $R''(a,b)\in\delta_{R''}^*$. Since $\delta_{R''}^*$ is
+        the transitive closure of $\delta_{R''}$, we then have that there must
+        exist such atoms ($R''(a,c_1),R''(c_1,c_2),...,R''(c_n,b)$) in $\delta_{R''}$.
+        Further, due to $R''\sqsubseteq_* R$ and Definition~\ref{def:deltaRdhl},
+        we have $R(a,c_1),R(c_1,c_2),...,$ $R(c_n,b)\in\delta_{R}$. Thus, $R(a,b)\in\delta_{R}^*$
+        also holds.
+    \end{enumerate}
+
+\item $R(a,b)$ is derived by applying the rule (R2), w.l.o.g., $R'(b,a)\rightarrow R(a,b)$,
+    which also means $R'\sqsubseteq R^-\in\mathcal{R}$.\label{dhl:TcaseR2}
+    \begin{enumerate}[leftmargin=8ex,label=Case~2.2.\arabic*]
+    \item $R'$ is an NTI role. By induction hypothesis, $R'(b,a)\in\delta_{R'}$.
+        Similar to \ref{dhl:NTIcaseR2}, $R(a,b)\in\delta_{R}$ holds.
+        Obviously, $R(a,b)\in\delta_{R}^*$ also holds.
+
+    \item $R'$ is a TI role. By the induction hypothesis, if $R'(b,a)\in\delta_{R'}$,
+        then $R(a,b)\in\delta_R$ also holds. On the other hand, if there exists a transitive role
+        $R''$ (if $R'$ is a transitive role, then $R''\equiv R'$) such that
+        $R''\sqsubseteq_* R'$ and $R''(b,a)\in\delta_{R''}^*$. Since $\delta_{R''}^*$ is
+        the transitive closure of $\delta_{R''}$, we then have that there must
+        exist such atoms ($R''(b,c_1),R''(c_1,c_2),...,R''(c_n,a)$) in $\delta_{R''}$.
+        Further, due to $R''\sqsubseteq_* R^-$ and Definition~\ref{def:deltaRdhl},
+        we have $R(a,c_n),R(c_n,c_{n-1}),...,$ $R(c_1,b)\in\delta_{R}$. Thus, $R(a,b)\in\delta_{R}^*$
+        also holds.
+    \end{enumerate}
+
+\item $R(a,b)$ is derived by applying the rule (R3), w.l.o.g., $R(a,c),R(c,b)\rightarrow R(a,b)$,
+    which also means that $R\circ R\sqsubseteq R\in\mathcal{R}$. By the induction hypothesis,
+    $R(a,c),R(c,b)\in\delta_{R}^*$ holds. Obviously, $R(a,b)\in\delta_{R}^*$ also holds.
+\end{enumerate}
+
+We finally study the case where $R$ is a TI but not a transitive role.
+
+\begin{enumerate}[leftmargin=12ex,label=Case~3.\arabic*, ref=Case~3.\arabic*]
+\item $R(a,b)$ is derived by applying the rule (R1), w.l.o.g., $R'(a,b)\rightarrow R(a,b)$,
+    which also means that $R'\sqsubseteq R\in\mathcal{R}$.\label{dhl:NTcaseR1}
+    \begin{enumerate}[leftmargin=8ex,label=Case~3.1.\arabic*]
+    \item $R'$ is an NTI role. By the induction hypothesis, $R'(a,b)\in\delta_{R'}$ holds.
+        Similar to (Case~1.1.1), $R(a,b)\in\delta_{R}$ holds.
+        Obviously, $R(a,b)\in\delta_{R}^*$ also holds.
+
+    \item $R'$ is a TI role. By the induction hypothesis, if $R'(a,b)\in\delta_{R'}$,
+        then $R(a,b)\in\delta_R$ also holds. On the other hand, if there exists a transitive role
+        $R''$ (if $R'$ is a transitive role, then $R''\equiv R'$) such that
+        $R''\sqsubseteq_* R'$ and $R''(a,b)\in\delta_{R''}^*$. Since $R''\sqsubseteq_* R$ and
+        $R''$ is the transitive role, third consequence in this Lemma is satisfied.
+    \end{enumerate}
+
+\item $R(a,b)$ is derived by applying the rule (R2), w.l.o.g., $R'(a,b)\rightarrow R(b,a)$,
+    which also means that $R'\sqsubseteq R^-\in\mathcal{R}$. This case is similar to \ref{dhl:NTcaseR1}.
+
+\item $R(a,b)$ is derived by applying the rule (R3). This is impossible, since $R$ is not a transitive
+    role.\hfill$\Box$
+\end{enumerate}
+
+
+\section{Proof of Theorem~\ref{theorem:dhlplus}}
+
+\textbf{Theorem~\ref{theorem:dhlplus}}
+\emph{There exists a poly-logarithmically bounded function $\psi$ s.t. $\mathcal{D}_{\textit{\text{dhl}}(\circ)}\subseteq\mathcal{D}_{\mathsf{A}_{opt}^{\psi}}$.}\\
+
+\noindent\emph{Proof}: the proof idea of this theorem is similar to that of Theorem~\ref{theorem:dhl}.
+That is, we separate the materialization of DHL$(\circ)$ ontologies into two stages: in Stage~1,
+all the rules of the forms (R1-R4) are exhaustively applied; in Stage~2, the rules of the forms (T1-T2)
+are then applied while the results of Stage~1 serve as facts. Stage~2 is as same as that of DHL.
+Thus we only consider Stage~1 here.
+
+Our target is to show that $\mathcal{A}_{opt}^\psi$ handles Stage~1. To this end, we also
+distinguish all roles by whether they are transitively influenced. Since we have to consider
+complex RIAs, we re-define TI and NTI roles as follows:
+a role $R$ is \emph{transitively influenced} (TI)
+if (1) $R\circ R\sqsubseteq R\in\mathcal{R}$; or
+(2) there exists a TI role $R'$ such that $R'\sqsubseteq_*R$ or $R'\sqsubseteq_*R^-$;
+or (3) there exist a TI role $R'$ and an axiom of either of the form
+$R'\circ R''\sqsubseteq R$ or $R''\circ R'\sqsubseteq R$.
+We say that a role is an NTI role if it is not transitively influenced.
+The set $\delta_R$ for each role $R\in\textbf{R}$ is re-defined based on \emph{role sequence set}
+that is defined as follows:
+
+\begin{definition}\label{def:language}
+Let $\mathcal{L}(R)$ be the set of role sequences with respect to $R$ as follows:
+ \begin{enumerate}[leftmargin=4ex,label=\arabic*.]
+\item $R'$, for each $R'\sqsubseteq_* R$;
+\item $R'^-$, for each $R'\sqsubseteq_* R^-$;
+\item $L_1L_2$, for each axiom of the form (except R3) $R_1\circ R_2\sqsubseteq R'\in\mathcal{R}$, $L_i\in\mathcal{L}(R_i)(1\leq i\leq 2)$ and $R'\in\mathcal{L}(R)$;
+\item $L_2^-L_1^-$, for each axiom of the form (except R3) $R_1\circ R_2\sqsubseteq R'\in\mathcal{R}$, $L_i\in\mathcal{L}(R_i)(1\leq i\leq 2)$ and $R'^-\in\mathcal{L}(R)$.
+\end{enumerate}
+\end{definition}
+
+In the above definition, for a role sequence $L=R_1R_2,...,R_n$, let $L^-=R_n^-,...,R_2^-R_1^-$.
+We then give the following definition for $\delta_R$.
+
+\begin{definition}\label{def:deltaRdhlplus}
+For each $R\in\textbf{RN}$, let $\delta_R$ be the set of all assertions as follows:
+\begin{enumerate}[leftmargin=4ex,label=\arabic*.]
+\item for each $R(a,b)\in\mathcal{A}$;
+\item $R(a,b)$, for each $R'(a,b)\in\mathcal{A}$ and $R'\sqsubseteq_{*}R$;
+\item $R(a,b)$, for each $R'(b,a)\in\mathcal{A}$ and $R'\sqsubseteq_{*}R^-$;
+\item $R(a,b)$, for each $R_0R_2,...,R_n\in\mathcal{L}(R)$, where $R_i(x_i,x_{i+1})\in\mathcal{A}$ and $x_0=a, x_{n+1}=b$ for $0\leq i\leq n$.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}\label{lemma:tiplus}
+$P\models R(a,b)$ implies: (1) if $R$ is an NTI role, $R(a,b)\in\delta_R$;
+(2) if $R$ is a transitive role, then $R(a,b)\in\delta^*_R$;
+(3) if $R$ is a TI but not transitive role, then there exists a role sequence $R_1R_2,...,R_n\in\mathcal{L}(R)$ such that
+$R_i(x_i,x_{i+1})\in\delta_{R_i}$, or, $R_i(x_i,x_{i+1})\in\delta^*_{R_i}$ if $R_i$ is a transitive role,
+where $1\leq i\leq n$ and $x_0=a, x_{n+1}=b$.
+\end{lemma}
+
+The set $\delta^*_R$ also denotes the transitive closure of $\delta_R$ where $R$ is a transitive role.
+Note that, for all roles $R$, $\delta_R$ can be computed by applying (R1), (R2) and (R4).
+The above lemma says:
+(1) for each implicit node $R(a,b)$ where $R$ is an NTI role,
+it can be added to a materialization graph by only applying (R1), (R2) and (R4);
+(2) for transitive roles $R$, all implicit nodes are in the transitive closure $\delta^*_{R}$,
+which can be computed by an NC algorithm on $\delta_{R}$;
+(3) for each role $R$ that is a TI but not a transitive role,
+one can further perform (R1), (R2) and (R4) iteratively based on all
+transitive closures $\delta^*_{R'}$ where $R'$ is a transitive role.
+All nodes generated by applying (R1) and (R2) have SWD paths in the first iteration; at
+least one role in the left hand side of (R4) are restricted to be a simple role.
+Thus, the computations of (1) and (3) can be handled by $\mathcal{A}_{opt}^\psi$.
+Further, transitive computation in part (2) can also be handled by $\mathcal{A}_{opt}^\psi$.
+In summary, there exists a poly-logarithmical function $\psi$
+such that $\mathcal{A}_{opt}^\psi$ handles Stage~1.
+
+We now prove Lemma~\ref{lemma:tiplus}.
+We conduct the proof by an induction on
+the derivation of $P=\langle R,\textbf{I}\rangle$. We distinguish inductive cases by different rules (R1-R4)
+that are possibly applied to derive $R(a,b)$.
+
+\emph{Basic case}. If $R(a,b)\in\textbf{I}$, $R(a,b)\in\delta_{R}$. In this case,
+regardless of the case that $R$ is a TI or an NTI role, all of (1), (2) and (3) hold.
+
+\emph{Inductive case}. We first study the case where $R$ is an NTI role.
+
+\begin{enumerate}[leftmargin=12ex,label=Case~1.\arabic*, ref=Case~1.\arabic*]
+\item $R(a,b)$ is derived by applying the rule (R1), w.l.o.g., $R'(a,b)\rightarrow R(a,b)$,
+    which also means that $R'\sqsubseteq R\in\mathcal{R}$. Since $R$ is an NTI role, $R'$ has to
+    be an NTI role according to Definition~\ref{def:deltaRdhlplus}. By the induction hypothesis,
+    $R'(a,b)\in\delta_{R'}$ holds. (Case~1.1.1) If $R'(a,b)\in\mathcal{A}$, $R(a,b)\in\delta_{R}$
+    holds according to Definition~\ref{def:deltaRdhlplus}; (Case~1.1.2) If there exists some
+    role $R''$ such that $R''(a,b)\in\mathcal{A}$ and $R''\sqsubseteq R'$, we also have that
+    $R(a,b)\in\delta_{R}$ because $R''\sqsubseteq_* R$ holds; (Case~1.1.3) If there exists some
+    role $R''$ such that $R''(b,a)\in\mathcal{A}$ and $R''\sqsubseteq R'^-$, this case is
+    similar to (Case~1.1.2); (Case~1.1.4) There exists $R_0R_2,...,R_n\in\mathcal{L}(R')$,
+    where $R_i(x_i,x_{i+1})\in\mathcal{A}$ and $x_0=a, x_{n+1}=b$ for $0\leq i\leq n$.
+    According to Definition~\ref{def:language}, $R_0R_2,...,R_n\in\mathcal{L}(R)$ holds since
+    $R'\sqsubseteq R\in\mathcal{R}$.\label{dhlplus:NTIcaseR1}
+
+\item $R(a,b)$ is derived by applying the rule (R2), w.l.o.g., $R'(a,b)\rightarrow R(b,a)$,
+    which also means that $R'\sqsubseteq R^-\in\mathcal{R}$. Since $R$ is an NTI role, $R'$ has to
+    be an NTI role according to Definition~\ref{def:deltaRdhlplus}. By the induction hypothesis,
+    $R'(b,a)\in\delta_{R'}$. (Case~1.2.1) If $R'(b,a)\in\mathcal{A}$, $R(a,b)\in\delta_{R}$
+    holds according to Definition~\ref{def:deltaRdhlplus}; (Case~1.2.2) If there exists some
+    role $R''$ such that $R''(b,a)\in\mathcal{A}$ and $R''\sqsubseteq R'$, we also have that
+    $R(a,b)\in\delta_{R}$ because $R''\sqsubseteq_* R^-$ holds; (Case~1.2.3) If there exists some
+    role $R''$ such that $R''(a,b)\in\mathcal{A}$ and $R''\sqsubseteq R'^-$, this case is
+    similar to (Case~1.2.2); (Case~1.2.4) there exists $R_0R_2,...,R_n\in\mathcal{L}(R')$,
+    where $R_i(x_i,x_{i+1})\in\mathcal{A}$ and $x_0=b, x_{n+1}=a$ for $0\leq i\leq n$.
+    According to Definition~\ref{def:language}, $R_n^-,...,R_1^-\in\mathcal{L}(R)$ holds since
+    $R'\sqsubseteq R^-\in\mathcal{R}$.\label{dhlplus:NTIcaseR2}
+
+\item $R(a,b)$ is derived by applying the rule (R4), w.l.o.g.,
+    $R_1(a,c_2),R_2(c_2,b)\rightarrow R(a,b)$,
+    which also means that $R_1\circ R_2\sqsubseteq R\in\mathcal{R}$.
+    Since $R$ is an NTI role, both of $R_1$ and $R_2$ are NTI roles. By the induction hypothesis,
+    for each $R_i(c_i,c_{i+1})(1\leq i\leq 2)$ where $c_1=a, c_3=b$, $R_i(c_i,c_{i+1})\in\delta_{R_i}$
+    hold. We have a role sequence $L_i\in\mathcal{L}(R_i)$ that may be constructed in following different cases:
+
+    \begin{enumerate}[leftmargin=14ex,label=Case~1.3.\arabic*]
+    \item If there exists a role $R'_i$ such that $R'_i(c_i,c_{i+1})\in\mathcal{A}$
+        and $R'_i\sqsubseteq_* R_i$, then we have that $L_i=R'_i$.
+
+    \item If there exists a role $R'_i$ such that $R'_i(c_{i+1},c_{i})\in\mathcal{A}$
+        and $R'_i\sqsubseteq_* R_i^-$, then we have that $L_i=R^{'-}_i$.
+
+    \item If there exists a role sequence $R_0R_2,...,R_m\in\mathcal{L}(R')$, where $R_j(x_j,x_{j+1})\in\mathcal{A}$ and $x_0=c_i, x_{n+1}=c_{i+1}$ for $0\leq i\leq m$
+        and $R'\sqsubseteq_* R_i$, then $L_i=R_0R_2,...,R_m$ holds.
+    \end{enumerate}
+
+    Based on $L_i(1\leq i\leq 2)$, we have that $L_1L_2\in\mathcal{L}(R)$. Further $R(a,b)\in\delta_R$
+    holds.\label{dhlplus:NTIcaseR4}
+
+\item $R(a,b)$ is derived by applying the rule (R3). This case is impossible,
+    since $R$ is an NTI but not transitive role.
+\end{enumerate}
+
+We next study the case where $R$ is a transitive role.
+
+\begin{enumerate}[leftmargin=12ex,label=Case~2.\arabic*, ref=Case~2.\arabic*]
+\item $R(a,b)$ is derived by applying the rule (R1), w.l.o.g., $R'(a,b)\rightarrow R(a,b)$,
+    which also means that $R'\sqsubseteq R\in\mathcal{R}$.
+
+    \begin{enumerate}[leftmargin=8ex,label=Case~2.1.\arabic*]
+    \item $R'$ is an NTI role. By the induction hypothesis, $R'(a,b)\in\delta_{R'}$.
+        Similar to \ref{dhlplus:NTIcaseR1}, $R(a,b)\in\delta_{R}$ holds and
+        obviously, $R\in\mathcal{L}(R)$ holds.
+
+    \item $R'$ is a TI but not a transitive role.
+        By the induction hypothesis, there exists $R_1,...,R_n\in\mathcal{L}(R')$
+        such that $R_i(x_i,x_{i+1})\in\delta_{R_i}$ or $R_i(x_i,x_{i+1})\in\delta^*_{R_i}$, where $1\leq i\leq n$
+        and $x_0=a, x_{n+1}=b$. Since $R'\sqsubseteq R$ holds, $R_1,...,R_n\in\mathcal{L}(R)$ also holds.
+
+    \item $R'$ is a transitive role.
+        By the induction hypothesis, there exists $R'(a,b)\in\delta^*_{R'}$.
+        Further, let $R'(a,c_1),R'(c_1,c_2),...,R'(c_n,b)\in\delta_{R'}$.
+        Since $R'\sqsubseteq R\in\mathcal{R}$ holds, we also have that
+        $R(a,c_1),R(c_1,c_2)$ $,...,R(c_n,b)\in\delta_{R}$. Obviously $R(a,b)\in\delta^*_{R}$ holds.
+    \end{enumerate}
+
+\item $R(a,b)$ is derived by applying the rule (R2), w.l.o.g., $R'(b,a)\rightarrow R(a,b)$,
+    which also means $R'\sqsubseteq R^-\in\mathcal{R}$.
+
+    \begin{enumerate}[leftmargin=8ex,label=Case~2.2.\arabic*]
+    \item $R'$ is an NTI role. By the induction hypothesis, $R'(b,a)\in\delta_{R'}$.
+        Similar to \ref{dhlplus:NTIcaseR2}, $R(a,b)\in\delta_{R}$ holds and
+        obviously, $R\in\mathcal{L}(R)$ holds.
+
+    \item $R'$ is a TI but not transitive role. By the induction hypothesis, there exists $R_1,...,R_n\in\mathcal{L}(R')$
+        such that $R_i(x_i,x_{i+1})\in\delta_{R_i}$ or $R_i(x_i,x_{i+1})\in\delta^*_{R_i}$, where $1\leq i\leq n$
+        and $x_0=b, x_{n+1}=a$. Since $R'\sqsubseteq R^-$ holds, $R_n^-,...,R_1^-\in\mathcal{L}(R)$ also holds.
+
+     \item $R'$ is a transitive role.
+        By the induction hypothesis, there exists $R'(b,a)\in\delta^*_{R'}$.
+        Further, let $R'(b,c_1),R'(c_1,c_2),...,R'(c_n,a)\in\delta_{R'}$.
+        Since $R'\sqsubseteq R^-\in\mathcal{R}$, we also have that
+        $R(a,c_1),R(c_1,c_2)$ $,...,R(c_n,b)\in\delta_{R}$. Obviously $R(a,b)\in\delta^*_{R}$ holds.
+    \end{enumerate}
+
+\item $R(a,b)$ is derived by applying the rule (R4), w.l.o.g.,
+    $R_1(a,c_2),R_2(c_2,b)\rightarrow R(a,b)$,
+    which also means that $R_1\circ R_2\sqsubseteq R\in\mathcal{R}$.
+    Further, $R$ is a transitive role. According to the simple-role restriction,
+    both of $R_1$ and $R_2$ are simple roles.
+    This also
+    means that $R_1, R_2$ are NTI roles. Further, $R_1(a,c_2)\in\delta_{R_1}$ and $R_2(c_2,b)\in\delta_{R_2}$.
+    This case is similar to \ref{dhlplus:NTIcaseR4}.
+
+\item $R(a,b)$ is derived by applying the rule (R3), w.l.o.g., $R(a,c),R(c,b)\rightarrow R(a,b)$,
+    which also means that $R\circ R\sqsubseteq R\in\mathcal{R}$.
+    Since $R$ is a TI role, by the induction hypothesis,
+    $R(a,c),R(c,b)\in\delta^*_{R}$ holds. Obviously, $R(a,b)\in\delta^*_{R}$ holds.
+\end{enumerate}
+
+We finally study the case where $R$ is a TI but not a transitive role.
+
+\begin{enumerate}[leftmargin=12ex,label=Case~3.\arabic*, ref=Case~3.\arabic*]
+\item $R(a,b)$ is derived by applying the rule (R1), w.l.o.g., $R'(a,b)\rightarrow R(a,b)$,
+    which also means that $R'\sqsubseteq R\in\mathcal{R}$.\label{dhlplus:TIcaseR1}
+
+    \begin{enumerate}[leftmargin=8ex,label=Case~3.1.\arabic*]
+    \item $R'$ is an NTI role. By the induction hypothesis, $R'(a,b)\in\delta_{R'}$ holds.
+        Similar to \ref{dhlplus:NTIcaseR1}, $R(a,b)\in\delta_{R}$ holds and
+        obviously, $R\in\mathcal{L}(R)$ holds.
+
+    \item $R'$ is a TI but not a transitive role.
+        By the induction hypothesis, there exists $R_1,...,R_n\in\mathcal{L}(R')$
+        such that $R_i(x_i,x_{i+1})\in\delta_{R_i}$ or $R_i(x_i,x_{i+1})\in\delta^*_{R_i}$, where $1\leq i\leq n$
+        and $x_0=a, x_{n+1}=b$. Since $R'\sqsubseteq R$, $R_1,...,R_n\in\mathcal{L}(R)$ also holds.
+
+    \item $R'$ is a transitive role.
+        By the induction hypothesis, there exists $R'(a,b)\in\delta^*_{R'}$.
+        According to Definition~\ref{def:language}, $R'\in\mathcal{L}(R)$ holds.
+        Then, $R'$ is actually the role sequence that satisfies the condition
+        in this lemma.
+    \end{enumerate}
+
+\item $R(a,b)$ is derived by applying the rule (R2), w.l.o.g., $R'(b,a)\rightarrow R(a,b)$,
+    which also means that $R'\sqsubseteq R^-\in\mathcal{R}$.
+
+    \begin{enumerate}[leftmargin=8ex,label=Case~3.2.\arabic*]
+    \item $R'$ is an NTI role. By the induction hypothesis, $R'(b,a)\in\delta_{R'}$.
+        Similar to \ref{dhlplus:NTIcaseR2}, $R(a,b)\in\delta_{R}$ holds and
+        obviously, $R\in\mathcal{L}(R)$ holds.
+
+    \item $R'$ is a TI but not a transitive role. By the induction hypothesis, there exists $R_1,...,R_n\in\mathcal{L}(R')$
+        such that $R_i(x_i,x_{i+1})\in\delta_{R_i}$ or $R_i(x_i,x_{i+1})\in\delta^*_{R_i}$, where $1\leq i\leq n$
+        and $x_0=b, x_{n+1}=a$. Since $R'\sqsubseteq R^-$, $R_n^-,...,R_1^-\in\mathcal{L}(R)$ also holds.
+
+     \item $R'$ is a transitive role.
+        By the induction hypothesis, there exists $R'(b,a)\in\delta^*_{R'}$.
+        Similarly to \ref{dhlplus:TIcaseR1} (Case~1.1.3), we have that
+        $R'^-$ is actually the role sequence that satisfies the condition
+        in this lemma.
+    \end{enumerate}
+
+\item $R(a,b)$ is derived by applying the rule (R4), w.l.o.g.,
+    $R_1(a,c_2),R_1(c_2,b)$ $\rightarrow R(a,b)$,
+    which also means that $R_1\circ R_2\sqsubseteq R\in\mathcal{R}$ holds.
+    Further, $R$ is a TI but not transitive role. According to the simple-role restriction,
+    at least one of $R_1$ and $R_2$ is a simple role.
+    W.l.o.g., let $R_2$ be a simple role, which also
+    means that $R_2$ is an NTI role. Further, $R_2(c_2,b)\in\delta_{R_2}$ holds.
+    For $R_1$, by the induction hypothesis, $R_1(a,c_2)\in\delta^*_{R_1}$ holds.
+    On the other hand, a role sequence $L_{R_2}$ exists in $\mathcal{L}(R_2)$ such that $c_2$ and $b$
+    are the starting and ending individual respectively.
+    Further, we have that $R_1L_{R_2}\in\mathcal{L}(R)$ which satisfies the second condition
+    in Lemma~\ref{lemma:tiplus}.\label{dhlplus:TIcaseR4}
+
+\item $R(a,b)$ is derived by applying the rule (R3), w.l.o.g., $R(a,c),R(c,b)\rightarrow R(a,b)$,
+    which also means that $R\circ R\sqsubseteq R\in\mathcal{R}$.
+    Since $R$ is not a transitive role, this case is impossible.\hfill$\Box$
+\end{enumerate}
+
+\section{Proof of Theorem~\ref{theorem:aprc}}
+
+\textbf{Theorem~\ref{theorem:aprc}}
+\emph{For any DHL$(\circ)$ ontology $\mathcal{O}$, Algorithm~$\mathsf{A}_{prc}$ halts and outputs
+a materialization graph $\mathcal{O}$.}\\
+
+\noindent\emph{Proof}: similar to the proof of Lemma~\ref{lemma:a3},
+this theorem is proved in two stages:
+(1) the graph $\mathcal{G}$ returned by $\mathsf{A}_{prc}$ is a materialization graph;
+(2) $\mathcal{G}$ is a complete materialization graph.
+One can show that (1) holds by performing the same induction on the iterations of \ref{alg3:updateG} of $\mathsf{A}_{opt}$
+(see the proof of Lemma~\ref{lemma:a3}). This is because that
+such an induction is performed regardless of how the relation $S_{\textit{\tiny rch}}$ is computed.
+
+To prove that (2) holds, we conduct the induction used in the proof for Lemma~\ref{lemma:a1}.
+We aim to show that all the ground atoms in $T_R^{i+1}(\textbf{I})$ have to be added to $\mathcal{G}$,
+with the induction hypothesis that the ground atoms in $T_R^{i}(\textbf{I})$ are in $\mathcal{G}$.
+Suppose the ground atoms in $T_R^{i}(\textbf{I})$ have been added to $\mathcal{G}$ by
+performing $\mathsf{A}_{prc}$.
+For each atom $\alpha$ in $T_R^{i+1}(\textbf{I})$, there has to be a relation $(\beta,\alpha)$
+in $S_{\textit{\tiny rch}}$ obtained in some iteration; further
+$\beta$ is already in $\mathcal{G}$ according to the inductive hypothesis. Thus,
+$\alpha$ has to be added to $\mathcal{G}$ by applying \ref{alg4:updateG}
+of $\mathsf{A}_{prc}$.\hfill$\Box$
+
+
+\section{Proof of Theorem~\ref{theorem:aprcpt}}
+
+\textbf{Theorem~\ref{theorem:aprcpt}}
+\emph{For any DHL$(\circ)$ ontology $\mathcal{O}$ that follows the simple-concept and the simple-role
+restrictions,
+there exists a poly-logarithmically bounded function $\psi$,
+such that $\mathsf{A}_{prc}^{\psi}$ outputs
+a materialization graph of $\mathcal{O}$.}\\
+
+\noindent\emph{Proof}: similar to what we do when proving
+Theorem~\ref{theorem:dhl} and Theorem~\ref{theorem:dhlplus},
+we separate the materialization of a DHL$(\circ)$ ontology
+into two stages: the role materialization (all the rules
+of the forms (R1-R4) are exhaustively applied) and the concept materialization
+(the rules of the forms (T1-T3)
+are then applied). The difference is that, we further separate the role materialization
+into successively two stages: \emph{the simple role materialization} (Stage~SRM) and
+\emph{the non-simple role materialization} (Stage~NSRM).
+Similarly, the concept materialization is also separated into successively two stages:
+\emph{the simple concept materialization} (Stage~SCM) and
+\emph{the non-simple concept materialization} (Stage~NSCM).
+Specifically, in Stage~SRM, all atoms of the form $R(a,b)$ are derived
+where $R$ is a simple role, while all atoms of the form $R(a,b)$ for the non-simple
+role $R$ are derived in Stage~NSRM. Stage~SCM and Stage~NSCM can be explained similarly.
+
+We aim to prove that, there always exists a poly-logarithmically bounded function $\psi$
+such that $\mathsf{A}_{prc}^{\psi}$ can handle each of the four stages, Stage~SRM,
+Stage~NSRM, Stage~SCM and Stage~NSCM. Based on the previous result, we have that
+there exists a poly-logarithmically bounded function $\psi'$
+such that $\mathsf{A}_{prc}^{\psi'}$ handles the whole materialization.
+
+We first consider Stage~SCM.
+Stage~SCM (the simple concept materialization) is conducted on axioms of two forms $A\sqsubseteq B$
+and $\exists R.A\sqsubseteq B$, which correspond to datalog rules of the forms $A(x)\rightarrow B(x)$
+and $R(x,y),A(y)\rightarrow B(x)$ respectively. Since role assertions are supposed to be fixed
+during in Stage~SCM, role $R$ in each rule of the form $R(x,y),A(y)\rightarrow B(x)$
+can be viewed as an EDB predicate. This further means that,
+for each atom of the form $A(a)$ where $A$ is a simple concept,
+$A(a)$ has an SWD path in the first iteration of $\mathsf{A}_{prc}$.
+Recall Algorithm~$\mathsf{Prc}$. We use an induction to show that
+such an SWD path of $A(a)$ can be determined by $S_{\textit{\tiny rch}}$.
+The atom $A(a)$ can be derived through either of the following rule instantiations:
+
+\begin{enumerate}[leftmargin=12ex]
+\item[Case~1] $B(a)\rightarrow A(a)$, where $\mathcal{O}\models B\sqsubseteq_* A$. We have
+    that \texttt{rch}$(B(a),A(a))$ is in $S_{\textit{\tiny rch}}$ according to Algorithm~$\mathsf{Prc}$.
+    By the induction hypothesis, the existence of the SWD path for $B(a)$ can be determined.
+    Thus, the existence of the SWD path of $A(a)$ can also be determined by $S_{\textit{\tiny rch}}$.
+
+\item[Case~2] $R(a,b),B(b)\rightarrow A(a)$ where $\exists R.B\sqsubseteq A\in\mathcal{T}$.
+    According to Algorithm~$\mathsf{Prc}$ and the fact that $R(a,b)$ has to be derived,
+    we have that \texttt{rch}$(B(b),$ $A(a))$ is in $S_{\textit{\tiny rch}}$.
+    By the induction hypothesis, the existence of the SWD path for $B(b)$ can be determined.
+    Thus, the existence of the SWD path of $A(a)$ can also be determined.
+\end{enumerate}
+
+We next discuss the non-simple concept materialization (Stage~NSCM), which is conducted on axioms of forms (T1-T3).
+According to the simple-concept restriction, for each axiom of the form $A_1\sqcap A_2\sqsubseteq B$,
+one of $A_1$ and $A_2$ should be simple concept and can be viewed as an EDB predicate, since Stage~SCM is completed.
+In Stage~NSCM, for each atom of the form $A(a)$ where $A$ is not a simple concept,
+$A(a)$ has an SWD path in the first iteration of $\mathsf{A}_{prc}$ due to the simple concept restriction.
+We also use an induction to show that
+such an SWD path of $A(a)$ can be determined by distinguishing different rule instantiations.
+The case of the rule instantiation of the form $B(a)\rightarrow A(a)$ (resp., $R(a,b),B(b)\rightarrow A(a)$)
+is referred to Case~1 (resp., Case~2). We only consider the case of the rule instantiation of the form $A_1(a),A_2(a)\rightarrow A(a)$
+here.
+
+\begin{enumerate}[leftmargin=12ex]
+\item[Case~3] $A_1(a),A_2(a)\rightarrow A(a)$ where $A_1\sqcap A_2\sqsubseteq A\in\mathcal{T}$.
+    If $A_1(a)$ is derived where $A_1$ is a simple concept,
+    we have that \texttt{rch}$(A_2(a),A(a))$ is in $S_{\textit{\tiny rch}}$
+    according to Algorithm~$\mathsf{Prc}$.
+    By the induction hypothesis, the existence of the SWD path for $A_2(a)$ can be determined.
+    Thus, the existence of the SWD path of $A(a)$ can also be determined.
+    It is similar for the case where $A_2(a)$ is derived and $A_2$ is a simple concept.
+\end{enumerate}
+
+The simple-role materialization (Stage~SRM) can be simply conducted by checking the transitive closure
+of role inclusions, i.e., the axioms of the forms (R1-R2).
+It is easy to check that the simple-role materialization can be finished after the
+first iteration of $\mathsf{A}_{prc}$.
+
+We now discuss Stage~NSRM. For each atom of the form $R(a,b)$ where $R$ is not a simple role
+and not a transitive role,
+$R(a,b)$ has an SWD path in the first iteration of $\mathsf{A}_{prc}$ due to the simple role restriction.
+We use an induction to show that
+such an SWD path of $R(a,b)$ can be determined by distinguishing different rule instantiations
+as follows.
+
+\begin{enumerate}[leftmargin=12ex]
+\item[Case~4] $S(a,b)\rightarrow R(a,b)$ where $\mathcal{O}\models S\sqsubseteq_* R$.
+    We have that \texttt{rch}$(S(a,b),R(a,b))$ is in $S_{\textit{\tiny rch}}$
+    according to Algorithm~$\mathsf{Prc}$.
+    By the induction hypothesis, the existence of the SWD path for $S(a,b)$ can be determined.
+    Thus, the existence of the SWD path of $R(a,b)$ can also be determined.
+
+\item[Case~5] $S(b,a)\rightarrow R(a,b)$ where $\mathcal{O}\models S\sqsubseteq_* R^-$.
+    We have that \texttt{rch}$(S(b,a),R(a,b))$ is in $S_{\textit{\tiny rch}}$
+    according to Algorithm~$\mathsf{Prc}$.
+    By the induction hypothesis, the existence of the SWD path for $S(b,a)$ can be determined.
+    Thus, the existence of the SWD path of $R(a,b)$ can also be determined.
+
+\item[Case~6] $R_1(a,c),R_2(c,b)\rightarrow R(a,b)$ where $R_1\circ R_2\sqsubseteq R\mathcal{R}$.
+    If $R_1(a,c)$ is derived where $R_1$ is a simple role,
+    we have that \texttt{rch}$(R_2(c,b),R(a,b))$ is in $S_{\textit{\tiny rch}}$
+    according to Algorithm~$\mathsf{Prc}$.
+    By the induction hypothesis, the existence of the SWD path for $R_2(c,b)$ can be determined.
+    Thus, the existence of the SWD path of $R(a,b)$ can also be determined.
+    It is similar for the case where $R_2(c,b)$ is derived and $R_2$ is a simple role.
+\end{enumerate}
+
+We finally consider the derivation of the atoms of the form $R(a,b)$, where $R$
+is a transitive role.
+Recall Lemma~\ref{lemma:tiplus}. We have that, $R(a,b)\in\delta_R$ or
+$R(a,b)\in\delta^*_R$ holds.
+According to the simple role restriction, for each sub-role $S$ of $R$, $S$ is a simple role,
+or there exists such axioms
+of the form $S_1\circ S_2\sqsubseteq S$ where $S_1$ and $S_2$ are simple roles.
+One can check the set $\delta_R$ can computed by $\mathsf{A}_{prc}$ in
+at most two iterations (see Case~4, Case~5 and Case~6).
+We should prove that the transitive closure $\delta^*_R$
+can also be computed by $\mathsf{A}_{prc}^\psi$ for some
+poly-logarithmically bounded function $\psi$.
+
+\begin{enumerate}[leftmargin=12ex]
+\item[Case~7] $R(a,c),R(c,b)\rightarrow R(a,b)$ where $R$ is a transitive role.
+    One can construct a binary tree $t$ where the root node is $R(a,b)$,
+    the leaves are in $\delta_R$ and the hight of $t$ is up-bounded by
+    $\log(|\delta_R|)$. It can be checked that, $\mathsf{A}_{prc}$ can generate
+    all nodes in each level of $t$ in one iteration from the bottom. Thus,
+    $R(a,b)$ can be derived in at most $\log(|\delta_R|)$ iterations.\hfill$\Box$
+\end{enumerate}
+
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "parallel-tractability-J"
+%%% End:

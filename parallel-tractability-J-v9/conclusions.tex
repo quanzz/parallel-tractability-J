@@ -1,0 +1,53 @@
+\section{Conclusions}
+\label{sec:conclusion}
+
+In this paper, we studied the problem of parallel tractability of
+materialization on the datalog rewritable ontologies.
+To identify the parallelly tractable classes,
+we proposed two NC algorithms, Algorithm~$\mathsf{A}_{bsc}^\psi$
+and Algorithm~$\mathsf{A}_{opt}^\psi$, that perform materialization on
+datalog rewritable ontology languages.
+Based on these algorithms, we identified the corresponding
+parallelly tractable datalog program (\texttt{PTD}) classes such that materialization
+on the datalog programs in these classes is in the complexity class NC.
+We further studied two specific ontology languages, DL-Lite and DHL (including one of its extension).
+We showed that any ontology expressed in DL-Lite$_{core}$ or DL-Lite$_{\mathcal{R}}$ is parallelly tractable.
+For DHL and DHL($\circ$), we proposed two restrictions such that materialization is parallelly tractable.
+
+We verified the usefulness of our theoretical techniques in two ways. On the one hand,
+we analyzed different kinds of datasets,
+including well-known benchmarks, real-world ontologies and a famous dataset YAGO.
+Our analysis showed that many real ontologies belong to
+the parallelly tractable class $\mathcal{D}_{\textit{\text{dhl}}}$
+or $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$. The
+developers and users can also refer to $\mathcal{D}_{\textit{\text{dhl}}}$
+and $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$
+to create large-scale ontologies for which parallel tractability
+is theoretically guaranteed. On the other hand,
+we used an optimization strategy based on SWD paths
+to give a practical algorithm variant Algorithm~$\mathsf{A}_{prc}$, which can
+also be restricted to an NC version, and can be implemented for practice.
+We implemented a system based on Algorithm~$\mathsf{A}_{prc}$ and compared it to
+the state-of-the-art reasoner RDFox.
+The experimental results showed that the optimization proposed in this paper results
+in a better performance on parallelly tractable ontologies compared with RDFox.
+
+In the future work, we will extend our work in two lines.
+One line is a further study of the parallel tractability of
+other expressive ontology languages, in addition to
+datalog rewritable ones. Since different expressive OWL languages
+have different syntaxes and higher reasoning complexities than \texttt{PTime}-complete, we need to
+explore more restrictions that are practical and make materialization
+parallelly tractable. Another line of the future work is to
+study how to further apply the
+results in practice.
+One idea is to apply the technique of SWD paths to enhance other reasoning-based tasks,
+like ontology classification, ontology debugging and query answering.
+
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "parallel-tractability-J"
+%%% End:

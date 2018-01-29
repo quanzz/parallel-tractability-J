@@ -1,0 +1,81 @@
+\section{Introduction}
+\label{sec:introduction}
+
+The Web Ontology Language (OWL)\footnote{The latest version is OWL 2: http://www.w3.org/TR/owl2-overview/}
+is an important standard for ontology language in the Semantic Web and knowledge-based applications.
+In these applications, \emph{materialization}, which is the reasoning task of computing all implicit
+facts that follow from a given ontology \cite{handbook}, plays an important role. By means of it, developers and users
+can optimize query answering, ontology diagnosis and debugging. Since huge amounts of semantic data
+are being generated at an increasing pace by sensor networks, government authorities and social
+media \cite{LehmbergRMB16,MeuselBP15}, it is challenging to conduct materialization on such large-scale ontologies efficiently.
+
+There has been work proposing parallel reasoning algorithms and employing parallel computing platforms
+for the ontology language RDFS and its extended
+fragments \cite{MotikNPHO14,PetersSZ15,SubercazeGCL16}. Several optimization strategies, e.g., dictionary encoding, balancing workload
+and data partitioning, are further studied to enhance parallel RDFS reasoning. There are also parallel implementations for scalable
+reasoning of highly expressive ontology languages \cite{SteigmillerLG14,WuH12}. On the other hand, several work utilizes different kinds of computing platforms to make reasoning tasks more efficient in parallel, such as supercomputers \cite{Hoeksema2011,GoodmanJMAAH11},
+MapReduce \cite{UrbaniKMHB12} and GPU servers \cite{HeinoP12}.
+
+The above work verifies the effectiveness of parallel reasoning based on the evaluations on different test datasets.
+However, for most popular ontology languages, even RDFS and datalog rewritable ontology languages,
+which have \texttt{PTime}-complete or higher complexity of reasoning in the worst case,
+they are not parallelly tractable according to \cite{Raymond95}, i.e., the efficiency of reasoning may not be
+improved on a parallel implementation. A possible reason of the high performance of parallel
+reasoning is that the utilized test datasets do not fall in the worst cases in terms of computational complexity.
+It has also been shown that some well-known large-scale ontologies, such as YAGO, have good performance for parallel
+reasoning \cite{KolovskiWE10}, but they are expressed in ontology languages that are not parallelly tractable in theory.
+On the other hand, there do exist ontologies for which materialization cannot
+always be improved by parallelism (we use experiments to show this in Section~\ref{sec:evaluation}).
+The current work of parallel ontology reasoning can hardly explain this.
+While one can try out different parallel implementations to see whether an ontology can be handled by (one of) them efficiently,
+we study the problem of parallel tractability in theory and identify properties that make an ontology parallelly tractable.
+These properties can be further used to optimize parallel algorithms and to guide ontology engineers in creating ontologies
+for which parallel tractability can be guaranteed theoretically.
+
+According to \cite{MotikNPHO14}, many real large-scale ontologies are essentially expressed in the ontology languages
+that can be rewritten into datalog rules. Thus, we focus on such datalog rewritable ontology languages in this paper.
+The main target of this paper is to identify the classes of datalog rewritable ontologies such that materialization
+over these ontologies is parallelly tractable, i.e., in the parallel complexity class NC \cite{Raymond95}.
+This complexity class consists of problems that can be solved efficiently in parallel.
+To show that a problem is in the NC class, one can give an \emph{NC algorithm} that handles this problem
+in parallel computation \cite{Raymond95}.
+An NC algorithm is required to terminate in parallel poly-logarithmic time.
+However, current materialization algorithms of datalog rewritable ontology languages
+(e.g., the core algorithm used in RDFox \cite{MotikNPHO14}) are not NC algorithms,
+since they are designed for general datalog programs and has \texttt{PTime}-complete complexity.
+Thus, we first give NC algorithms that perform materialization,
+and then identify the corresponding classes of datalog rewritable ontologies (called \emph{parallelly tractable classes})
+that can be handled by these NC algorithms. To make the proposed NC algorithms practical,
+we also discuss how to optimize and implement them.
+
+In the practical part of this work, we study specific datalog rewritable ontology languages.
+We first focus on the ontology language DL-Lite to clarify how to apply the above NC algorithms
+to study the parallel tractability of ontology materialization.
+We show that DL-Lite$_{core}$ and DL-Lite$_\mathcal{R}$ are parallelly tractable.
+We then study the ontology language Description Horn Logic (DHL) \cite{GrosofHVD03}, which is the intersection of datalog and OWL
+in terms of expressivity. We give a case of a DHL ontology where materialization can hardly be parallelized.
+Based on the analysis of this case, we propose to restrict the usage of DHL such that materialization over the
+restricted ontologies can be handled by the proposed NC algorithms.
+We further extend the results to an extension of DHL that also allows complex role inclusion axioms.
+Finally, we analyze well-known benchmarks and real-world datasets and show that many real ontologies following the
+proposed restrictions belong to the parallelly tractable classes.
+We implement a system based on an optimized NC algorithm for DHL materialization.
+We compare our system to the state-of-the-art reasoner RDFox.
+The experimental results show that the optimization proposed in this paper results in a better performance on parallelly
+tractable ontologies compared with RDFox.
+
+The rest of the paper is organized as follows. In Section~\ref{sec:background}, we introduce some basic notions.
+We then give two NC algorithms for ontology materialization in Section~\ref{sec:ptclass}.
+We study the parallelly tractable materialization of DL-Lite, DHL and an extension of DHL in Section~\ref{sec:ptonto} respectively.
+In Section~\ref{sec:practicalAlg},
+we discuss how to optimize and implement the given NC algorithms.
+We analyze real-world datasets and evaluate our implementation in Section~\ref{sec:evaluation}.
+We then discuss related work in Section~\ref{sec:related} and conclude in Section~\ref{sec:conclusion}.
+The detailed proofs of the theorems and the lemmas in this paper are given in the appendix.
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "parallel-tractability-J"
+%%% End:
