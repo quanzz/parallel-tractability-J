@@ -182,7 +182,7 @@ its depth equals the depth of the stage.
 We now discuss the parallel complexity of Algorithm~$\mathsf{A}_{bsc}$.
 Given a class of datalog programs $\mathbb{P}$ where
 a rule set is shared for each datalog program $P=\langle R, \textbf{I}\rangle$ in $\mathbb{P}$.
-Let $e$, $v$ and $r$ represent the maximum arity of any predicate in $\textbf{I}$, the maximum number of variables
+Let $e$, $v$ and $r$ represent the maximum arity of any EDB predicate, the maximum number of variables
 in any datalog rule, and the number of datalog rules respectively.
 We then have that the number of
 constants is at most $|\textbf{I}|e$, and the number of all possible rule instances in $P^*$

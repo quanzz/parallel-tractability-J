@@ -13,17 +13,16 @@ and the role-concept restrictions.
 In previous sections, Algorithm~$\mathsf{A}_{opt}$ is mainly used for theoretical analysis.
 However, this algorithm can hardly work in practice due to its inherently
 high requirement of computing space. Specifically,
-Algorithm~$\mathsf{A}_{opt}$ constructs a materialization graph of the given
-datalog program $P$ by checking all possible rule
-instantiations in $P^*$.
+Algorithm~$\mathsf{A}_{opt}$ constructs a materialization graph by checking all possible rule
+instantiations in $P^*$ where $P$ is a datalog program that corresponds to an ontology.
 One can check that $|P^*|$ could be the square or cube of the number of constants occurring in $P$.
-Recall the analysis of the parallel complexities of Algorithm~$\mathsf{A}_{bsc}$ and Algorithm~$\mathsf{A}_{opt}$.
-The number of constants is at most $|\textbf{I}|e$ where $e$ denotes the maximum arity of any predicate in $\textbf{I}$.
-Consider a datalog rule of the form `$R(x,y),A(y)\rightarrow B(x)$'.
-Since there are two variables in this rule, the number of all possible rule instantiations
-is $(|\textbf{I}|e)^2$.
+Consider a datalog rule of the form `$R(x,y),A(y)\rightarrow B(x)$'
+that is rewritten from the axiom of the form $\exists R.A\sqsubseteq B$;
+since there are two variables in this rule, the number of all possible rule instantiations
+is $|\textbf{IN}|^2$; if there are
+1000 individuals in \textbf{IN}, this number is 1 million.
 Similarly, for a datalog rule rewritten from an axiom of the form (R3) or (R4),
-the number of all possible rule instantiations is $(|\textbf{I}|e)^3$.
+the number of all possible rule instantiations is $|\textbf{IN}|^3$.
 It is no doubt that a plain implementation of Algorithm~$\mathsf{A}_{opt}$ would be delayed
 when the target datalog program or ontology
 tends to be large in size.
@@ -44,7 +43,7 @@ form `$A(x)\rightarrow B(x)$' that corresponds to (T1). The above strategy requi
 in each iteration, Algorithm~$\mathsf{A}_{opt}$ can only check the rule instantiations
 of the form `$A(a)\rightarrow B(a)$' where $A(a)$ has been added to the constructed materialization
 graph $\mathcal{G}$. If there are $n$ atoms of the form $A(x)$ that have been added to $\mathcal{G}$,
-the number of all checked rule instantiations of the above rule is also $n$, instead of $(|\textbf{I}|e)$.
+the number of all checked rule instantiations of the above rule is also $n$, instead of $|\textbf{IN}|$.
 This is because that, for each assertion $A(a)$,
 the datalog rule `$A(x)\rightarrow B(x)$'
 has only one rule instantiation `$A(a)\rightarrow B(a)$' where
@@ -57,7 +56,7 @@ We require that, for each rule instantiation of these rules checked by Algorithm
 at least one body atom has been added to the constructed materialization
 graph $\mathcal{G}$; thus, it can be checked that, in each iteration of Algorithm~$\mathsf{A}_{opt}$,
 the number of checked rule instantiations
-is at most $k(|\textbf{I}|e)$ where $k$ is the number of atoms that have been
+is at most $k|\textbf{IN}|$ where $k$ is the number of atoms that have been
 added to $\mathcal{G}$.
 Note that, for rule instantiations of two body atoms,
 we do not require that both of these two body atoms have been added to
@@ -138,18 +137,6 @@ a materialization graph of $\mathcal{O}$.
 \end{theorem}
 
 The above theorem is given to show the correctness of Algorithm~$\mathsf{A}_{prc}$.
-Since Algorithm~$\mathsf{A}_{prc}$ is almost the same with Algorithm~$\mathsf{A}_{opt}$,
-it has the same upper bound of the computing time, i.e., $c_1+l'c_3 + l'c_4\log(|\textbf{I}|e) +l'c_5\log^2(|\textbf{I}|e)$,
-where $l'$ denotes the number of iterations of \label{alg4:updateG}, and the symbols
-$c_1, c_3, c_4, c_5$ have the same meanings with that in the analysis for Algorithm~$\mathsf{A}_{opt}$.
-The difference between these two algorithms is that Algorithm~$\mathsf{A}_{prc}$
-performs on a smaller scope of rule instantiations. This gives rise to smaller sizes of
-relation $S_{\textit{\tiny rch}}$. Based on the above discussion and Algorithm~$\mathsf{PRC}$,
-the size of relation $S_{\textit{\tiny rch}}$ is bounded by $h(|\textbf{I}|e)$ ($h$
-denotes the number of nodes that have been added to the graph), while
-the size of relation $S_{\textit{\tiny rch}}$ by performing Algorithm~$\mathsf{A}_{opt}$
-is at most $p^2(|\textbf{I}|e)^{2w}$.
-
 We next use an example to show how Algorithm~$\mathsf{A}_{prc}$ handles
 DHL$(\circ)$ materialization.
 
