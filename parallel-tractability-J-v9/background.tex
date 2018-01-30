@@ -38,7 +38,7 @@ The set of roles is defined as $\textbf{R}:=\textbf{RN}\cup\{R^-|R\in\textbf{RN}
 where $R^-$ is the \emph{inverse role} of $R$.
 For ease of discussion, we focus on the \emph{simple forms} of axioms shown
 in the left column of Table~1. These simple forms can be obtained by using
-well-known \emph{structure transformation} techniques \cite{KrotzschRH07,Kazakov09}.
+well-known \emph{structural transformation} techniques \cite{KrotzschRH07,Kazakov09}.
 
 DHL (short for \emph{description horn logic}) \cite{GrosofHVD03} is introduced as an
 intersection of description logic (DL) and datalog in terms of expressivity.
@@ -48,20 +48,20 @@ $\mathcal{T}$ denotes the TBox containing axioms of the forms (T1-T3);
 $\mathcal{R}$ is the RBox that is a set of axioms of the forms (R1-R3);
 $\mathcal{A}$ is the ABox containing \emph{assertions} of the forms (A1) and (A2).
 In an axiom of either of  the forms (T1-T3 and R1-R3), concepts $A_{(i)}$ and $B$ are either
-concept names, \emph{top concept} ($\top$) or \emph{bottom concept} ($\bot$); $R$ and $S_{(i)}$
+concept names, the \emph{top concept} ($\top$) or the \emph{bottom concept} ($\bot$); $R$ and $S_{(i)}$
 are roles in $\textbf{R}$.
 For an axiom of the form $A\sqsubseteq\forall R.B$ that is also allowed in DHL, we only consider its
 equivalent form $\exists R^-.A\sqsubseteq B$.
 
 DHL is related with other ontology languages.
 First, DHL is essentially a fragment of the description logic Horn-$\mathcal{SHOIQ}$ with
-disallowing \emph{nominal}, \emph{number restriction} and
-right-hand \emph{existential restriction} ($A\sqsubseteq\exists R.B$).
+disallowing \emph{nominals}, \emph{number restrictions} and
+right-hand side \emph{existential restrictions} ($A\sqsubseteq\exists R.B$).
 Second, the expressivity of DHL covers that of RDFS to some extent \cite{GrosofHVD03}.
 Reasoning with RDFS ontologies is \texttt{NP}-complete \cite{Horst05}
-and, thus, is not parallelly tractable.
+and, thus, is not tractable in parallel.
 However, by applying some simplifications and restrictions, RDFS ontologies can be
-expressed in DHL \cite{GrosofHVD03} that has \texttt{PTime}-complete complexity for
+expressed in DHL \cite{GrosofHVD03}, which has \texttt{PTime}-complete complexity for
 materialization.
 
 \begin{table}
@@ -94,24 +94,24 @@ materialization.
 
 In the initial work of DHL \cite{GrosofHVD03}, \emph{complex role inclusion axioms} (complex RIAs) of
 the form $R_1\circ...\circ R_n\sqsubseteq R$ are not considered, although they can be
-naturally transformed to datalog rules.
+naturally transformed into datalog rules.
 In this paper, we also consider an extension of DHL (denoted by DHL($\circ$))
 that allows complex RIAs. Since a complex RIA can be transformed to
-several axioms of the form (R4), we then require that an
+several axioms of form (R4), we then require that an
 RBox $\mathcal{R}$ of a DHL($\circ$) ontology can contain
 axioms of the forms (R1-R4). Note that (R3) is actually a special
 case of (R4).
 
 DL-Lite is a group of ontology languages designed for highly-efficient
-query answering through knowledge
+query answering over knowledge bases
 and underpins the OWL profile OWL QL \cite{CalvaneseGLLR07}.
-DL-Lite$_{core}$ and DL-Lite$_{\mathcal{R}}$ are the two basic fragments
-in DL-Lite.
-DL-Lite$_{core}$ requires that an TBox contains axioms of the forms (T1) $A\sqsubseteq B$,
+DL-Lite$_{\text{core}}$ and DL-Lite$_{\mathcal{R}}$ are the two basic fragments
+of DL-Lite.
+DL-Lite$_{\text{core}}$ requires that a TBox only contains axioms of the forms (T1) $A\sqsubseteq B$,
 (T2) $A_1\sqcap A_2\sqsubseteq B$ where $B\equiv\bot$, (T3) $\exists R.A\sqsubseteq B$
 where $A\equiv\top$ or $B\equiv\bot$, and (T4) $A\sqsubseteq\exists R$,
 an ABox contains \emph{assertions} of the forms (A1) and (A2), and
-RBox is not involved. DL-Lite$_{\mathcal{R}}$ is an extension of DL-Lite$_{core}$,
+RBoxes are not allowed. DL-Lite$_{\mathcal{R}}$ is an extension of DL-Lite$_{\text{core}}$,
 which allows involving RBoxes that contain axioms of the forms (R1-R2).
 If not specially specified, \emph{a DL-Lite ontology denotes a DL-Lite$_{\mathcal{R}}$ ontology
 in the following paragraphs}.
@@ -120,23 +120,25 @@ in the following paragraphs}.
 \subsection{Ontology Materialization via Datalog Programs}
 
 An ontology
-expressed in DHL, DHL($\circ$), DL-Lite$_{core}$ or DL-Lite$_{\mathcal{R}}$ can be transformed to a datalog program
+expressed in DHL, DHL($\circ$), DL-Lite$_{\text{core}}$ or DL-Lite$_{\mathcal{R}}$ can be transformed into a datalog program
 (see the corresponding rules in the right column of Table~1).
-Note that, for an axiom of the form (T4) $A\sqsubseteq\exists R$, it should be transformed to
-a first-order logic rule `$A(x)\rightarrow \exists y(R(x,y))$' where $y$ is called a \emph{free variable} (it is
-not occurring in the head atom $A(x)$).
-In this work, such a free variable $y$ is eliminated via Skolemisation into a new individual $o_{R}^A$
-that corresponds to concept $A$ and role $R$. One can check that the elimination of free variables
-does not influence the results of materialization by according to \cite{CalvaneseGLLR07}.
+Note that an axiom of form (T4) $A\sqsubseteq\exists R$ should be
+transformed into a
+first-order logic rule of the form $A(x)\rightarrow \exists y(R(x,y))$, where $y$ is called a \emph{free variable} (it is
+not occurring in the body atom $A(x)$).
+In this work, such a free variable $y$ is eliminated via Skolemisation into a fresh individual $o_{R}^A$
+that corresponds to the concept $A$ and the role $R$. The elimination of free variables
+does not influence the result of materialization \cite{CalvaneseGLLR07}.
 
 In what follows, for an ontology $\mathcal{O}=\langle\mathcal{T},\mathcal{R},\mathcal{A}\rangle$,
-we also use $P=\langle R, \textbf{I}\rangle$ to represent the corresponding datalog program
-where $R$ is the set of rules transformed from the axioms in $\mathcal{T}$ and $\mathcal{R}$,
+we use $P=\langle R, \textbf{I}\rangle$ to represent the corresponding datalog program
+where $R$ is the set of rules obtained by transforming the axioms in
+$\mathcal{T}$ and $\mathcal{R}$ and
 $\textbf{I}$ is the set of facts that are directly copied from the assertions in $\mathcal{A}$.
 Further, we use $R_1\sqsubseteq_{*}R_2$ to denote the smallest transitive reflexive relation
 between roles such that $R_1\sqsubseteq R_2\in\mathcal{R}$ implies $R_1\sqsubseteq_{*}R_2$
 and $R_1^-\sqsubseteq_{*}R_2^-$. In this paper, we also use the
-notion of \emph{simple role}, which is initially proposed to restrict the
+notion of \emph{simple role}, which was initially proposed to restrict the
 usage of highly expressive ontology languages \cite{HorrocksS04}.
 Specifically, a role $S\in\textbf{R}$ is \emph{simple} if, (1) it has no subrole (including $S$)
 occurring on the right-hand side of axioms of the forms (R3) and (R4); (2) $S^-$ is simple.
@@ -144,7 +146,8 @@ occurring on the right-hand side of axioms of the forms (R3) and (R4); (2) $S^-$
 Based on the above representations, ontology materialization
 corresponds to the evaluation of datalog programs.
 Specifically, given a datalog program $P=\langle R, \textbf{I}\rangle$,
-let $T_R(\textbf{I})=\{H\theta|\forall B_1,...,B_n\rightarrow H\in R, B_i\theta\in\textbf{I} (1\leq i\leq n)\}$,
+let $T_R(\textbf{I})=\{H\theta|\forall B_1,...,B_n\rightarrow H\in R,
+B_i\theta\in\textbf{I}, 1\leq i\leq n \}$,
 where $\theta$ is some substitution; further let $T_R^{0}(\textbf{I})=\textbf{I}$ and
  $T_R^{i}(\textbf{I})=T_R^{i-1}(\textbf{I})\cup T_R(T_R^{i-1}(\textbf{I}))$ for each $i>0$.
 The smallest integer $n$ such that $T_R^{n}(\textbf{I})= T_R^{n+1}(\textbf{I})$ is called \emph{stage},
@@ -156,23 +159,23 @@ In this paper, we consider the data complexity of materialization, i.e., we \emp
 for any class of datalog programs.
 
 
-\subsection{The NC Complexity}
+\subsection{The Complexity Class \texttt{NC}}
 
-The parallel complexity class NC, known as Nick$'$s
+The parallel complexity class \texttt{NC}, known as Nick's
 Class \cite{Raymond95}, is studied by theorists as a parallel complexity class
 where each decision problem can be efficiently solved in parallel.
-Specifically, a decision problem in the NC class
+Specifically, a decision problem in the \texttt{NC} class
 can be solved in poly-logarithmic time on a PRAM (parallel, random-access machine) with
-a polynomial number of processors. We also say that an NC problem can be solved
+a polynomial number of processors. We also say that an \texttt{NC} problem can be solved
 in \emph{parallel poly-logarithmic time}.
-Although the NC complexity is a theoretical analysis tool,
-it has been shown that many NC problems can be solved efficiently in practice \cite{Raymond95}.
+Although the \texttt{NC} complexity class is a theoretical analysis tool,
+it has been shown that many \texttt{NC} problems can be solved efficiently in practice \cite{Raymond95}.
 
-From the perspective of implementations, the NC problems are also highly
-parallel feasible for other parallel models like BSP \cite{Valiant90}
-and MapReduce \cite{KarloffSV10}. The NC complexity is originally defined
+From the perspective of implementations, \texttt{NC} problems are also
+highly feasible in parallel for other parallel models like BSP \cite{Valiant90}
+and MapReduce \cite{KarloffSV10}. The \texttt{NC} complexity class was originally defined
 as a class of decision problems. Since we study the problem of materialization, we do not
-require in this work that a problem should be a decision problem in NC.
+require in this work that a problem is a decision problem in \texttt{NC}.
 In addition, since many parallel reasoning systems (see related work in Section~\ref{sec:related})
 are implemented on shared-memory platforms, we
 study all the issues in this work by assuming that the running machines are in
