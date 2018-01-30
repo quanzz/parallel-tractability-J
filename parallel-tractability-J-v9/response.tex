@@ -68,7 +68,7 @@ It would be much better if the ontology names corresponded to the example
 numbers, i.e., the ontology in Example 6 was Oex6.
 \end{quote}
 
-We made the ontology subscripts correspond to the examples numbers
+We made the ontology subscripts correspond to the example numbers
 for Example~5, Example~6, Example~7 and Example~9.
 
 
@@ -97,7 +97,8 @@ a-priori separate classes and individuals.  The paper needs to discuss this
 issue, as it prominently mentions RDFS.
 \end{quote}
 
-...
+We used a new section (Section~4.4) in the revision to discuss why RDFS
+does not have parallel tractability of entailment.
 
 \begin{quote}
 The paper does a bad job of describing why materialization in RDFS is not
@@ -113,7 +114,8 @@ rdfs:subPropertyOf is not a usual thing to do in RDFS.  The paper needs to
 be much more clear on its relationship to RDFS.
 \end{quote}
 
-...
+We gave an example that RDFS entailment may lead to the situation of path twisting in Section~4.4 of the revision.
+We also discussed in what cases RDFS has parallel tractability of entailment.
 
 \begin{quote}
 The paper mentions YAGO early on but does not indicate why YAGO admits good
@@ -213,7 +215,7 @@ Indeed, the abstract has been shortened significantly now.
 First, in the discussion under Lemma 1, it says $|P^*|$ is polynomial in the size of $P$, which is imprecise, as $|P^*|$ is polynomial in the size of $I$ but not necessarily in the size of $R$. This is not a big issue if one considers NC for data complexity. What is less straightforward and more of concern is the statement that Step~2 costs only one time unit. As Step~2 involves checking the applicability of $B_1, \ldots, B_n \to H$ in $G$ and updating $G$, it depends on the size of $G$ and the size of $G$ is not a constant w.r.t.\ that of $I$. Footnote~4 suggests checking applicability of the rule can be done in constant time via an index. What about updating $G$ and maintaining the index?
 \end{quote}
 
-We rewrote the paragraph under Lemma~1 to analyze the parallel complexity of Algorithm~$\mathsf{A}_{bsc}$. 
+We rewrote the paragraph under Lemma~1 to analyze the parallel complexity of Algorithm~$\mathsf{A}_{bsc}$.
 We made it clear that $|P^*|$ is polynomial in the size of $I$ for a class of datalog programs.\\
 
 The statement that Step~2 costs only one time unit is based on the context of one processor. Since one processor
