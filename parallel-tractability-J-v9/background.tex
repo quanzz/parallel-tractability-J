@@ -8,12 +8,12 @@ In this section, we introduce some basic notions that are needed to introduce ou
 
 We discuss the main issues in this paper using standard datalog notions.
 In datalog \cite{database}, a \emph{term} is a variable or a constant. An \emph{atom} $A$
-is defined by $A\equiv p(t_1,...,t_n)$ where $p$ is a \emph{predicate} (or \emph{relational})
-name, $t_1,...,t_n$ are terms, and $n$ is the arity of $p$. If all the terms in an atom $A$ are
+is defined by $A\equiv p(t_1,\ldots,t_n)$ where $p$ is a \emph{predicate} (or \emph{relational})
+name, $t_1,\ldots,t_n$ are terms, and $n$ is the arity of $p$. If all the terms in an atom $A$ are
 constants, then $A$ is called a \emph{ground atom}.
-A datalog \emph{rule} is of the form: `$B_1,...,B_n\rightarrow H$',\footnote{In datalog rules, a comma
+A datalog \emph{rule} is of the form: `$B_1,\ldots,B_n\rightarrow H$',\footnote{In datalog rules, a comma
 represents a Boolean conjunction `$\wedge$'.} where $H$ is referred to as
-the \emph{head atom} and $B_1,...,B_n$ the \emph{body atoms}. Each variable in the head atom
+the \emph{head atom} and $B_1,\ldots,B_n$ the \emph{body atoms}. Each variable in the head atom
 of a rule must occur in at least one body atom of the same rule. A \emph{fact} is a rule of
 the form `$\rightarrow H$', i.e., a rule with an empty body and the head $H$ being a ground atom.
 A datalog program $P$ consists of rules and facts.
@@ -93,7 +93,7 @@ materialization.
 \end{table}
 
 In the initial work of DHL \cite{GrosofHVD03}, \emph{complex role inclusion axioms} (complex RIAs) of
-the form $R_1\circ...\circ R_n\sqsubseteq R$ are not considered, although they can be
+the form $R_1\circ\ldots\circ R_n\sqsubseteq R$ are not considered, although they can be
 naturally transformed into datalog rules.
 In this paper, we also consider an extension of DHL (denoted by DHL($\circ$))
 that allows complex RIAs. Since a complex RIA can be transformed to
@@ -126,7 +126,7 @@ Note that an axiom of form (T4) $A\sqsubseteq\exists R$ should be
 transformed into a
 first-order logic rule of the form $A(x)\rightarrow \exists y(R(x,y))$, where $y$ is called a \emph{free variable} (it is
 not occurring in the body atom $A(x)$).
-In this work, such a free variable $y$ is eliminated via Skolemisation into a fresh individual $o_{R}^A$
+In this work, such a free variable $y$ is eliminated via Skolemization into a fresh individual $o_{R}^A$
 that corresponds to the concept $A$ and the role $R$. The elimination of free variables
 does not influence the result of materialization \cite{CalvaneseGLLR07}.
 
@@ -146,7 +146,7 @@ occurring on the right-hand side of axioms of the forms (R3) and (R4); (2) $S^-$
 Based on the above representations, ontology materialization
 corresponds to the evaluation of datalog programs.
 Specifically, given a datalog program $P=\langle R, \textbf{I}\rangle$,
-let $T_R(\textbf{I})=\{H\theta|\forall B_1,...,B_n\rightarrow H\in R,
+let $T_R(\textbf{I})=\{H\theta|\forall B_1,\ldots,B_n\rightarrow H\in R,
 B_i\theta\in\textbf{I}, 1\leq i\leq n \}$,
 where $\theta$ is some substitution; further let $T_R^{0}(\textbf{I})=\textbf{I}$ and
  $T_R^{i}(\textbf{I})=T_R^{i-1}(\textbf{I})\cup T_R(T_R^{i-1}(\textbf{I}))$ for each $i>0$.
