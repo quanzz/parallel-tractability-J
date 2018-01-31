@@ -313,16 +313,16 @@ We next discuss how to determine the existence of SWD paths. Note that, SWD path
 describe the reachability between two nodes. To this extent, we use a
 binary transitive relation $\texttt{rch} \subseteq T_R^{\omega}(\textbf{I})\times T_R^{\omega}(\textbf{I})$,
 e.g., \texttt{rch}$(v_1,v_2)$ means that $v_2$ is reachable from $v_1$.
-In each iteration of \ref{alg1:updateG} in Algorithm~$\mathsf{A}_{\text{bsc}}$, we further compute a \texttt{rch}
-relation (denoted by $S_{\textit{\tiny rch}}$) by performing the following process:
+In each iteration of \ref{alg1:updateG} in Algorithm~$\mathsf{A}_{\text{bsc}}$, we further compute as \texttt{rch}
+relation (denoted by $S_{\textit{\!\tiny rch}}$) by performing the following process:
 
 \begin{description}[leftmargin=4ex]
 \item[(\textbf{\dag})] \emph{For each rule instantiation of the form $B_1,..,B_i,..,B_n\rightarrow H$
 such that $H$ has not been added to $\mathcal{G}$}:
 \begin{enumerate}[leftmargin=0ex]
-\item \emph{if the all body atoms $B_1,\ldots,B_n$ have been added to $\mathcal{G}$, put \texttt{rch}$(B_1,H),\ldots,$ \texttt{rch}$(B_n,H)$ in $S_{\textit{\tiny rch}}$};
+\item \emph{if the all body atoms $B_1,\ldots,B_n$ have been added to $\mathcal{G}$, put \texttt{rch}$(B_1,H),\ldots,$ \texttt{rch}$(B_n,H)$ in $S_{\textit{\!\tiny rch}}$};
 \item \emph{if $B_i$ is the only node in the body that has not been added to $\mathcal{G}$,
-    put \texttt{rch}$(B_i,H)$ in $S_{\textit{\tiny rch}}$}.\hfill$\Box$
+    put \texttt{rch}$(B_i,H)$ in $S_{\textit{\!\tiny rch}}$}.\hfill$\Box$
 \end{enumerate}
 \end{description}
 

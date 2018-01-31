@@ -79,10 +79,10 @@ We have to show that the partial graph constructed after the $i+1^{th}$ iteratio
 also a materialization graph, denoted by $\mathcal{G}^{i+1}$.
 The partial graph $\mathcal{G}^{i+1}$ is updated in $\mathsf{A}_{opt}$ by performing the step $(\textbf{\romannumeral3})$
 of Algorithm~$\mathsf{Opt}$.
-Suppose that \texttt{rch}$(B_k,H)\in S_{\tiny rch}$ is checked.
+Suppose that \texttt{rch}$(B_k,H)\in S_{\textit{\!\tiny rch}}$ is checked.
 It corresponds to the rule instantiation $B_1,..,B_k,..,B_n\rightarrow H$.
 Algorithm~$\mathsf{Opt}$ next checks that there exists a node $B'$ such that
-\texttt{rch}$(B',B_k)\in S^*_{\tiny rch}$
+\texttt{rch}$(B',B_k)\in S^*_{\!\tiny rch}$
 and $B'$ is in $\mathcal{G}$. This means that $B_k$ and $H$ are derivable.
 The algorithm then adds new nodes $B_k$ and $H$ to $\mathcal{G}^{i}$ in three cases.
 (1) if $H$ is not in $\mathcal{G}^{i}$ while $B_k$ is in $\mathcal{G}^{i}$,
@@ -615,7 +615,7 @@ this theorem is proved in two stages:
 (2) $\mathcal{G}$ is a complete materialization graph.
 One can show that (1) holds by performing the same induction on the iterations of \ref{alg3:updateG} of $\mathsf{A}_{opt}$
 (see the proof of Lemma~\ref{lemma:a3}). This is because that
-such an induction is performed regardless of how the relation $S_{\textit{\tiny rch}}$ is computed.
+such an induction is performed regardless of how the relation $S_{\textit{\!\tiny rch}}$ is computed.
 
 To prove that (2) holds, we conduct the induction used in the proof for Lemma~\ref{lemma:a1}.
 We aim to show that all the ground atoms in $T_R^{i+1}(\textbf{I})$ have to be added to $\mathcal{G}$,
@@ -623,7 +623,7 @@ with the induction hypothesis that the ground atoms in $T_R^{i}(\textbf{I})$ are
 Suppose the ground atoms in $T_R^{i}(\textbf{I})$ have been added to $\mathcal{G}$ by
 performing $\mathsf{A}_{prc}$.
 For each atom $\alpha$ in $T_R^{i+1}(\textbf{I})$, there has to be a relation $(\beta,\alpha)$
-in $S_{\textit{\tiny rch}}$ obtained in some iteration; further
+in $S_{\textit{\!\tiny rch}}$ obtained in some iteration; further
 $\beta$ is already in $\mathcal{G}$ according to the inductive hypothesis. Thus,
 $\alpha$ has to be added to $\mathcal{G}$ by applying \ref{alg4:updateG}
 of $\mathsf{A}_{prc}$.\hfill$\Box$
@@ -669,18 +669,18 @@ can be viewed as an EDB predicate. This further means that,
 for each atom of the form $A(a)$ where $A$ is a simple concept,
 $A(a)$ has an SWD path in the first iteration of $\mathsf{A}_{prc}$.
 Recall Algorithm~$\mathsf{Prc}$. We use an induction to show that
-such an SWD path of $A(a)$ can be determined by $S_{\textit{\tiny rch}}$.
+such an SWD path of $A(a)$ can be determined by $S_{\textit{\!\tiny rch}}$.
 The atom $A(a)$ can be derived through either of the following rule instantiations:
 
 \begin{enumerate}[leftmargin=12ex]
 \item[Case~1] $B(a)\rightarrow A(a)$, where $\mathcal{O}\models B\sqsubseteq_* A$. We have
-    that \texttt{rch}$(B(a),A(a))$ is in $S_{\textit{\tiny rch}}$ according to Algorithm~$\mathsf{Prc}$.
+    that \texttt{rch}$(B(a),A(a))$ is in $S_{\textit{\!\tiny rch}}$ according to Algorithm~$\mathsf{Prc}$.
     By the induction hypothesis, the existence of the SWD path for $B(a)$ can be determined.
-    Thus, the existence of the SWD path of $A(a)$ can also be determined by $S_{\textit{\tiny rch}}$.
+    Thus, the existence of the SWD path of $A(a)$ can also be determined by $S_{\textit{\!\tiny rch}}$.
 
 \item[Case~2] $R(a,b),B(b)\rightarrow A(a)$ where $\exists R.B\sqsubseteq A\in\mathcal{T}$.
     According to Algorithm~$\mathsf{Prc}$ and the fact that $R(a,b)$ has to be derived,
-    we have that \texttt{rch}$(B(b),$ $A(a))$ is in $S_{\textit{\tiny rch}}$.
+    we have that \texttt{rch}$(B(b),$ $A(a))$ is in $S_{\textit{\!\tiny rch}}$.
     By the induction hypothesis, the existence of the SWD path for $B(b)$ can be determined.
     Thus, the existence of the SWD path of $A(a)$ can also be determined.
 \end{enumerate}
@@ -699,7 +699,7 @@ here.
 \begin{enumerate}[leftmargin=12ex]
 \item[Case~3] $A_1(a),A_2(a)\rightarrow A(a)$ where $A_1\sqcap A_2\sqsubseteq A\in\mathcal{T}$.
     If $A_1(a)$ is derived where $A_1$ is a simple concept,
-    we have that \texttt{rch}$(A_2(a),A(a))$ is in $S_{\textit{\tiny rch}}$
+    we have that \texttt{rch}$(A_2(a),A(a))$ is in $S_{\textit{\!\tiny rch}}$
     according to Algorithm~$\mathsf{Prc}$.
     By the induction hypothesis, the existence of the SWD path for $A_2(a)$ can be determined.
     Thus, the existence of the SWD path of $A(a)$ can also be determined.
@@ -720,20 +720,20 @@ as follows.
 
 \begin{enumerate}[leftmargin=12ex]
 \item[Case~4] $S(a,b)\rightarrow R(a,b)$ where $\mathcal{O}\models S\sqsubseteq_* R$.
-    We have that \texttt{rch}$(S(a,b),R(a,b))$ is in $S_{\textit{\tiny rch}}$
+    We have that \texttt{rch}$(S(a,b),R(a,b))$ is in $S_{\textit{\!\tiny rch}}$
     according to Algorithm~$\mathsf{Prc}$.
     By the induction hypothesis, the existence of the SWD path for $S(a,b)$ can be determined.
     Thus, the existence of the SWD path of $R(a,b)$ can also be determined.
 
 \item[Case~5] $S(b,a)\rightarrow R(a,b)$ where $\mathcal{O}\models S\sqsubseteq_* R^-$.
-    We have that \texttt{rch}$(S(b,a),R(a,b))$ is in $S_{\textit{\tiny rch}}$
+    We have that \texttt{rch}$(S(b,a),R(a,b))$ is in $S_{\textit{\!\tiny rch}}$
     according to Algorithm~$\mathsf{Prc}$.
     By the induction hypothesis, the existence of the SWD path for $S(b,a)$ can be determined.
     Thus, the existence of the SWD path of $R(a,b)$ can also be determined.
 
 \item[Case~6] $R_1(a,c),R_2(c,b)\rightarrow R(a,b)$ where $R_1\circ R_2\sqsubseteq R\mathcal{R}$.
     If $R_1(a,c)$ is derived where $R_1$ is a simple role,
-    we have that \texttt{rch}$(R_2(c,b),R(a,b))$ is in $S_{\textit{\tiny rch}}$
+    we have that \texttt{rch}$(R_2(c,b),R(a,b))$ is in $S_{\textit{\!\tiny rch}}$
     according to Algorithm~$\mathsf{Prc}$.
     By the induction hypothesis, the existence of the SWD path for $R_2(c,b)$ can be determined.
     Thus, the existence of the SWD path of $R(a,b)$ can also be determined.
