@@ -1,0 +1,79 @@
+\documentclass[tikz,border=0mm]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\tikzset{
+    mynodee/.style={minimum height=0mm, minimum width=0mm, inner sep=0mm
+  },
+  mynode/.style={
+    draw, circle, minimum height=1.7mm, minimum  width=1.7mm,line width=0.5mm
+  },
+  rect/.style={
+    draw, rectangle, rounded corners, minimum height=7mm, minimum  width=30mm,line
+    width=0.5mm, dotted
+  }
+}
+
+\begin{document}
+
+
+
+\newcommand{\twisted}{
+ \node[mynodee] (l1) at (-3, -0.5) {};
+ \node[mynodee] (l2) at (-3, 7.5) {};
+ \node[mynode, label=left:{$S(a_2, a_1)$}] (sa2a1) at (0, 0) {};
+ \node[mynode, label=right:{$A(a_1)$}] (aa1) at (2, 0) {};
+ \node[mynode, label=right:{$R(a_2, a_1)$}] (ra2a1) at (4, 0) {};
+ \node[mynode, label=left:{$B_1(a_2)$}] (b1a2) at (1, 1) {};
+ \node[mynode, label=right:{$B_2(a_2)$}] (b2a2) at (3, 1) {};
+ \node[mynode, fill=black, label=right:{$A(a_2)$}] (aa2) at (2, 2) {};
+ \node[mynode, label=left:{$S(a_{k-1}, a_{k-2})$}] (sak-1ak-2) at (0, 3) {};
+ \node[mynode, fill=black, label=right:{$A(a_{k-2})$}] (aak-2) at (2, 3) {};
+ \node[mynode, label=right:{$R(a_{k-1}, a_{k-2})$}] (rak-1ak-2) at (4, 3) {};
+ \node[mynode, label=left:{$B_1(a_{k-1})$}] (b1ak-1) at (1, 4) {};
+ \node[mynode, label=right:{$B_2(a_{k-1})$}] (b2ak-1) at (3, 4) {};
+ \node[mynode, label=left:{$S(a_k, a_{k-1})$}] (sakak-1) at (0, 5) {};
+ \node[mynode, fill=black, label=right:{$A(a_{k-1})$}] (aak-1) at (2, 5) {};
+ \node[mynode, label=right:{$R(a_k, a_{k-1})$}] (rakak-1) at (4, 5) {};
+ \node[mynode, label=left:{$B_1(a_k)$}] (b1ak) at (1, 6) {};
+ \node[mynode, label=right:{$B_2(a_k)$}] (b2ak) at (3, 6) {};
+ \node[mynode, fill=black, label=right:{$A(a_k)$}] (aak) at (2, 7) {};
+
+ \draw[-latex,line width=0.5mm] (sa2a1) -- (b1a2);
+ \draw[-latex,line width=0.5mm] (aa1) -- (b1a2);
+ \draw[-latex,line width=0.5mm] (ra2a1) -- (b2a2);
+ \draw[-latex,line width=0.5mm] (b1a2) -- (aa2);
+ \draw[-latex,line width=0.5mm] (b2a2) -- (aa2);
+
+ \draw[dotted,line width=0.5mm] (aa2) -- (aak-2);
+ \draw[dotted,line width=0.5mm,shorten >=10mm,shorten <=12mm] (sa2a1) -- (sak-1ak-2);
+ \draw[dotted,line width=0.5mm,shorten >=10mm,shorten <=12mm] (ra2a1) -- (rak-1ak-2);
+
+ \draw[-latex,line width=0.5mm] (sak-1ak-2) -- (b1ak-1);
+ \draw[-latex,line width=0.5mm] (aak-2) -- (b1ak-1);
+ \draw[-latex,line width=0.5mm] (rak-1ak-2) -- (b2ak-1);
+ \draw[-latex,line width=0.5mm] (b1ak-1) -- (aak-1);
+ \draw[-latex,line width=0.5mm] (b2ak-1) -- (aak-1);
+
+ \draw[-latex,line width=0.5mm] (sakak-1) -- (b1ak);
+ \draw[-latex,line width=0.5mm] (aak-1) -- (b1ak);
+ \draw[-latex,line width=0.5mm] (rakak-1) -- (b2ak);
+ \draw[-latex,line width=0.5mm] (b1ak) -- (aak);
+ \draw[-latex,line width=0.5mm] (b2ak) -- (aak);
+}
+
+\begin{tikzpicture}
+ \begin{scope}
+ \twisted{}
+
+ \draw[-latex,line width=0.5mm] (aa1) -- (b2a2);
+ \draw[-latex,line width=0.5mm] (aak-2) -- (b2ak-1);
+ \draw[-latex,line width=0.5mm] (aak-1) -- (b2ak);
+ \end{scope}
+
+ \begin{scope}[xshift=10cm]
+  \twisted{}
+ \draw[-,line width=0.3mm] (l1) -- (l2);
+ \end{scope}
+\end{tikzpicture}
+
+\end{document}
