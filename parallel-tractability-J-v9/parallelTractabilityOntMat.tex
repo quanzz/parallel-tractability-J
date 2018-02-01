@@ -3,7 +3,7 @@
 
 In this section, we study the issue of parallel tractability
 for materialization of DL-Lite and DHL (DHL($\circ$)) ontologies
-based on Algorithm~$\mathsf{A}_{\text{opt}}$. 1We show that, for any DL-Lite$_{\text{core}}$ or DL-Lite$_\mathcal{R}$ ontology $\mathcal{O}$,
+based on Algorithm~$\mathsf{A}_{\text{opt}}$. We show that, for any DL-Lite$_{\text{core}}$ or DL-Lite$_\mathcal{R}$ ontology $\mathcal{O}$,
 there exists a poly-logarithmically bounded function $\psi$
 such that Algorithm~$\mathsf{A}_{\text{opt}}^{\psi}$ can handle materialization of $\mathcal{O}$.
 However, for DHL and DHL($\circ$), there exist ontology classes such that Algorithm~$\mathsf{A}_{\text{opt}}^\psi$
@@ -340,11 +340,12 @@ We call RDFS statements of the form (1--4) \emph{the schema data}
 \emph{the instance data} (which correspond to ABox axioms).
 
 \begin{table}
-\begin{center}
+\centering
+\caption{RDFS statements and the corresponding DL axioms}
+{\setlength{\tabcolsep}{6mm}
 \begin{tabular}{lcc}
-\multicolumn{3}{c}{\textbf{Table~\ref{tab:rdfs}: The RDFS statements and the corresponding DL axioms}}\\
 \hline
-&~~~~~~~~~~~~~RDFS statements~~~~~~~~~~~~~&~~~~~~~~~~~~~~Axiom~~~~~~~~~~~~~~\\
+& RDFS statements & Axiom\\
 \hline
 \hline
 (1)&$P~~\texttt{rdfs:domain}~~C$& $\top\sqsubseteq\forall P^-.C$\\
@@ -359,10 +360,11 @@ We call RDFS statements of the form (1--4) \emph{the schema data}
 
 (6)&$a~~R~~b$& $R(a,b)$\\
 \hline
-\end{tabular}
+\end{tabular}}
 \label{tab:rdfs}
-\end{center}
 \end{table}
+
+
 
 
 The original rule set for RDFS reasoning is

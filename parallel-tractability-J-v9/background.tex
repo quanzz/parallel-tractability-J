@@ -37,7 +37,7 @@ infinite sets of \emph{concept names, role names}, and \emph{individual names} r
 The set of roles is defined as $\textbf{R}:=\textbf{RN}\cup\{R^-|R\in\textbf{RN}\}$
 where $R^-$ is the \emph{inverse role} of $R$.
 For ease of discussion, we focus on the \emph{simple forms} of axioms shown
-in the left column of Table~1. These simple forms can be obtained by using
+in the left column of Table~\ref{tab:dhl}. These simple forms can be obtained by using
 well-known \emph{structural transformation} techniques \cite{KrotzschRH07,Kazakov09}.
 
 DHL (short for \emph{description horn logic}) \cite{GrosofHVD03} is introduced as an
@@ -65,11 +65,11 @@ expressed in DHL \cite{GrosofHVD03}, which has \texttt{PTime}-complete complexit
 materialization.
 
 \begin{table}
-\begin{center}
-\begin{tabular}{lcc}
-\multicolumn{3}{c}{\textbf{Table 1: Axioms and corresponding datalog rules}}\\
+\centering
+\caption{Axioms and corresponding datalog rules}
+\begin{tabular}{l >{\hspace*{12mm}}c<{\hspace*{12mm}} >{\hspace*{12mm}}c<{\hspace*{12mm}}}
 \hline
-&~~~~~~~~~~~~~~~~~~~~~~~~Axioms~~~~~~~~~~~~~~~~~~~~~~~~&~~~~~~~~~~~~~~~~~~~~~~~~Datalog Rules~~~~~~~~~~~~~~~~~~~~~~~~\\
+& Axioms & Datalog Rules\\
 \hline
 \hline
 (T1)& $A\sqsubseteq B$& $A(x)\rightarrow B(x)$\\
@@ -89,7 +89,6 @@ materialization.
 \hline
 \end{tabular}
 \label{tab:dhl}
-\end{center}
 \end{table}
 
 In the initial work of DHL \cite{GrosofHVD03}, \emph{complex role inclusion axioms} (complex RIAs) of
@@ -121,7 +120,7 @@ in the following paragraphs}.
 
 An ontology
 expressed in DHL, DHL($\circ$), DL-Lite$_{\text{core}}$ or DL-Lite$_{\mathcal{R}}$ can be transformed into a datalog program
-(see the corresponding rules in the right column of Table~1).
+(see the corresponding rules in the right column of Table~\ref{tab:dhl}).
 Note that an axiom of form (T4) $A\sqsubseteq\exists R$ should be
 transformed into a
 first-order logic rule of the form $A(x)\rightarrow \exists y(R(x,y))$, where $y$ is called a \emph{free variable} (it is
