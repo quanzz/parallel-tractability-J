@@ -9,19 +9,17 @@ and compare it to the reasoning system RDFox.
 \subsection{The Parallel Tractability of the LUBM Datasets and YAGO Ontologies}
 
 In this part, we analyze two popular datasets, LUBM and YAGO, and show the relations
-between these two datasets and the theoretical results of the parallel tractability.
+between these two datasets and the theoretical results regarding parallel tractability.
 
 \textbf{LUBM}. In the Semantic Web community, LUBM
 (The Lehigh University Benchmark) is proposed to
 facilitate the evaluation of ontology-based systems
 in a standard and systematic way.
 In the latest version of LUBM,\footnote{http://swat.cse.lehigh.edu/projects/lubm/}
-the core ontology contains 48 classes and 32 properties
-that are used to describe the departments and the staffs in
-universities. By setting different numbers of universities to an ontology-generating
-program, users can get datasets of any size based on the core ontology.
-
-In the core ontology of LUBM, the statements about properties, such as inverse property statements,
+the core ontology contains 48 classes and 32 properties, used to describe the departments and the staff of
+universities. By setting a different number of universities for an ontology-generator, users can get datasets of any size based on the core ontology.
+%
+The statements about properties in the LUBM core ontology, such as inverse property statements,
 can be rewritten into the datalog rules of the form (R1), (R2) and (R3) in Table~\ref{tab:dhl}.
 Most of the statements about classes can be rewritten into the datalog rules of the form (T1) and (T3)
 in Table~\ref{tab:dhl}. Five axioms have, however, the form $A\sqsubseteq\exists R.B$,
@@ -30,13 +28,17 @@ the axiom into a logic rule: $A(x)\rightarrow\exists y(R(x,y)\wedge B(y))$ ($\ta
 where a free variable $y$ is introduced. This kind of axiom is a general case of (T4) in Table~\ref{tab:dhl}
 for which $A$ is actually replaced by the top concept $\top$.
 Similarly to how we handle (T4), we can also eliminate the free variable $y$
-in rule $\tau$ via Skolemization, i.e., replacing the variable $y$ by a new constant $o_R^{A,B}$.
-In this way, rule $\tau$ can be rewritten into $A(x)\rightarrow\exists R(x,o_R^{A,B})\wedge B(o_R^{A,B})$.
+in rule $\tau$ via Skolemization, i.e., by replacing the variable $y$ with a new constant $o_R^{A,B}$.
+In this way, rule $\tau$ can be rewritten into $A(x)\rightarrow R(x,o_R^{A,B})\wedge B(o_R^{A,B})$.
 If we only focus on the materialization task, the rewriting approach via Skolemization guarantees the
 completeness and correctness \cite{GrauHKKMMW13}.
 On the other hand, rule $\tau$ is not considered when using OWL RL reasoners to handle LUBM \cite{UrbaniKMHB12,WeaverH09}.
-In summary, if the above kind of rule is not considered,
-the materialization of a LUBM dataset can be handled by Algorithm~$\mathsf{A}_{\text{opt}}^{\psi}$.
+In summary, if the above kind of rule is not considered {\color{red}
+  or rewriting is used},
+the materialization of a LUBM dataset can be handled by
+Algorithm~$\mathsf{A}_{\text{opt}}^{\psi}$. {\color{red}(Did you use
+  rewriting or did you drop the axioms?)}
+
 
 \textbf{YAGO}. The knowledge base YAGO\footnote{http://www.mpi-inf.mpg.de/home/}
 is constructed from Wikipedia and WordNet. The latest version
@@ -49,37 +51,56 @@ a YAGO-style language, called the \emph{YAGO model}, is proposed based on
 a slight extension of RDFS \cite{SuchanekKW08}. The YAGO model defines
 a set of properties: \texttt{domain, range, subClassOf, subRelationOf} and \texttt{type},
 and a set of classes: \texttt{entity, class, relation} and \texttt{acyclicTransitiveRelation}.
-The facts in the YAGO model are stated by triples, e.g., ($r_1,\texttt{subRelationOf},r_2$),
+The facts in the YAGO model are stated by triples, e.g., $(r_1,
+\texttt{subRelationOf}, r_2)$,
 which are similar to the RDFS statements.
-A group of rules for the reasoning over YAGO ontologies
+A group of rules for reasoning over YAGO ontologies
 is specified as follows \cite{SuchanekKW08}:
 \begin{enumerate}[leftmargin=8ex,label=(\arabic*),ref=\arabic*]
-  \item ($r,\texttt{domain},c$),($x,r,y$)$\rightarrow$($x,\texttt{type},c$)\label{yago:r1}
-  \item ($r,\texttt{range},c$),($x,r,y$)$\rightarrow$($y,\texttt{type},c$)\label{yago:r2}
-  \item ($c_1,\texttt{subClassOf},c_2$),($x,\texttt{type},c_1$)$\rightarrow$($x,\texttt{type},c_2$)\label{yago:r3}
-  \item ($r_1,\texttt{subRelationOf},r_2$),($x,r_1,y$)$\rightarrow$($x,r_2,y$)\label{yago:r4}
-  \item ($r,\texttt{type},\texttt{acyclicTransitiveRelation}$),($x,r,y$),($y,r,z$)$\rightarrow$($x,r,z$)\label{yago:r5}
+  \item $(r,\texttt{domain}, c), (x, r, y) \rightarrow (x,
+    \texttt{type}, c)$\label{yago:r1}
+  \item $(r,\texttt{range}, c), (x, r, y) \rightarrow (y,
+    \texttt{type}, c)$\label{yago:r2}
+  \item $(c_1, \texttt{subClassOf}, c_2), (x, \texttt{type}, c_1)
+    \rightarrow (x, \texttt{type}, c_2)$\label{yago:r3}
+  \item $(r_1, \texttt{subRelationOf}, r_2), (x, r_1, y) \rightarrow
+    (x, r_2, y)$\label{yago:r4}
+  \item $(r, \texttt{type}, \texttt{acyclicTransitiveRelation}), (x,
+    r, y), (y, r, z) \rightarrow (x, r, z)$\label{yago:r5}
 \end{enumerate}
 
 According to the semantics given to YAGO \cite{SuchanekKW08}, the built-in properties in YAGO,
 i.e., \texttt{domain, range, subClassOf, subRelationOf} and \texttt{type} act in the same
-way as the terms in RDFS statements of the form (1-5) in Table~\ref{tab:rdfs} respectively.
-Different from RDFS, YAGO also allows stating acyclic and transitive properties based on the
+way as the terms in RDFS statements of the form (1--5) in Table~\ref{tab:rdfs}, respectively.
+In contrast to RDFS, YAGO also allows for defining acyclic 
+transitive properties using the
 class \texttt{acyclicTransitiveRelation}; further, any fact in some YAGO ontology cannot be
-described by blank nodes. On the other hand,
-by carefully observing the rules (\ref{yago:r1}-\ref{yago:r5}) for the reasoning over YAGO ontologies,
-one can check that these rules can be rewritten into the datalog rules (T3),\footnote{Both of Rule (\ref{yago:r1}) and
-Rule (\ref{yago:r2}) can be rewritten into (T3).} (T1), (R1) and (R3) in Table~\ref{tab:dhl} respectively.
-Further, DHL does not restrict any role to be acyclic.
+described using blank nodes. By carefully checking the rules (\ref{yago:r1}--\ref{yago:r5}) for the reasoning over YAGO ontologies,
+one can see that these rules can be rewritten into the datalog rules
+of the form (T3),\footnote{Both of Rule (\ref{yago:r1}) and
+Rule (\ref{yago:r2}) can be rewritten into (T3).} (T1), (R1) and (R3) in Table~\ref{tab:dhl}, respectively.
+{\color{red}I am not sure why in YAGO it is called acyclic transitive
+  relation. The rule (in YAGO) is just for transitivity and their
+  argument the subclassof is acyclic and transitive does not make much
+sense as I can have equivalent classes: C subclassof D, D subclassof
+C. That is allowed and cyclic. I would tend to just omit the next
+remark. } Further, DHL does not restrict any role to be acyclic.
 Based on the above analysis, any YAGO ontology can be expressed in DHL
-and satisfies the simple-class and the simple-role restrictions. We then have that
-for any well-constructed class of YAGO ontologies Algorithm~$\mathsf{A}_{opt}^{\psi}$
+and satisfies the simple-concept and the simple-role restrictions. We then have that,
+for any well-constructed class of YAGO ontologies,
+Algorithm~$\mathsf{A}_{opt}^{\psi}$ {\color{red} $\mathsf{A}_{prc}$?
+  both is correct, but as we are evaluating $\mathsf{A}_{prc}$ this
+  might be better?}
 can handle all of the ontologies in the class.
 
 In addition to LUBM and YAGO, we further investigate different kinds of ontologies and datasets
-including benchmarks, real-world ontologies and datasets that can be expressed in ontology languages.
-These ontologies and datsets are collected from the Protege ontology library,\footnote{http://protegewiki.stanford.edu/wiki/Protege$\underline{~}$Ontology$\underline{~}$Library}
-Swoogle\footnote{http://swoogle.umbc.edu/} and Oxford ontology lib.\footnote{http://www.cs.ox.ac.uk/isg/ontologies/lib/}
+including benchmarks, real-world ontologies and datasets that can be
+expressed in ontology languages.
+These ontologies and datsets are collected from the Prot\'{e}g\'{e}
+ontology
+library,\footnote{http://protegewiki.stanford.edu/wiki/Protege\textunderscore
+  Ontology\textunderscore Library}
+Swoogle\footnote{http://swoogle.umbc.edu/} and the Oxford ontology library.\footnote{http://www.cs.ox.ac.uk/isg/ontologies/lib/}
 Based on the analysis of these ontologies, we found that, ignoring imports, many of them
 belong to $\mathcal{D}_{\textit{\text{dhl}}}$ or $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$.
 All of these investigated ontologies and the analysis results are available online.\footnote{https://github.com/quanzz/PT}
@@ -87,10 +108,15 @@ All of these investigated ontologies and the analysis results are available onli
 
 \subsection{Evaluating the Implementation of Algorithm~$\mathsf{A}_{\text{prc}}$}
 
-We implemented a prototype system ParallelDHL for DHL$(\circ)$ materialization
-based on Algorithm~$\mathsf{A}_{\text{prc}}$. In this part, we evaluate ParallelDHL and
-compare it to the state-of-the-art reasoning system, RDFox \cite{MotikNPHO14},
-that can also handle ontology materialization.
+In this part, we evaluate the implemented prototype system ParallelDHL
+for DHL$(\circ)$ materialization based on
+Algorithm~$\mathsf{A}_{\text{prc}}$. We also provide evaluation
+results for the state-of-the-art reasoning system RDFox
+\cite{MotikNPHO14}, which can also handle parallel ontology
+materialization. Since RDFox is already a mature system, developed by
+several people over several years, we only provide the results for
+reference, as a direct comparison with our initial, not yet optimized
+prototype is not possible.
 
 \textbf{Datasets}.
 We select eight ontologies from the data sources given in the previous subsection;
@@ -277,7 +303,7 @@ We further process the collected data and fill the results in Table~\ref{tab:exp
 to a test ontology (see the row label) and a newly generated ABox
 (distinguished by the series column labels). 
 The minimal time ratio describes the performance of ParallelDHL by using RDFox as the baseline.
-The indicator speedup and its derived indicators are the most common tools used for measuring the capacity of parallelism \cite{MotikNPHO14,KazakovKS14,UrbaniKMHB12}.
+The indicator `speedup' and its derived indicators are the most common tools used for measuring the capacity of parallelism \cite{MotikNPHO14,KazakovKS14,UrbaniKMHB12}.
 Here, we use the average speedup \cite{ichiyoshiK92} to describe the average capacity of parallelism with different
 threads allocated.
 In the following, we give a detailed analysis based on the contents in Figure~\ref{fig:linegraph} and Table~\ref{tab:expresult}.
@@ -291,42 +317,49 @@ may not be tractable in parallel. In other words,
 parallel techniques may not work for improving the efficiency of materialization.
 This is shown in the line graphs of Figure~\ref{fig:linegraph}.
 We can see that, in the line graphs ($lg1$-$lg8$) of the ontology series
-that belong to $\mathcal{D}^-_{\textit{\text{dhl}}(\circ)}$, the four lines, line-2, line-4, line-6 and line-8,
-intersect to some degree. This situation in the line graphs for Finance and GrossAnatomy
-series is more obvious. For example, in line graph $lg1$,
+that do not belong to $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$, the four lines, line-2, line-4, line-6 and line-8,
+intersect to some degree. This is more obvious in the line graphs for
+the Finance and GrossAnatomy
+series. For example, in line graph $lg1$,
 line-2 stays higher than line-6, but lower than line-4.
-The intersection of lines indicates that reasoning time cannot be obviously reduced with more threads allocated.
+The intersection of lines indicates that reasoning time cannot
+obviously be reduced with more threads allocated.
 This is also supported by the results of the average speedups.
 From Table~\ref{tab:expresult}, we can see that the average speedups of ParallelDHL and RDFox
-for ChemistryPrimitive, FacebookOnto, Mahabharata and Transportation series
-are more stable compared with the other ones, i.e., they are averagely 1.4
-(it means that the reasoning time can be reduced averagely by 1.4 times with two more threads allocated)
-for ParallelDHL, and, 1.1 for RDFox. For the four ontology series that belong to $\mathcal{D}^-_{\textit{\text{dhl}}(\circ)}$,
+for the ChemistryPrimitive, FacebookOnto, Mahabharata and Transportation series
+are more stable compared with the other ones, i.e., with an average of
+$1.4$ for ParallelDHL. This means that the reasoning time can be reduced on average
+by $1.4$ times with two more threads allocated 
+for ParallelDHL, and, $1.1$ for RDFox. For the four ontology series
+that do not belong to $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$,
 the average speedups have a higher volatility. For example,
-Finance and Skeleton series lead to high average speedups that reach up to 3,
-while, for Molecule and GrossAnatomy series, the average speedups are even lower than 1.
+the Finance and Skeleton series lead to high average speedups that reach up to $3$,
+while, for the Molecule and GrossAnatomy series, the average speedups are even below $1$.
 In summary, from the experiments on the test ontology series,
 parallelism leads to a more effective improvement for materializing the ontology series
-that belong to $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$ compared with the ones in $\mathcal{D}^-_{\textit{\text{dhl}}(\circ)}$.
+that belong to $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$ compared
+with the ones outside of this fragment.
 
 By analyzing the experimental results of ParallelDHL and RDFox, we have that
-ParallelDHL is a competitive system.
-From Table~\ref{tab:expresult}, we can find that most of the minimal time ratios are close to 1.
+ParallelDHL is competitive system despite not yet being highly optimized.
+From Table~\ref{tab:expresult}, we can find that most of the minimal time ratios are close to $1$.
 This means that the reasoning times of ParallelDHL are close to that of RDFox in parallel.
-In particular, for GrossAnatomy, FacebookOnto and Transportation series, ParallelDHL performs
+In particular, for the GrossAnatomy, FacebookOnto and Transportation series, ParallelDHL performs
 much better than RDFox; therein, for materializing FacebookOnto-3, ParallelDHL
-only costs one fifth of the minimal reasoning time of RDFox.
+only requires one fifth of the minimal reasoning time of RDFox.
 On the other hand, for most ontology series,
 the average speedups of ParallelDHL are overall higher than that of RDFox.
-The main difference of ParallelDHL and RDFox lies in that ParallelDHL applies
+The main difference between ParallelDHL and RDFox lies in that ParallelDHL applies
 the optimizations designed for Algorithm~$\mathsf{A}_{\text{opt}}$ (see Section~\ref{sec:ptclass}).
-The higher average speedups of PrallelDHL also verifies the validity of the optimizations
+The higher average speedups of ParallelDHL also verifies the validity of the optimizations
 used in Algorithm~$\mathsf{A}_{\text{opt}}$.
-One may note that, ParallelDHL is averagely 3 times slower than RDFox when handling Skeleton series.
-The main reason is that the computation of \texttt{rch} relations
-occupies a large amount of time. We have checked that, the situation of path twisting occurs in Skeleton series.
+One may note that ParallelDHL is on average 3 times slower than RDFox
+when handling the Skeleton series.
+The main reason is that the computation of the \texttt{rch} relations
+requires a large amount of time and the situation of path twisting occurs in Skeleton series.
 This makes the the optimization based on \texttt{rch} relations invalid as discussed
-in Section~\ref{sec:ptonto}.
+in Section~\ref{sec:ptonto}. {\color{red}What does the bold font in
+  the table mean?}
 
 
 \begin{figure}[htbp]
@@ -341,19 +374,19 @@ in Section~\ref{sec:ptonto}.
   \centering
   \begin{minipage}{.45\textwidth}
     \includegraphics[width=\textwidth]{experimentalResults/1-Finance-simple}
-    \subcaption{lg1\label{fig:financepdhl}} 
+    \subcaption{Finance (lg1)\label{fig:financepdhl}} 
   \end{minipage}
   \begin{minipage}{.45\textwidth}
     \includegraphics[width=\textwidth]{experimentalResults/2-molecule-simple}
-    \subcaption{lg3\label{fig:moleculepdhl}}
+    \subcaption{Molecule (lg3)\label{fig:moleculepdhl}}
   \end{minipage}\\
   \begin{minipage}{.45\textwidth}
     \includegraphics[width=\textwidth]{experimentalResults/3-NIF_GrossAnatomy-simple}
-    \subcaption{lg5\label{fig:grossanatomypdhl}}
+    \subcaption{GrossAnatomy (lg5)\label{fig:grossanatomypdhl}}
   \end{minipage}
   \begin{minipage}{.45\textwidth}
     \includegraphics[width=\textwidth]{experimentalResults/4-skeleton-simple}
-    \subcaption{lg7\label{fig:skeletonpdhl}}
+    \subcaption{Skeleton (lg7)\label{fig:skeletonpdhl}}
   \end{minipage}
   \caption{Materialization time in ms for ParallelDHL for the
     ontologies that do not belonging to $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$.~\label{fig:eval}}
@@ -363,19 +396,19 @@ in Section~\ref{sec:ptonto}.
   \centering
   \begin{minipage}{.45\textwidth}
     \includegraphics[width=\textwidth]{experimentalResults/1-Finance-rdfox}
-    \subcaption{lg2\label{fig:financerdfox}} 
+    \subcaption{Finance (lg2)\label{fig:financerdfox}} 
   \end{minipage}
   \begin{minipage}{.45\textwidth}
     \includegraphics[width=\textwidth]{experimentalResults/2-molecule-rdfox}
-    \subcaption{lg4\label{fig:moleculerdfox}}
+    \subcaption{Molecule (lg4)\label{fig:moleculerdfox}}
   \end{minipage}\\
   \begin{minipage}{.45\textwidth}
     \includegraphics[width=\textwidth]{experimentalResults/3-NIF_GrossAnatomy-rdfox}
-    \subcaption{lg6\label{fig:grossanatomyrdfox}}
+    \subcaption{GrossAnatomy (lg6)\label{fig:grossanatomyrdfox}}
   \end{minipage}
   \begin{minipage}{.45\textwidth}
     \includegraphics[width=\textwidth]{experimentalResults/4-skeleton-rdfox}
-    \subcaption{lg8\label{fig:skeletonrdfox}}
+    \subcaption{Skeleton (lg8)\label{fig:skeletonrdfox}}
   \end{minipage}
   \caption{Materialization time in ms for RDFox for the
     ontologies that do not belonging to $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$.~\label{fig:eval}}
