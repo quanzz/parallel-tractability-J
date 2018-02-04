@@ -33,11 +33,9 @@ In this way, rule $\tau$ can be rewritten into $A(x)\rightarrow R(x,o_R^{A,B})\w
 If we only focus on the materialization task, the rewriting approach via Skolemization guarantees the
 completeness and correctness \cite{GrauHKKMMW13}.
 On the other hand, rule $\tau$ is not considered when using OWL RL reasoners to handle LUBM \cite{UrbaniKMHB12,WeaverH09}.
-In summary, if the above kind of rule is not considered {\color{red}
-  or rewriting is used},
+In summary, if the rewriting approach is used for the above kind of rule,
 the materialization of a LUBM dataset can be handled by
-Algorithm~$\mathsf{A}_{\text{opt}}^{\psi}$. {\color{red}(Did you use
-  rewriting or did you drop the axioms?)}
+Algorithm~$\mathsf{A}_{\text{prc}}$.
 
 
 \textbf{YAGO}. The knowledge base YAGO\footnote{http://www.mpi-inf.mpg.de/home/}
@@ -72,25 +70,17 @@ is specified as follows \cite{SuchanekKW08}:
 According to the semantics given to YAGO \cite{SuchanekKW08}, the built-in properties in YAGO,
 i.e., \texttt{domain, range, subClassOf, subRelationOf} and \texttt{type} act in the same
 way as the terms in RDFS statements of the form (1--5) in Table~\ref{tab:rdfs}, respectively.
-In contrast to RDFS, YAGO also allows for defining acyclic 
+In contrast to RDFS, YAGO also allows for defining
 transitive properties using the
 class \texttt{acyclicTransitiveRelation}; further, any fact in some YAGO ontology cannot be
 described using blank nodes. By carefully checking the rules (\ref{yago:r1}--\ref{yago:r5}) for the reasoning over YAGO ontologies,
 one can see that these rules can be rewritten into the datalog rules
 of the form (T3),\footnote{Both of Rule (\ref{yago:r1}) and
 Rule (\ref{yago:r2}) can be rewritten into (T3).} (T1), (R1) and (R3) in Table~\ref{tab:dhl}, respectively.
-{\color{red}I am not sure why in YAGO it is called acyclic transitive
-  relation. The rule (in YAGO) is just for transitivity and their
-  argument the subclassof is acyclic and transitive does not make much
-sense as I can have equivalent classes: C subclassof D, D subclassof
-C. That is allowed and cyclic. I would tend to just omit the next
-remark. } Further, DHL does not restrict any role to be acyclic.
 Based on the above analysis, any YAGO ontology can be expressed in DHL
 and satisfies the simple-concept and the simple-role restrictions. We then have that,
 for any well-constructed class of YAGO ontologies,
-Algorithm~$\mathsf{A}_{opt}^{\psi}$ {\color{red} $\mathsf{A}_{prc}$?
-  both is correct, but as we are evaluating $\mathsf{A}_{prc}$ this
-  might be better?}
+Algorithm~$\mathsf{A}_{prc}$ 
 can handle all of the ontologies in the class.
 
 In addition to LUBM and YAGO, we further investigate different kinds of ontologies and datasets
@@ -301,7 +291,7 @@ corresponding to $k$ threads).
 
 We further process the collected data and fill the results in Table~\ref{tab:expresult}, where each cell corresponds
 to a test ontology (see the row label) and a newly generated ABox
-(distinguished by the series column labels). 
+(distinguished by the series column labels).
 The minimal time ratio describes the performance of ParallelDHL by using RDFox as the baseline.
 The indicator `speedup' and its derived indicators are the most common tools used for measuring the capacity of parallelism \cite{MotikNPHO14,KazakovKS14,UrbaniKMHB12}.
 Here, we use the average speedup \cite{ichiyoshiK92} to describe the average capacity of parallelism with different
@@ -329,7 +319,7 @@ From Table~\ref{tab:expresult}, we can see that the average speedups of Parallel
 for the ChemistryPrimitive, FacebookOnto, Mahabharata and Transportation series
 are more stable compared with the other ones, i.e., with an average of
 $1.4$ for ParallelDHL. This means that the reasoning time can be reduced on average
-by $1.4$ times with two more threads allocated 
+by $1.4$ times with two more threads allocated
 for ParallelDHL, and, $1.1$ for RDFox. For the four ontology series
 that do not belong to $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$,
 the average speedups have a higher volatility. For example,
@@ -374,7 +364,7 @@ in Section~\ref{sec:ptonto}. {\color{red}What does the bold font in
   \centering
   \begin{minipage}{.45\textwidth}
     \includegraphics[width=\textwidth]{experimentalResults/1-Finance-simple}
-    \subcaption{Finance (lg1)\label{fig:financepdhl}} 
+    \subcaption{Finance (lg1)\label{fig:financepdhl}}
   \end{minipage}
   \begin{minipage}{.45\textwidth}
     \includegraphics[width=\textwidth]{experimentalResults/2-molecule-simple}
@@ -396,7 +386,7 @@ in Section~\ref{sec:ptonto}. {\color{red}What does the bold font in
   \centering
   \begin{minipage}{.45\textwidth}
     \includegraphics[width=\textwidth]{experimentalResults/1-Finance-rdfox}
-    \subcaption{Finance (lg2)\label{fig:financerdfox}} 
+    \subcaption{Finance (lg2)\label{fig:financerdfox}}
   \end{minipage}
   \begin{minipage}{.45\textwidth}
     \includegraphics[width=\textwidth]{experimentalResults/2-molecule-rdfox}
