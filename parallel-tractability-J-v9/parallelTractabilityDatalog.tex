@@ -3,7 +3,7 @@
 
 Our target is to find for which kinds of ontologies (not ontology languages)
 materialization is tractable in parallel. We consider data complexity,
-i.e., we consider classes of datalog programs which share a fixed the rule set. 
+i.e., we consider classes of datalog programs which share a fixed the rule set.
 The data complexity of the materialization problem in this case is
 $\texttt{PTime}$-complete, which is considered to be inherently sequential in the worst
 case \cite{Raymond95}.
@@ -11,7 +11,7 @@ case \cite{Raymond95}.
 % set of each datalog program is fixed, the materialization problem is, thus, in data complexity
 % $\texttt{PTime}$-complete, which is considered to be inherently sequential in the worst
 % case \cite{Raymond95}.
-In other words, the materialization problem of 
+In other words, the materialization problem of
 datalog programs cannot be solved in parallel poly-logarithmic time unless \texttt{P}=\texttt{NC}.
 Thus, we say that \emph{materialization for a class of datalog programs is tractable in parallel
 if there exists an algorithm that handles this class of datalog programs and runs in parallel
@@ -28,7 +28,7 @@ that is tractable in parallel, i.e., an \texttt{NC} algorithm exists for handlin
 \textbf{(Parallel Tractability Class)} Given a class $\mathcal{D}$ of
 datalog programs sharing the same rule set, we say that $\mathcal{D}$
 is a class of datalog program with \emph{p}arallel
-\emph{t}ractability, short a \emph{\texttt{PTD} class}, 
+\emph{t}ractability, short a \emph{\texttt{PTD} class},
 if there exists an \texttt{NC} algorithm that performs sound and complete materialization for each datalog program
 in $\mathcal{D}$. The corresponding class of ontologies of $\mathcal{D}$ is called a
 class of ontologies with parallel tractability, short a \texttt{PTO} class.
@@ -255,6 +255,7 @@ We discuss this in the next part.
 
 
 \subsection{Optimizing Algorithm~$\mathsf{A}_{\text{bsc}}$ via Single-Way Derivability}
+\label{sec:opt}
 
 In this part, we optimize Algorithm~$\mathsf{A}_{\text{bsc}}$ such that $P_{\text{ex}_1}$
 can be handled. Based on the optimized variant of Algorithm~$\mathsf{A}_{\text{bsc}}$,
@@ -328,7 +329,7 @@ such that $H$ has not been added to $\mathcal{G}$}:
 
 We then compute the transitive closure (denoted by $S^*_{\!\textit{\tiny rch}}$) with respect to
 $S_{\!\textit{\tiny rch}}$. Based on the transitive closure, we can
-perform the following optimization: 
+perform the following optimization:
 for a node $v$, if there is a relation $\texttt{rch}(v',v)\in S^*_{\!\textit{\tiny rch}}$
 such that $v'$ has been added to $\mathcal{G}$ and $v$ has an SWD
 path, then $v$ can be added to $\mathcal{G}$.

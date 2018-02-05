@@ -80,7 +80,7 @@ Rule (\ref{yago:r2}) can be rewritten into (T3).} (T1), (R1) and (R3) in Table~\
 Based on the above analysis, any YAGO ontology can be expressed in DHL
 and satisfies the simple-concept and the simple-role restrictions. We then have that,
 for any well-constructed class of YAGO ontologies,
-Algorithm~$\mathsf{A}_{prc}$ 
+Algorithm~$\mathsf{A}_{prc}$
 can handle all of the ontologies in the class.
 
 In addition to LUBM and YAGO, we further investigate different kinds of ontologies and datasets
@@ -95,314 +95,146 @@ Based on the analysis of these ontologies, we found that, ignoring imports, many
 belong to $\mathcal{D}_{\textit{\text{dhl}}}$ or $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$.
 All of these investigated ontologies and the analysis results are available online.\footnote{https://github.com/quanzz/PT}
 
-
-\subsection{Evaluating the Implementation of Algorithm~$\mathsf{A}_{\text{prc}}$}
-
-In this part, we evaluate the implemented prototype system ParallelDHL
-for DHL$(\circ)$ materialization based on
-Algorithm~$\mathsf{A}_{\text{prc}}$. We also provide evaluation
-results for the state-of-the-art reasoning system RDFox
-\cite{MotikNPHO14}, which can also handle parallel ontology
-materialization. Since RDFox is already a mature system, developed by
-several people over several years, we only provide the results for
-reference, as a direct comparison with our initial, not yet optimized
-prototype is not possible.
-
-\textbf{Datasets}.
-We select eight ontologies from the data sources given in the previous subsection;
-four of the eight ontologies belong to $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$ and
-the rest of them does not satisfy the simple-concept or the simple-role
-restriction.
-The chosen eight ontologies are real ontologies and are applied in different fields.
-The basic information for these ontologies
-is summarized in Table~\ref{tab:info}.
-
-\begin{table}[htb]
+\begin{table}
 \centering
-\caption{Information about the test ontologies, where
-  $|\mathcal{T}|+|\mathcal{R}|$ denotes the number of axioms occurring
-  in the ontology, $|\mathcal{A}|$ denotes the number of assertions
-  in the ABox and the last column states whether the
-  ontology belongs to $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$}
-\begin{tabular}{>{\hspace*{5mm}}ccrrc<{\hspace*{5mm}}}
+\caption{The statistics of the test ontologies}
+\begin{tabular}{|l|r|r|r|r|r|}
 \hline
-\textbf{Ontology Name} & \textbf{Field} &
-                                          $|\mathcal{T}|+|\mathcal{R}|$
-  & $|\mathcal{A}|$ & $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$\\
+ontology&$\sharp$concept&$\sharp$role&$\sharp$individual&$\sharp$axiom$^{a}$&$\sharp$assertion\\
 \hline
-
-Finance&finance&1,934&6,152&no\\
-
-Molecule&chemistry&43&0&no\\
-
-GrossAnatomy&anatomy&2,276&13&no\\
-
-Skeleton&medicine&815&0&no\\
-
+lubm-50&48&32&1,082,818&99&11,601,923\\
+lubm-100&48&32&2,179,766&99&23,837,579\\
+lubm-150&48&32&3,243,523&99&35,466,709\\
+lubm-200&48&32&4,341,309&99&46,537,764\\
+lubm-250&48&32&5,421,894&99&58,125,155\\
+yago-core&65,318&74&4,077,882&55,615&45,277,896\\
 \hline
-
-ChemistryPrimitive&chemistry&167&0& yes\\
-
-FacebookOnto&social networking&185&28& yes\\
-
-Mahabharata&literature&69&2,036& yes\\
-
-Transportation&traffic&925&511& yes\\
-
-\hline
+\multicolumn{5}{l}{$^{a}$ \small the number of TBox and RBox axioms.}\\
 \end{tabular}
-\label{tab:info}
+\label{tab:onto}
 \end{table}
 
-In order to compare ABoxes of a similar scale, we generate a limited
-number of ABox assertions with respect to the TBoxes and RBoxes for
-the test ontologies using the generation method proposed by
-\citet{Elhaik98}.  For each test ontology, e.g., the Finance ontology,
-we generate 5 new ontologies with different ABoxes, denoted
-Finance-$i$ ($i\in\{1,2,3,4,5\}$). The index $i$ indicates that the
-number of ABox assertions of Finance-$i$ is $i\times100,000$. We also
-use the term ``Finance series" to denote the five generated ontologies
-for the Finance ontology. The other test ontologies are processed
-similarly.
 
-\begin{table}[htb]
+\subsection{Evaluating the Implementation of Algorithm~$\mathsf{A}_{prc}$}
+
+We implement a prototype system ParallelDHL for DHL$(\circ)$ materialization
+based on Algorithm~$\mathsf{A}_{prc}$. Since ParallelDHL is evaluated in the
+platform which has the limited memory space and the fixed number of processors,
+the parallel assumption given in Section~\ref{sec:alg-bsc} does not apply to ParallelDHL.
+In the implementation of ParallelDHL, we use a hash function to map any rule instance
+to the identifier of some processor. Thus, when performing ParallelDHL,
+each processor handles a group of rule instances.
+
+We run ParallelDHL on LUBM and YAGO to further analyze these
+two kinds of ontologies. We also use the reasoning system, RDFox \cite{MotikNPHO14},
+for comparison. We use five LUBM ontologies, lubm-50, lubm-100, lubm-150, lubm-200
+and lubm-250, where lubm-50 contains the descriptions of 50 universities (the other ontologies
+are explained similarly). For YAGO, we use its core version, denoted by yago-core.\footnote{
+The yago-core ontology is available at https://www.mpi-inf.mpg.de/departments/databases-and-information-systems/research/yago-naga/yago/downloads/.}
+The yago-core ontology is a subset of the full YAGO dataset. It does not include the datatype statements, the links
+between different data sources, the degrees of confidence and other kinds of
+annotations that we do not consider in this work. The statistics of the above ontologies is given in Table~\ref{tab:onto}.
+The running platform for this experiment is a server with a 50 Gigabyte RAM and 8 physical cores, in each core
+three logic threads can be allocated.
+
+We run the LUBM ontologies and the yago-core ontology on RDFox and ParallelDHL with different numbers of
+threads (respectively 1,4,8,16 and 24).
+The reasoning times are collected in Table~\ref{tab:result}. We also give Figure~\ref{fig:reasoningtime} to
+clearly compare the two systems.
+In Figure~\ref{fig:reasoningtime}(left), the abscissa records the five LUBM ontologies,
+the ordinate records the reasoning times with 24 threads being allocated;
+In Figure~\ref{fig:reasoningtime}(right), the abscissa records the reciprocal of the number of threads, and
+the ordinate records the reasoning times over the yago-core ontology.
+
+
+\begin{table}
 \centering
-\caption{Analysis of the reasoning results, where the \emph{minimal time
-  ratio} is the minimal reasoning time
-of ParallelDHL divided by the minimal reasoning time of RDFox and the
-\emph{average speedup} is $1/4 (T_1/T_2 + T_2/T_4 + T_4/T_6 + T_6/T_8)$,
- where $T_i$ is the reasoning time with $i$ threads allocated}
-{\setlength{\tabcolsep}{6mm}
-\begin{tabular}{crrrrr}
+\caption{The reasoning-time results (seconds)}
+\begin{tabular}{|l|r|r|r|r|r|r|r|}
 \hline
-series & 1 & 2 & 3 & 4 & 5\\
+&\small$\sharp$thread&lubm-50&lubm-100&lubm-150&lubm-200&lubm-250&yago-core\\
 \hline
-\multicolumn{6}{c}{minimal time ratio}\\%[-1mm]
-% \multicolumn{6}{c}{{\footnotesize minimal reasoning time
-% of ParallelDHL/minimal reasoning time of RDFox}}\\
+\multirow{5}{*}{ \textbf{RDFox}}&1&23.01&42.8&71.92&88.64&111.96&105.73\\
+                    &4&5.97&11.64&18.5&22.31&25.59&35.5\\
+                    &8&4.88&5.89&9.95&11.21&12.8&19.07\\
+                    &16&3.18&3.75&8.37&9.16&12.19&13.22\\
+                    &24&1.92&3.9&6.21&7.74&9.58&11.81\\
 \hline
-Finance&0.54&1.36&0.94&0.99&1.70\\
-Molecule&0.94&0.79&0.96&0.98&1.07\\
-GrossAnatomy&0.65&0.48&0.84&0.77&0.83\\
-Skeleton&1.11&\textbf{3.08}&\textbf{3.03}&\textbf{3.04}&\textbf{2.75}\\
-ChemistryPrimitive&1.29&1.54&1.68&1.14&0.93\\
-FacebookOnto&\textbf{0.23}&\textbf{0.22}&\textbf{0.19}&\textbf{0.24}&\textbf{0.22}\\
-Mahabharata&1.19&1.19&0.99&0.84&0.89\\
-Transportation&0.24&0.52&0.51&0.65&0.49\\
-\hline
-\multicolumn{6}{c}{average speedup of ParallelDHL with increasing
-  number of threads}\\%[-1mm]
-% \multicolumn{6}{c}{{\footnotesize
-%   $1/4 (T_1/T_2 + T_2/T_4 + T_4/T_6 + T_6/T_8)$,
-%  where $T_i$ is the reasoning time with $i$ threads allocated}}\\
-\hline
-Finance&3.06&1.88&2.29&2.95&2.73\\
-Molecule&1.04&1.24&1.13&1.07&1.05\\
-GrossAnatomy&1.41&1.69&1.33&1.32&1.22\\
-Skeleton&3.28&1.84&1.65&1.74&1.96\\
-ChemistryPrimitive&\textbf{1.46}&\textbf{1.43}&\textbf{1.44}&\textbf{1.51}&\textbf{1.65}\\
-FacebookOnto&\textbf{1.81}&\textbf{1.83}&\textbf{1.82}&\textbf{1.61}&\textbf{1.78}\\
-Mahabharata&\textbf{1.41}&\textbf{1.46}&\textbf{1.51}&\textbf{1.47}&\textbf{1.56}\\
-Transportation&\textbf{1.98}&\textbf{1.57}&\textbf{1.61}&\textbf{1.55}&\textbf{1.59}\\
-\hline
-\multicolumn{6}{c}{average speedup of RDFox with increasing
-  number of threads}\\%[-1mm]
-% \multicolumn{6}{c}{{\footnotesize
-%   $1/4 (T_1/T_2 + T_2/T_4 + T_4/T_6 + T_6/T_8)$,
-%  where $T_i$ is the reasoning time with $i$ threads allocated}}\\
-\hline
-Finance&1.01&1.04&1.13&1.11&1.19\\
-Molecule&0.90&1.03&0.95&1.01&0.99\\
-GrossAnatomy&0.87&0.99&0.94&0.96&0.98\\
-Skeleton&1.13&1.01&1.06&1.08&1.08\\
-ChemistryPrimitive&1.28&1.16&1.14&1.11&1.15\\
-FacebookOnto&1.22&1.08&1.07&1.09&1.09\\
-Mahabharata&1.24&1.07&1.13&1.10&1.12\\
-Transportation&1.14&1.04&1.03&1.08&1.11\\
+\multirow{5}{*}{ \small{\textbf{ParallelDHL}}}&1&93.66&213.75&376.39&498.34&693.49&773.06\\
+                    &4&21.71&54.03&111.2&123.76&159.82&223.4\\
+                    &8&9.44&23.04&55.78&67.29&86.41&98.33\\
+                    &16&4.02&12.7&20.9&35.63&43.91&47.08\\
+                    &24&4.06&9.82&16.84&22.31&27.47&34.48\\
 \hline
 \end{tabular}
-% \begin{tabular}{crrrrr}
-% \hline
-% series & 1 & 2 & 3 & 4 & 5\\
-% \hline
-% &0.54&1.36&0.94&0.99&1.70\\
-% Finance&3.06&1.88&2.29&2.95&2.73\\
-% &1.01&1.04&1.13&1.11&1.19\\
-% \hline
-% &0.94&0.79&0.96&0.98&1.07\\
-% Molecule&1.04&1.24&1.13&1.07&1.05\\
-% &0.90&1.03&0.95&1.01&0.99\\
-% \hline
-% &0.65&0.48&0.84&0.77&0.83\\
-% GrossAnatomy&1.41&1.69&1.33&1.32&1.22\\
-% &0.87&0.99&0.94&0.96&0.98\\
-% \hline
-% &1.11&\textbf{3.08}&\textbf{3.03}&\textbf{3.04}&\textbf{2.75}\\
-% Skeleton&3.28&1.84&1.65&1.74&1.96\\
-% &1.13&1.01&1.06&1.08&1.08\\
-% \hline
-% &1.29&1.54&1.68&1.14&0.93\\
-% ChemistryPrimitive&\textbf{1.46}&\textbf{1.43}&\textbf{1.44}&\textbf{1.51}&\textbf{1.65}\\
-% &1.28&1.16&1.14&1.11&1.15\\
-% \hline
-% &\textbf{0.23}&\textbf{0.22}&\textbf{0.19}&\textbf{0.24}&\textbf{0.22}\\
-% FacebookOnto&\textbf{1.81}&\textbf{1.83}&\textbf{1.82}&\textbf{1.61}&\textbf{1.78}\\
-% &1.22&1.08&1.07&1.09&1.09\\
-% \hline
-% &1.19&1.19&0.99&0.84&0.89\\
-% Mahabharata&\textbf{1.41}&\textbf{1.46}&\textbf{1.51}&\textbf{1.47}&\textbf{1.56}\\
-% &1.24&1.07&1.13&1.10&1.12\\
-% \hline
-% &0.24&0.52&0.51&0.65&0.49\\
-% Transportation&\textbf{1.98}&\textbf{1.57}&\textbf{1.61}&\textbf{1.55}&\textbf{1.59}\\
-% &1.14&1.04&1.03&1.08&1.11\\
-% \hline
-% \end{tabular}
-}
-\label{tab:expresult}
+\label{tab:result}
 \end{table}
-
-\textbf{The Experimental Results}.
-We evaluated ParallelDHL and RDFox over the above eight ontology series.
-The running environment is a DELL server with a
-memory of 16 GiB and 4 cores.
-For fairness, we set the same number of threads (i.e., 1,2,4,6 and 8 threads, respectively)
-for ParallelDHL and RDFox in each experiment. The resulting reasoning
-times\footnote{The experimental results can be found at https://github.com/quanzz/PT.} are
-presented in the 16 line graphs (denoted by $lg1$,...,$lg16$) of Figure~\ref{fig:linegraph},
-where the abscissa of each line graph records the numbers of ABox assertions,
-the ordinate records the reasoning times (in milliseconds),
-and each of the five curves in different colors denotes the trend of reasoning time with the
-corresponding number of threads allocated (we use line-$k$ to denote the curve
-corresponding to $k$ threads).
-
-% We further process the collected data and fill the results in Table~\ref{tab:expresult}, where each cell corresponds
-% to a test ontology (see the row label) and a newly generated ABox (distinguished by the column labels);
-% the three values from above to below in each cell are: (1) \emph{the minimal time ratio} - the minimal reasoning time
-% of ParallelDHL divided by the minimal reasoning time of RDFox;
-% (2) \emph{the average speedup of ParallelDHL};\footnote{Suppose $T_i$ is the reasoning time with $i$ threads allocated,
-% the average speedup is $\frac{1}{4}(\frac{T_1}{T_2}+\frac{T_2}{T_4}+\frac{T_4}{T_6}+\frac{T_6}{T_8})$.}
-% (3) \emph{the average speedup of RDFox}.
-% The minimal time ratio describes the performance of ParallelDHL by using RDFox as the baseline.
-% The indicator speedup and its derived indicators are the most common tools used for measuring the capacity of parallelism \cite{MotikNPHO14,KazakovKS14,UrbaniKMHB12}.
-% Here, we use the average speedup \cite{ichiyoshiK92} to describe the average capacity of parallelism with different
-% threads allocated.
-% In the following, we give the detailed analysis based on the contents in Figure~\ref{fig:linegraph} and Table~\ref{tab:expresult}.
-
-We further process the collected data and fill the results in Table~\ref{tab:expresult}, where each cell corresponds
-to a test ontology (see the row label) and a newly generated ABox
-(distinguished by the series column labels).
-The minimal time ratio describes the performance of ParallelDHL by using RDFox as the baseline.
-The indicator `speedup' and its derived indicators are the most common tools used for measuring the capacity of parallelism \cite{MotikNPHO14,KazakovKS14,UrbaniKMHB12}.
-Here, we use the average speedup \cite{ichiyoshiK92} to describe the average capacity of parallelism with different
-threads allocated.
-In the following, we give a detailed analysis based on the contents in Figure~\ref{fig:linegraph} and Table~\ref{tab:expresult}.
-
-\textbf{Analysis of the Experimental Results}.
-According to the theoretical results in Section~\ref{sec:ptonto},
-materialization of the
-ontologies not belonging to $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$
-(Finance, Molecule, GrossAnatomy and Skeleton)
-may not be tractable in parallel. In other words,
-parallel techniques may not work for improving the efficiency of materialization.
-This is shown in the line graphs of Figure~\ref{fig:linegraph}.
-We can see that, in the line graphs ($lg1$-$lg8$) of the ontology series
-that do not belong to $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$, the four lines, line-2, line-4, line-6 and line-8,
-intersect to some degree. This is more obvious in the line graphs for
-the Finance and GrossAnatomy
-series. For example, in line graph $lg1$,
-line-2 stays higher than line-6, but lower than line-4.
-The intersection of lines indicates that reasoning time cannot
-obviously be reduced with more threads allocated.
-This is also supported by the results of the average speedups.
-From Table~\ref{tab:expresult}, we can see that the average speedups of ParallelDHL and RDFox
-for the ChemistryPrimitive, FacebookOnto, Mahabharata and Transportation series
-are more stable compared with the other ones, i.e., with an average of
-$1.4$ for ParallelDHL. This means that the reasoning time can be reduced on average
-by $1.4$ times with two more threads allocated
-for ParallelDHL, and, $1.1$ for RDFox. For the four ontology series
-that do not belong to $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$,
-the average speedups have a higher volatility. For example,
-the Finance and Skeleton series lead to high average speedups that reach up to $3$,
-while, for the Molecule and GrossAnatomy series, the average speedups are even below $1$.
-In summary, from the experiments on the test ontology series,
-parallelism leads to a more effective improvement for materializing the ontology series
-that belong to $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$ compared
-with the ones outside of this fragment.
-
-By analyzing the experimental results of ParallelDHL and RDFox, we have that
-ParallelDHL is competitive system despite not yet being highly optimized.
-From Table~\ref{tab:expresult}, we can find that most of the minimal time ratios are close to $1$.
-This means that the reasoning times of ParallelDHL are close to that of RDFox in parallel.
-In particular, for the GrossAnatomy, FacebookOnto and Transportation series, ParallelDHL performs
-much better than RDFox; therein, for materializing FacebookOnto-3, ParallelDHL
-only requires one fifth of the minimal reasoning time of RDFox.
-On the other hand, for most ontology series,
-the average speedups of ParallelDHL are overall higher than that of RDFox.
-The main difference between ParallelDHL and RDFox lies in that ParallelDHL applies
-the optimizations designed for Algorithm~$\mathsf{A}_{\text{opt}}$ (see Section~\ref{sec:ptclass}).
-The higher average speedups of ParallelDHL also verifies the validity of the optimizations
-used in Algorithm~$\mathsf{A}_{\text{opt}}$.
-One may note that ParallelDHL is on average 3 times slower than RDFox
-when handling the Skeleton series.
-The main reason is that the computation of the \texttt{rch} relations
-requires a large amount of time and the situation of path twisting occurs in Skeleton series.
-This makes the the optimization based on \texttt{rch} relations invalid as discussed
-in Section~\ref{sec:ptonto}. {\color{red}What does the bold font in
-  the table mean?}
-
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=1.5\textwidth,angle=270]{fig-lineGraph.eps}
-\caption{The line graphs of all experiments. The 16 line graphs are labeled by $lg1$,...,$lg16$ respectively.}
-\label{fig:linegraph}
+\includegraphics[width=1\textwidth]{fig-reasoningtime.eps}
+\caption{(left) the reasoning times over LUBM ontologies; (right) the reasoning times over yago-core.}
+\label{fig:reasoningtime}
 \end{center}
 \end{figure}
 
-\begin{figure}[htbp]
-  \centering
-  \begin{minipage}{.45\textwidth}
-    \includegraphics[width=\textwidth]{experimentalResults/1-Finance-simple}
-    \subcaption{Finance (lg1)\label{fig:financepdhl}}
-  \end{minipage}
-  \begin{minipage}{.45\textwidth}
-    \includegraphics[width=\textwidth]{experimentalResults/2-molecule-simple}
-    \subcaption{Molecule (lg3)\label{fig:moleculepdhl}}
-  \end{minipage}\\
-  \begin{minipage}{.45\textwidth}
-    \includegraphics[width=\textwidth]{experimentalResults/3-NIF_GrossAnatomy-simple}
-    \subcaption{GrossAnatomy (lg5)\label{fig:grossanatomypdhl}}
-  \end{minipage}
-  \begin{minipage}{.45\textwidth}
-    \includegraphics[width=\textwidth]{experimentalResults/4-skeleton-simple}
-    \subcaption{Skeleton (lg7)\label{fig:skeletonpdhl}}
-  \end{minipage}
-  \caption{Materialization time in ms for ParallelDHL for the
-    ontologies that do not belonging to $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$.~\label{fig:eval}}
-\end{figure}
+From Table~\ref{tab:result}, we can see that for lubm-50 these two systems perform equally well.
+For the other ontologies, ParallelDHL is comparable to RDFox with several threads being allocated.
+For lubm-250 and yago-core, ParallelDHL delays obviously when only one thread is allocated.
+The reason is that the computation of the relation $S_{\textit{\!\tiny rch}}$ occupies a large amount of time. When
+more threads are allocated, ParallelDHL has a better efficiency.
+Although ParallelDHL is not such optimized as RDFox, it also shows the scalability.
+From the two line graphs in Figure~\ref{fig:reasoningtime},
+we can see a linear trend of the reasoning times of both RDFox and ParallelDHL.
+This also indicates that ParallelDHL will finish the materialization tasks on the test ontologies
+in a shorter period of time with more threads being allocated.
+
+\subsection{The Discussion of The Depths of Materialization Graphs}
+
+From the complexity analysis for Algorithm~$\mathsf{A}_{bsc}$, we have that the computing time of
+Algorithm~$\mathsf{A}_{bsc}$ depends on the number of iterations of \ref{alg1:updateG},
+which equals to the depth of the constructed materialization graph (see the proof of Theorem~\ref{theorem:a1}).
+Thus, the depth of the target materialization graph determines the computing time of
+Algorithm~$\mathsf{A}_{bsc}$. This conclusion also applies to Algorithm~$\mathsf{A}_{opt}$
+based on the analysis in Section~\ref{sec:opt}. In this part,
+we discuss the influence of the depths of the materialization graphs
+for the test ontologies.
 
 \begin{figure}[htbp]
-  \centering
-  \begin{minipage}{.45\textwidth}
-    \includegraphics[width=\textwidth]{experimentalResults/1-Finance-rdfox}
-    \subcaption{Finance (lg2)\label{fig:financerdfox}}
-  \end{minipage}
-  \begin{minipage}{.45\textwidth}
-    \includegraphics[width=\textwidth]{experimentalResults/2-molecule-rdfox}
-    \subcaption{Molecule (lg4)\label{fig:moleculerdfox}}
-  \end{minipage}\\
-  \begin{minipage}{.45\textwidth}
-    \includegraphics[width=\textwidth]{experimentalResults/3-NIF_GrossAnatomy-rdfox}
-    \subcaption{GrossAnatomy (lg6)\label{fig:grossanatomyrdfox}}
-  \end{minipage}
-  \begin{minipage}{.45\textwidth}
-    \includegraphics[width=\textwidth]{experimentalResults/4-skeleton-rdfox}
-    \subcaption{Skeleton (lg8)\label{fig:skeletonrdfox}}
-  \end{minipage}
-  \caption{Materialization time in ms for RDFox for the
-    ontologies that do not belonging to $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$.~\label{fig:eval}}
+\begin{center}
+\includegraphics[width=1\textwidth]{fig-graphdepth.eps}
+\caption{The statistics of the materialization graphs of lubm-250 (left) and yago-core (right).}
+\label{fig:graphdepth}
+\end{center}
 \end{figure}
+
+For the five test LUBM ontologies and the yago-core ontology, we record the total depth
+of the materialization graph for each ontology and the number of nodes in different depths.
+We have that all of the LUBM ontologies have the depth of 6 for their
+materialization graphs, while the materialization graph of the yago-core ontology
+has the depth of 9.
+We use the histograms to graphically display the detailed data of lubm-250 and yago-core in Figure~\ref{fig:graphdepth},
+where for each of the two histograms
+the abscissa records the depths from the bottom of a materialization graph to the top,
+the histograms denote the amount of nodes in each depth.
+
+From the above results, we can find that the graph depths are far less than
+the sizes of the input ontologies. Since the graph depth determines the computing
+time of Algorithm~$\mathsf{A}_{bsc}$ and Algorithm~$\mathsf{A}_{opt}$ as discussed
+at the beginning of this part,
+the test ontologies should be materialized efficiently using these two algorithms.
+The obvious difference of the reasoning times of the test ontologies is due to the limited memory space and the fixed number
+of processors and the inapplicability of the parallel assumption given in Section~\ref{sec:alg-bsc}.
+This results in that the computing
+time of ParallelDHL does not depend only on the number of iterations of \ref{alg4:updateG}
+of Algorithm~$\mathsf{A}_{prc}$ as analyzed in Section~\ref{sec:practicalAlg}.
+It depends on several factors: the balancing of workload, the delay of some processors,
+the I/O blocking, etc. Since these issues are not our focus, we do not analyze them in this work.
+On the other hand, the results of the graph depths
+indicate that we can improve the performance of the materialization task by using more
+memory space and more processors.
+
+
 
 %%% Local Variables:
 %%% mode: latex
