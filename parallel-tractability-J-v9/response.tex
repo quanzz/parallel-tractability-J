@@ -27,7 +27,19 @@ with a small number of threads (certainly up to hundreds) and maybe not even
 for very many threads (because of general overhead).
 \end{quote}
 
-We added xxx to adress this...
+We added the parallel complexity analysis for Algorithm~$\mathsf{A}_{\text{bsc}}$
+and Algorithm~$\mathsf{A}_{\text{opt}}$
+in Section~3.3 and Section~3.4 respectively. 
+Based on the analysis and Theorem~1, we have that the parallel complexity
+of Algorithm~$\mathsf{A}_{\text{bsc}}$ depends only on the graph depths,
+while the parallel complexity of Algorithm~$\mathsf{A}_{\text{opt}}$
+depends on both of the graph depths and the sizes of inputs.\\
+
+We added the discussion of the graph depths for real ontologies in Section~6.3.
+From the evaluation, we observed that the graph depths were far less than
+the sizes of the input ontologies. Thus, the reasoning times of the test ontologies
+were mainly determined by the input sizes. 
+
 
 \begin{quote}
   The second sentence of Section 3 is badly stated and misleading.  It is definitely true that for a Datalog program $\langle R, I \rangle$ the rule set $R$ is fixed.  However, the initial facts $I$ are also fixed.
@@ -81,7 +93,15 @@ paper makes such strong claims about worrying about particular ontologies.
 This is different from an ontology only containing simple concepts.
 \end{quote}
 
-...
+
+We investigated many real ontologies from different data source. These ontologies cover
+several domains and only contain  simple concepts (see Section~6.1). \\
+
+In this work, we focused on exploring the properties
+that make ontologies tractable in parallel. Thus, we did not study the problem of making ontologies
+tractable in parallel by having simple concepts and its influence. We will study this problem
+in the future work.
+
 
 \begin{quote}
 The paper is all about parallel tractability of materialization, both
@@ -129,7 +149,8 @@ DBpedia, would be very useful.   If YAGO is not benchmarked then it needs to
 be dropped entirely.   Similarly for LUBM.
 \end{quote}
 
-...
+We extended the discussion for YAGO and LUBM in Section~6.1. We added the evaluation
+for these two kinds of ontologies in Section~6.2.
 
 \begin{quote}
 The benchmarking part of the paper is very limited and extremely hard to
@@ -137,7 +158,10 @@ follow.    Only eight ontologies were benchmarked.  Why were these eight
 chosen?  Only considering at most eight threads is much too constricting.
 \end{quote}
 
-...ontologies must satisfy the properties for parallel tractability...
+The eight ontologies are selected since they satisfy the properties for parallel tractability.
+We evaluated them to show the difference between the ontologies of tractable and intractable
+in parallel.
+
 
 \begin{quote}
 More detail is needed on how the KBs were constructed.  Chain length is a
@@ -146,7 +170,10 @@ in the KB are connected together.  It is not stated which ontologies belong
 to which DL.
 \end{quote}
 
-...
+In order to make the experiments close to real scenes, we did not
+construct these eight ontologies for some purpose, e.g., to
+make the graph depth deeper. Thus, these ontologies acted like common ones.
+
 
 \begin{quote}
 Figure 5 is very misleading because it uses different scales for the two
@@ -159,14 +186,22 @@ Figure 5 is that RDFox speeds up so little.  There is a short explanation of
 why this is so, but I would have liked to see a longer one.
 \end{quote}
 
-...
+
+We checked that ParallelDHL costed a large amount of time for computing
+the relation $S_{\textit{\!\tiny rch}}$ when only one thread being allocated.
+When more than one thread is allocated, ParallelDHL has a better efficiency.
+This also resulted in the difference of the speedup between RDFox and ParallelDHL.
+
 
 \begin{quote}
 The computation of the speedup numbers is wholely unexplained.  Why should
 this number have any importance?
 \end{quote}
 
-...
+
+We used the speedup numbers to show the distinguishes of reasoning performance between the ontologies in $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$ and
+$\mathcal{D}^-_{\textit{\text{dhl}}(\circ)}$.
+
 
 \begin{quote}
 There is a claim that the benchmarking distinguishes between the Ddhlo and
@@ -176,7 +211,15 @@ it appears that even for several of the more well-behaved ontologies that there
 is very little speedup between 6 and 8 processors.
 \end{quote}
 
-...
+
+We did not
+construct the eight ontologies for some purpose.
+Thus, these ontologies acted like common ones.
+From Figure~5, the distinguishes between the ontologies in
+$\mathcal{D}_{\textit{\text{dhl}}(\circ)}$ and
+$\mathcal{D}^-_{\textit{\text{dhl}}(\circ)}$ were not shown
+for all the test ontologies.
+
 
 \begin{quote}
 The benchmarking should be redone with more ontologies and with more
@@ -186,16 +229,17 @@ in achieving near-perfect thread utilization, ignoring memory contention
 problems.
 \end{quote}
 
-...
+
+We added the detailed analysis for LUBM and YAGO and the influence of
+graph depths in the revision.
+
 
 \begin{quote}
 Wording and structural problems:
 
 The paper has so many grammatical errors near its beginning that I gave up
-marking them after the first two pages.  
+marking them after the first two pages.
 \end{quote}
-
-TODO: Remove the quote above once the issues are fixed.
 
 The paper has been carefully proof-read and hopefully all wording and structural issues are fixed now.
 
@@ -264,7 +308,7 @@ The total computing time is still in poly-logarithmic time (see the detailed ana
 Finally, the algorithms assume each processor handling a rule instantiation. I wonder how it is implemented in ParallelDHL.
 \end{quote}
 
-(TODO) We used a paragraph to discuss this after Algorithm~$\mathsf{A}_{prc}$.
+We added the discussion of how each processor handles rule instantiations at the beginning of Section~6.2.
 
 \begin{quote}
 I list some relatively minor issues regarding presentation and technical details:
