@@ -3,9 +3,10 @@
 
 In this section, we study the issue of parallel tractability
 for materialization of DL-Lite and DHL (DHL($\circ$)) ontologies
-based on Algorithm~$\mathsf{A}_{\text{opt}}$. We show that, for any DL-Lite$_{\text{core}}$ or DL-Lite$_\mathcal{R}$ ontology $\mathcal{O}$,
+based on Algorithm~$\mathsf{A}_{\text{opt}}$. We show that, for any class $\mathbb{O}$ of
+DL-Lite$_{\text{core}}$ or DL-Lite$_\mathcal{R}$ ontologies,
 there exists a poly-logarithmically bounded function $\psi$
-such that Algorithm~$\mathsf{A}_{\text{opt}}^{\psi}$ can handle materialization of $\mathcal{O}$.
+such that Algorithm~$\mathsf{A}_{\text{opt}}^{\psi}$ can handle materialization of the ontologies in $\mathbb{O}$.
 However, for DHL and DHL($\circ$), there exist ontology classes such that Algorithm~$\mathsf{A}_{\text{opt}}^\psi$
 does not work. We illustrate the reason why Algorithm~$\mathsf{A}_{\text{opt}}^\psi$ cannot always
 work by studying specific cases.
@@ -257,10 +258,10 @@ the RBox $\mathcal{R}$ contains three axioms:
 $R_1\circ R_2\sqsubseteq R$, $R_3\circ R\sqsubseteq R_1$ and $R\circ R_4\sqsubseteq R_2$;
 the ABox $\mathcal{A}$ is $\{R(a_1,a_1), R_3(a_i,a_{i-1}), R_4(a_{i-1},a_i)\}$
 for $2\leq i\leq k$ and $k$ an integer greater than $2$.
-The corresponding datalog program $P_{\text{ex}_5}$
+The corresponding datalog program $P_{\text{ex}_9}$
 contains three rules: `$R_1(x,y),R_2(y,z)\rightarrow R(x,z)$',
 `$R_3(x,y),R(y,z)\rightarrow R_1(x,z)$' and `$R(x,y),R_4(y,z)\rightarrow R_2(x,z)$'.
-The materialization graph of $P_{\text{ex}_5}$ constructed by Algorithm~$\mathsf{A}_{\text{opt}}$ is denoted by $\mathcal{G}_{\text{ex}_9}$.
+The materialization graph of $P_{\text{ex}_9}$ constructed by Algorithm~$\mathsf{A}_{\text{opt}}$ is denoted by $\mathcal{G}_{\text{ex}_9}$.
 \end{example}
 
 One can check that the materialization graph $\mathcal{G}_{\text{ex}_9}$ has the same shape as that
@@ -282,7 +283,7 @@ $R_1\circ R_2\circ R_1\circ R_2\sqsubseteq R$ (denoted by $\alpha_3$).
 If one of $R_1$ and $R_2$ is not a simple role, the corresponding
 rule of $\alpha_3$ may also lead to `path twisting'.\footnote{Obviously, applying the rules of $\alpha_1$
 and $\alpha_2$ separately has the same effect to that of only applying the rule of $\alpha_3$.}
-This can be explained as follows: 
+This can be explained as follows:
 Without loss of the generality,
 $R_2$ is a simple role, while $R_1$ is not.
 For some atom $R(x,y)$, it may depend on two different nodes of the predicate $R_1$
@@ -313,8 +314,8 @@ conditions are satisfied:
 \end{definition}
 
 \begin{example}
-For the ontology $\mathcal{O}_{\text{ex}_7}$ in Example~\ref{exp:complexRIA}, all of the roles
-$R_1$, $R_2$ and $R$ are non-simple roles. Thus, $\mathcal{O}_{\text{ex}_7}$ does not follow
+For the ontology $\mathcal{O}_{\text{ex}_9}$ in Example~\ref{exp:complexRIA}, all of the roles
+$R_1$, $R_2$ and $R$ are non-simple roles. Thus, $\mathcal{O}_{\text{ex}_9}$ does not follow
 the simple-role restriction because of $R_1\circ R_2\sqsubseteq R$.
 Consider the ontology $\mathcal{O}_{\text{ex}_1}$
 in Example~\ref{exp:mg} again. The role $R$ is a non-simple role, while $S$ is a simple role.

@@ -3,7 +3,7 @@
 
 Our target is to find for which kinds of ontologies (not ontology languages)
 materialization is tractable in parallel. We consider data complexity,
-i.e., we consider classes of datalog programs which share a fixed the rule set.
+i.e., we consider classes of datalog programs which share a fixed rule set.
 The data complexity of the materialization problem in this case is
 $\texttt{PTime}$-complete, which is considered to be inherently sequential in the worst
 case \cite{Raymond95}.
@@ -266,7 +266,7 @@ We find that, in this kind of case, the construction of a materialization graph 
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=0.7\textwidth]{fig-general.pdf}
+\includegraphics[width=0.6\textwidth]{fig-general.pdf}
 \caption{A partial materialization graph}
 \label{fig:general}
 \end{center}
@@ -432,11 +432,12 @@ we have that $\mathcal{D}_{\mathsf{A}_{\text{bsc}}^{\psi}}\subseteq\mathcal{D}_{
 \end{corollary}
 
 \begin{proof}[Proof sketch]
-Suppose $P\in\mathcal{D}_{\mathsf{A}_{\text{bsc}}^{\psi}}$. According to Theorem~\ref{theorem:a1},
-the depth of the materialization graph $\mathcal{G}$ constructed by $\mathsf{A}_{\text{bsc}}^{\psi}$ is upper-bounded by $\psi(|P|)$.
-It is obvious that the number of nodes in each path of $\mathcal{G}$ is also upper-bounded by $\psi(|P|)$.
+Suppose $P=\langle R,\textbf{I}\rangle\in\mathcal{D}_{\mathsf{A}_{\text{bsc}}^{\psi}}$. According to Theorem~\ref{theorem:a1},
+the depth of the materialization graph $\mathcal{G}$ constructed by $\mathsf{A}_{\text{bsc}}^{\psi}$ is 
+upper-bounded by $\psi(|\textbf{I}|)$.
+It is obvious that the number of nodes in each path of $\mathcal{G}$ is also upper-bounded by $\psi(|\textbf{I}|)$.
 According to the optimization strategy applied in $\mathsf{A}_{\text{opt}}$, if $\mathcal{G}$ can be constructed
-by $\mathsf{A}_{\text{opt}}$, the number of iterations of $\mathsf{A}_{\text{opt}}$ has to be upper-bounded by $\psi(|P|)$;
+by $\mathsf{A}_{\text{opt}}$, the number of iterations of $\mathsf{A}_{\text{opt}}$ has to be upper-bounded by $\psi(|\textbf{I}|)$;
 if $\mathcal{G}$ is not the materialization graph constructed
 by $\mathsf{A}_{\text{opt}}$, then there has to exist another materialization graph $\mathcal{G}'$ constructed by $\mathsf{A}_{\text{opt}}$
 and $\mathcal{G}'$ has a smaller depth compared to $\mathcal{G}$.

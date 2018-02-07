@@ -1,15 +1,13 @@
-\section{Evaluation}
+\section{Evaluation and Analysis}
 \label{sec:evaluation}
 
-In the first part of this section, we analyze different kinds of ontologies and datasets
-and investigate the usability of the results proposed above.
+In the first part of this section, we analyze the well-known benchmark, LUBM, 
+and the real-world dataset, YAGO, and
+show the cases where these ontologies belong to the parallel tractability classes.
 In the second part, we evaluate the implementation of Algorithm~$\mathsf{A}_{\text{prc}}$
 and compare it to the reasoning system RDFox.
 
 \subsection{The Parallel Tractability of the LUBM Datasets and YAGO Ontologies}
-
-In this part, we analyze two popular datasets, LUBM and YAGO, and show the relations
-between these two datasets and the theoretical results regarding parallel tractability.
 
 \textbf{LUBM}. In the Semantic Web community, LUBM
 (The Lehigh University Benchmark) is proposed to
@@ -34,16 +32,13 @@ If we only focus on the materialization task, the rewriting approach via Skolemi
 completeness and correctness \cite{GrauHKKMMW13}.
 On the other hand, rule $\tau$ is not considered when using OWL RL reasoners to handle LUBM \cite{UrbaniKMHB12,WeaverH09}.
 In summary, if the rewriting approach is used for the above kind of rule,
-the materialization of a LUBM dataset can be handled by
+the materialization of LUBM datasets is tractable in parallel and can be handled by
 Algorithm~$\mathsf{A}_{\text{prc}}$.
 
 
 \textbf{YAGO}. The knowledge base YAGO\footnote{http://www.mpi-inf.mpg.de/home/}
 is constructed from Wikipedia and WordNet. The latest version
-YAGO3 \cite{MahdisoltaniBS15} has more than 10 million entities
-(e.g., persons, organizations, cities, etc.)
-and contains more than 120 million facts about these entities.
-
+YAGO3 \cite{MahdisoltaniBS15} has millions of facts.
 In order to balance the expressiveness and computing efficiency,
 a YAGO-style language, called the \emph{YAGO model}, is proposed based on
 a slight extension of RDFS \cite{SuchanekKW08}. The YAGO model defines
@@ -114,39 +109,6 @@ yago-core&65,318&74&4,077,882&55,615&45,277,896\\
 \label{tab:onto}
 \end{table}
 
-
-\subsection{Evaluating the Implementation of Algorithm~$\mathsf{A}_{prc}$}
-
-We implement a prototype system ParallelDHL for DHL$(\circ)$ materialization
-based on Algorithm~$\mathsf{A}_{prc}$. Since ParallelDHL is evaluated in the
-platform which has the limited memory space and the fixed number of processors,
-the parallel assumption given in Section~\ref{sec:alg-bsc} does not apply to ParallelDHL.
-In the implementation of ParallelDHL, we use a hash function to map any rule instance
-to the identifier of some processor. Thus, when performing ParallelDHL,
-each processor handles a group of rule instances.
-
-We run ParallelDHL on LUBM and YAGO to further analyze these
-two kinds of ontologies. We also use the reasoning system, RDFox \cite{MotikNPHO14},
-for comparison. We use five LUBM ontologies, lubm-50, lubm-100, lubm-150, lubm-200
-and lubm-250, where lubm-50 contains the descriptions of 50 universities (the other ontologies
-are explained similarly). For YAGO, we use its core version, denoted by yago-core.\footnote{
-The yago-core ontology is available at https://www.mpi-inf.mpg.de/departments/databases-and-information-systems/research/yago-naga/yago/downloads/.}
-The yago-core ontology is a subset of the full YAGO dataset. It does not include the datatype statements, the links
-between different data sources, the degrees of confidence and other kinds of
-annotations that we do not consider in this work. The statistics of the above ontologies is given in Table~\ref{tab:onto}.
-The running platform for this experiment is a server with a 50 Gigabyte RAM and 8 physical cores, in each core
-three logic threads can be allocated.
-
-We run the LUBM ontologies and the yago-core ontology on RDFox and ParallelDHL with different numbers of
-threads (respectively 1,4,8,16 and 24).
-The reasoning times are collected in Table~\ref{tab:result}. We also give Figure~\ref{fig:reasoningtime} to
-clearly compare the two systems.
-In Figure~\ref{fig:reasoningtime}(left), the abscissa records the five LUBM ontologies,
-the ordinate records the reasoning times with 24 threads being allocated;
-In Figure~\ref{fig:reasoningtime}(right), the abscissa records the reciprocal of the number of threads, and
-the ordinate records the reasoning times over the yago-core ontology.
-
-
 \begin{table}
 \centering
 \caption{The reasoning-time results (seconds)}
@@ -170,10 +132,43 @@ the ordinate records the reasoning times over the yago-core ontology.
 \label{tab:result}
 \end{table}
 
+
+\subsection{Evaluating the Implementation of Algorithm~$\mathsf{A}_{prc}$}
+
+We implement a prototype system ParallelDHL for DHL$(\circ)$ materialization
+based on Algorithm~$\mathsf{A}_{prc}$. Since ParallelDHL is evaluated in the
+platform which has the limited memory space and the fixed number of processors,
+the parallel assumption given in Section~\ref{sec:alg-bsc} does not apply to ParallelDHL.
+In the implementation of ParallelDHL, we use a hash function to map any rule instance
+to the identifier of some processor. Thus, when performing ParallelDHL,
+each processor handles a group of rule instances.
+
+We run ParallelDHL on the LUBM and the YAGO ontologies to further analyze these
+two kinds of ontologies. We also use the reasoning system, RDFox \cite{MotikNPHO14},
+for comparison. We use five LUBM ontologies, lubm-50, lubm-100, lubm-150, lubm-200
+and lubm-250, where lubm-50 contains the descriptions of 50 universities (the other ontologies
+are explained similarly). For YAGO, we use its core version, denoted by yago-core.\footnote{
+The yago-core ontology is available at https://www.mpi-inf.mpg.de/departments/databases-and-information-systems/research/yago-naga/yago/downloads/.}
+The yago-core ontology is a subset of the full YAGO dataset without imports. It does not include the datatype statements, the links
+between different data sources, the degrees of confidence and other kinds of
+annotations that we do not consider in this work. The statistics of the above ontologies is given in Table~\ref{tab:onto}.
+The running platform for this experiment is a server with a 50 Gigabyte RAM and 8 physical cores, in each core
+three logic threads can be allocated.
+
+We run the LUBM ontologies and the yago-core ontology on RDFox and ParallelDHL with different numbers of
+threads (respectively 1,4,8,16 and 24).
+The reasoning times are collected in Table~\ref{tab:result}. We also give Figure~\ref{fig:reasoningtime} to
+clearly compare the two systems.
+In Figure~\ref{fig:reasoningtime}(left), the abscissa records the five LUBM ontologies,
+the ordinate records the reasoning times with 24 threads being allocated;
+In Figure~\ref{fig:reasoningtime}(right), the abscissa records the reciprocals of the numbers of threads, and
+the ordinate records the reasoning times over the yago-core ontology.
+
+
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=1\textwidth]{fig-reasoningtime.eps}
-\caption{(left) the reasoning times over LUBM ontologies; (right) the reasoning times over yago-core.}
+\caption{(left) the reasoning times over the LUBM ontologies; (right) the reasoning times over yago-core.}
 \label{fig:reasoningtime}
 \end{center}
 \end{figure}
@@ -231,7 +226,7 @@ of Algorithm~$\mathsf{A}_{prc}$ as analyzed in Section~\ref{sec:practicalAlg}.
 It depends on several factors: the balancing of workload, the delay of some processors,
 the I/O blocking, etc. Since these issues are not our focus, we do not analyze them in this work.
 On the other hand, the results of the graph depths
-indicate that we can improve the performance of the materialization task by using more
+indicate that we can further improve the performance of the materialization task by using more
 memory space and more processors.
 
 

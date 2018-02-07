@@ -102,9 +102,7 @@ Materialization: Technique and Practice}
   ontology-based applications, but the rapid growth of semantic data
   poses the challenge to efficiently perform materialization on
   large-scale ontologies. Parallel materialization algorithms work
-  well for some ontologies, which is not always explained by the
-  theoretical results. For example, for the YAGO ontology
-  parallelization works well, although the reasoning problem for the
+  well for some ontologies, although the reasoning problem for the
   used ontology language is not in \texttt{NC}, i.e., the theoretical
   complexity class for \emph{parallel tractability}. This motivates us
   to study the problem of \emph{parallel tractability} of ontology
@@ -113,12 +111,12 @@ Materialization: Technique and Practice}
   Logic (DHL) and propose algorithms, called \texttt{NC} algorithms,
   to identify classes of ontologies for which materialization is
   tractable in parallel. To verify the practical usability of the
-  above results, we analyze real-world datasets and show that for many
+  above results, we analyze benchmark and real-world datasets, including the LUBM
+  and the YAGO ontologies, and show that for many
   ontologies expressed in DHL materialization is tractable in
   parallel. The implementation of our optimized parallel algorithm
-  shows performance improvements over the highly optimized
-  state-of-the-art reasoner RDFox on ontologies for which
-  materialization is tractable in parallel.
+  shows comparable performance with compared to the highly optimized
+  state-of-the-art reasoner RDFox.
 \end{abstract}
 
 \begin{keyword}
