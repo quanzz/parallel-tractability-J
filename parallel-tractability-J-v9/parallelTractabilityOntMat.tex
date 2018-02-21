@@ -127,7 +127,7 @@ We use the following example to illustrate this.
 
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=0.9\textwidth]{fig-pathtwist.pdf}
+\includegraphics[width=\textwidth]{fig-pathtwist.pdf}
 \caption{The materialization graph of $\mathcal{O}_{\text{ex}_6}$
   (left) and of $\mathcal{O}_{\text{ex}_7}$ (right)}
 \label{fig:ex3_4}
@@ -336,8 +336,8 @@ There exists a poly-logarithmically bounded function $\psi$ s.t. $\mathcal{D}_{\
 In this part, we discuss parallel tractability of reasoning over RDFS ontologies.
 Although RDFS is not directly based on a description logic, it can (partly) be described by a set of DL axioms \cite{GrosofHVD03}.
 The correspondence between RDFS statements and DL axioms is listed in Table~\ref{tab:rdfs}.
-We call RDFS statements of the form (1--4) \emph{the schema data}
-(which correspond to TBox axioms), statements of the form~(5) and~(6)
+We call RDFS statements of the form (S1--S4) \emph{the schema data}
+(which correspond to TBox axioms), statements of the form~(S5) and~(S6)
 \emph{the instance data} (which correspond to ABox axioms).
 
 \begin{table}
@@ -349,17 +349,17 @@ We call RDFS statements of the form (1--4) \emph{the schema data}
 & RDFS statements & Axiom\\
 \hline
 \hline
-(1)&$P~~\texttt{rdfs:domain}~~C$& $\top\sqsubseteq\forall P^-.C$\\
+(S1)&$P~~\texttt{rdfs:domain}~~C$& $\top\sqsubseteq\forall P^-.C$\\
 
-(2)&$P~~\texttt{rdfs:range}~~C$& $\top\sqsubseteq\forall P.C$\\
+(S2)&$P~~\texttt{rdfs:range}~~C$& $\top\sqsubseteq\forall P.C$\\
 
-(3)&$B~~\texttt{rdfs:subClassOf}~~C$& $B\sqsubseteq C$\\
+(S3)&$B~~\texttt{rdfs:subClassOf}~~C$& $B\sqsubseteq C$\\
 
-(4)&$R~~\texttt{rdfs:subPropertyOf}~~S$& $R\sqsubseteq S$\\
+(S4)&$R~~\texttt{rdfs:subPropertyOf}~~S$& $R\sqsubseteq S$\\
 \hline
-(5)&$a~~\texttt{rdf:type}~~C$& $C(a)$\\
+(S5)&$a~~\texttt{rdf:type}~~C$& $C(a)$\\
 
-(6)&$a~~R~~b$& $R(a,b)$\\
+(S6)&$a~~R~~b$& $R(a,b)$\\
 \hline
 \end{tabular}}
 \label{tab:rdfs}
