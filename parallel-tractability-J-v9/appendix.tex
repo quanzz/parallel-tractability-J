@@ -16,7 +16,7 @@ Thus $\mathcal{G}$ turns out to be an acyclic graph.
 Second, to show $\mathcal{G}$ is a
 complete materialization graph, we perform an induction on $T_R^{\omega}(\textbf{I})$.
 Specifically, all the facts in $T_R^{0}(\textbf{I})$ have to be in $\mathcal{G}$ by \ref{alg1:addFacts}
-of $\mathsf{A}_{bsc}$.
+of $\mathsf{A}_{\text{bsc}}$.
 For $i>0$, suppose that the ground atoms in $T_R^{i}(\textbf{I})$ are in $\mathcal{G}$.
 It can be checked that the atoms in $T_R^{i+1}(\textbf{I})$ have to be
 added to $\mathcal{G}$, since whenever a new node is derived from $T_R^{i}(\textbf{I})$,
@@ -24,13 +24,13 @@ there has to be a processor that would add it to $\mathcal{G}$.
 
 (2) The \emph{stage} (see the related contents in Section~2.3) of $P$ is the lower bound of the depth
 of all materialization graphs. One can further check that, for the materialization graph $\mathcal{G}$
-constructed by $\mathsf{A}_{bsc}$, its depth equals to the stage based on the induction above.
+constructed by $\mathsf{A}_{\text{bsc}}$, its depth is equal to the stage based on the induction above.
 Thus, $\mathcal{G}$ has the minimal depth among all the materialization graphs of $P$. \hfill$\Box$
 
 \section{Proof of Theorem~\ref{theorem:a1}}
 
 \textbf{Theorem~\ref{theorem:a1}}
-\emph{For any datalog program $P$, $P\in\mathcal{D}_{\mathsf{A}_{bsc}^{\psi}}$ iff
+\emph{For any datalog program $P=\langle R, \textbf{I}\rangle$, $P\in\mathcal{D}_{\mathsf{A}_{\text{bsc}}^{\psi}}$ iff
 $P$ has a materialization graph whose depth is upper-bounded by $\psi(|P|)$.}\\
 
 \noindent\emph{Proof:} We first prove that the number of iterations of \ref{alg1:updateG}
@@ -44,7 +44,7 @@ where $n$=\texttt{depth}($v'$).
 Further, \texttt{depth}($\mathcal{G}$)=$\max$$\{$\texttt{depth}($v_i$)$|v_i$ is in $\mathcal{G}\}$.
 We then have that the number of iterations of \ref{alg1:updateG} is \texttt{depth}($\mathcal{G}$).
 
-($\Rightarrow$) $P\in\mathcal{D}_{\mathsf{A}_{bsc}^{\psi}}$ means that $\mathsf{A}_{bsc}^{\psi}$ can return
+($\Rightarrow$) $P\in\mathcal{D}_{\mathsf{A}_{\text{bsc}}^{\psi}}$ means that $\mathsf{A}_{\text{bsc}}^{\psi}$ can return
 a materialization graph $\mathcal{G}$ of $P$.
 Recall that the number of iterations of \ref{alg1:updateG} is bounded by $\psi(|P|)$.
 Thus \texttt{depth}($\mathcal{G}$) is also bounded by $\psi(|P|)$.
@@ -54,7 +54,7 @@ is upper-bounded by $\psi(|P|)$.
 If $\mathcal{G}$ has the minimal depth among other materialization graphs of $P$,
 the number of iterations of \ref{alg1:updateG} is also \texttt{depth}($\mathcal{G}$) (Lemma~\ref{lemma:a1})
 and, thus, upper-bounded by $\psi(|P|)$.
-If $\mathsf{A}_{bsc}$ dose not return $\mathcal{G}$, then the returned graph $\mathcal{G}'$
+If $\mathsf{A}_{\text{bsc}}$ dose not return $\mathcal{G}$, then the returned graph $\mathcal{G}'$
 should have a smaller depth compared with $\mathcal{G}$.
 In this case, this conclusion still holds.\hfill$\Box$
 
@@ -62,12 +62,13 @@ In this case, this conclusion still holds.\hfill$\Box$
 
 \textbf{Lemma~\ref{lemma:a3}}
 \emph{Given a datalog program $P=\langle R, \textbf{I}\rangle$,
-$\mathsf{A}_{opt}$ halts and the output $\mathcal{G}$ is a materialization graph of $P$.}\\
+$\mathsf{A}_{\text{opt}}$ halts and output a materialization graph
+$\mathcal{G}$ of $P$.}\\
 
-\noindent\emph{Proof}: this lemma can be proved by two stages:
-(1) the graph $\mathcal{G}$ returned by $\mathsf{A}_{opt}$ is a materialization graph;
+\noindent\emph{Proof}: We prove the lemma in two stages:
+(1) the graph $\mathcal{G}$ returned by $\mathsf{A}_{\text{opt}}$ is a materialization graph;
 (2) $\mathcal{G}$ is a complete materialization graph.
-We first show that (1) holds by an induction on the iterations of \ref{alg3:updateG} of $\mathsf{A}_{opt}$.
+We first show that (1) holds by an induction on the iterations of \ref{alg3:updateG} of $\mathsf{A}_{\text{opt}}$.
 
 \emph{Base case}. Initially, $\mathcal{G}$ only contains all the explicit nodes.
 In this case, $\mathcal{G}$ is obviously a materialization graph.
@@ -75,47 +76,53 @@ In this case, $\mathcal{G}$ is obviously a materialization graph.
 \emph{Inductive case}.
 According to the induction hypothesis, the partial graph constructed after
 the $i^{th}$ ($i>1$) iteration is a materialization graph, denoted by $\mathcal{G}^{i}$.
-We have to show that the partial graph constructed after the $i+1^{th}$ iteration is
+We have to show that the partial graph constructed after the $(i+1)^{th}$ iteration is
 also a materialization graph, denoted by $\mathcal{G}^{i+1}$.
-The partial graph $\mathcal{G}^{i+1}$ is updated in $\mathsf{A}_{opt}$ by performing the step $(\textbf{\romannumeral3})$
-of Algorithm~$\mathsf{Opt}$.
+The partial graph $\mathcal{G}^{i+1}$ is updated in $\mathsf{A}_{\text{opt}}$ by performing Step $(\textbf{\romannumeral3})$
+of Algorithm~$\mathsf{OPT}$.
 Suppose that \texttt{rch}$(B_k,H)\in S_{\textit{\!\tiny rch}}$ is checked.
 It corresponds to the rule instantiation $B_1,..,B_k,..,B_n\rightarrow H$.
-Algorithm~$\mathsf{Opt}$ next checks that there exists a node $B'$ such that
+Algorithm~$\mathsf{OPT}$ next checks that there exists a node $B'$ such that
 \texttt{rch}$(B',B_k)\in S^*_{\!\tiny rch}$
 and $B'$ is in $\mathcal{G}$. This means that $B_k$ and $H$ are derivable.
-The algorithm then adds new nodes $B_k$ and $H$ to $\mathcal{G}^{i}$ in three cases.
-(1) if $H$ is not in $\mathcal{G}^{i}$ while $B_k$ is in $\mathcal{G}^{i}$,
+The algorithm then adds new nodes $B_k$ and $H$ to $\mathcal{G}^{i}$
+according to three cases.
+(1) If $H$ is not in $\mathcal{G}^{i}$ while $B_k$ is in $\mathcal{G}^{i}$,
 then $H$ is added to $\mathcal{G}^{i+1}$, and the edges $e(B_1, H),...,e(B_n, H)$ are created.
-(2) when neither of $H$ and $B_k$ is in $\mathcal{G}^{i}$,
+(2) If neither of $H$ and $B_k$ is in $\mathcal{G}^{i}$,
 then $H$ and $B_k$ are added to $\mathcal{G}^{i+1}$, and the edges $e(B_1, H),...,e(B_n, H)$ are also created.
 In the above two cases, $H$ is a new node. Thus,
 $\mathcal{G}^{i+1}$ is acyclic.
-(3) if $H$ is in $\mathcal{G}^{i}$ and $H$ has no parent,
+(3) If $H$ is in $\mathcal{G}^{i}$ and $H$ has no parent,
 $B_k$ is added to $\mathcal{G}^{i+1}$, and the edges $e(B_1, H),...,e(B_n, H)$ are also created.
 For the case that $H$ is in $\mathcal{G}^{i}$ and $H$ has parents,
 the algorithm does nothing.
 Thus, $\mathcal{G}^{i+1}$ is acyclic and satisfies the definition of materialization graph.
 
-To show that (2) holds, we use the same method in the proof for Lemma~\ref{lemma:a1}.
+To show that (2) holds, we use the same method as in the proof of Lemma~\ref{lemma:a1}.
 We want to show that all the ground atoms in $T_R^{i+1}(\textbf{I})$ have to be added to $\mathcal{G}$,
 with the induction hypothesis that the ground atoms in $T_R^{i}(\textbf{I})$ are in $\mathcal{G}$.
 Suppose the ground atoms in $T_R^{i}(\textbf{I})$ have been added to $\mathcal{G}$ by
-performing $\mathsf{A}_{opt}$.
+performing $\mathsf{A}_{\text{opt}}$.
 For each atom $\alpha$ in $T_R^{i+1}(\textbf{I})$, $\alpha$ actually has a special SWD path
-of the length 1. This is because that all parents of $\alpha$ have been in $\mathcal{G}$.
+of length~$1$. This is because all parents of $\alpha$ have been in $\mathcal{G}$.
 According to the optimization strategy, $\alpha$ has to be added to $\mathcal{G}$ by applying \ref{alg3:updateG}
-of $\mathsf{A}_{opt}$.\hfill$\Box$
+of $\mathsf{A}_{\text{opt}}$.\hfill$\Box$
 
 
 \section{Proof of Lemma~\ref{lemma:dllite}}
 
 \textbf{Lemma~\ref{lemma:dllite}}
 \emph{Given a DL-Lite ontology $\mathcal{O}$, for any materialization graph $\mathcal{G}$ of $\mathcal{O}$,
-each atom of the form $A(x)$ ($A\neq\bot$) or $R(x,y)$ in $\mathcal{G}$ has an SWD path.}\\
+each atom of the form $A(x)$ ($A\neq\bot$) or $R(x,y)$ in
+$\mathcal{G}$ has an SWD path.}
+\BG{now in the main part:\\ For any DL-Lite$_{\text{core}}$ or DL-Lite$_\mathcal{R}$ ontology $\mathcal{O}$, there exists a materialization graph $\mathcal{G}$ such that
+each atom of the form $A(x)$ ($A\neq\bot$) or $R(x,y)$ in
+$\mathcal{G}$ has an SWD path.\\ The proof just speaks about DL-Lite
+in general as the original claim. Adapt?}\\
 
-\noindent\emph{Proof}: this lemma can be proved by an induction on applications of
-the datalog rules corresponding to DL-Lite axioms.
+\noindent\emph{Proof}: We prove the lemma by an induction on applications of
+the datalog rules corresponding to DL-Lite axioms.}\\
 
 \emph{Base case}. For each explicit node $v$ of the form $A(x)$ ($A\neq\bot$) or $R(x,y)$,
 $v$ has a special SWD path with $v$ as the unique node. This conclusion holds
@@ -129,7 +136,7 @@ in all materialization graphs of $\mathcal{O}$.
 
 If $H$ is in the form of $A(x)$ ($A\neq\bot$), it may be derived by
 applying (T1) and (T3). Thus, we conduct the induction by
-distinguish these two cases as follows.
+distinguishing these two cases as follows:
 
 \begin{enumerate}[leftmargin=12ex,label=Case~1.\arabic*]
 \item $B\sqsubseteq A$. According to the induction hypothesis,
@@ -164,19 +171,19 @@ in some materialization graph.
 the above case.
 \end{enumerate}
 
-In both of Case~2.1 and Case~2.2, node $R(x,y)$ has an SWD path. Thus,
+For both Case~2.1 and Case~2.2, node $R(x,y)$ has an SWD path. Thus,
 node $R(x,y)$ has an SWD path in all materialization graphs of $\mathcal{O}$.\hfill$\Box$
 
 \section{Proof of Theorem~\ref{theorem:dl-lite}}
 
 \textbf{Theorem~\ref{theorem:dl-lite}}
 \emph{There exists a poly-logarithmically bounded function $\psi$ s.t.
-$\mathcal{D}_{\textit{\text{dl-lite}}}\subseteq\mathcal{D}_{\mathsf{A}_{opt}^{\psi}}$.}\\
+$\mathcal{D}_{\textit{\text{dl-lite}}}\subseteq\mathcal{D}_{\mathsf{A}_{\text{opt}}^{\psi}}$.}\\
 
 \noindent\emph{Proof}: this theorem can be easily proved based on Lemma~\ref{lemma:dllite}.
 Specifically, for any DL-lite ontology $\mathcal{O}$,
 there always exists a poly-logarithmically bounded function $\psi$ such that
-$\mathsf{A}_{opt}^{\psi}$ can handle the materialization of $\mathcal{O}$,
+$\mathsf{A}_{\text{opt}}^{\psi}$ can handle the materialization of $\mathcal{O}$,
 since in any materialization graph, each node has an SWD path.
 More precisely, we can set that $\psi=2$.\hfill$\Box$
 
@@ -185,7 +192,7 @@ More precisely, we can set that $\psi=2$.\hfill$\Box$
 
 \textbf{Theorem~\ref{theorem:dhl}}
 \emph{There exists a poly-logarithmically bounded function $\psi$ s.t.
-$\mathcal{D}_{\textit{\text{dhl}}}\subseteq\mathcal{D}_{\mathsf{A}_{opt}^{\psi}}$.}\\
+$\mathcal{D}_{\textit{\text{dhl}}}\subseteq\mathcal{D}_{\mathsf{A}_{\text{opt}}^{\psi}}$.}\\
 
 \noindent\emph{Proof}: observe that, for a datalog program that is transformed from a DHL ontology,
 a rule with a binary atom as its head can only be either of the form (R1), (R2) or (R3).
@@ -195,8 +202,8 @@ of the forms (R1-R3) are exhaustively applied; the consequences of the first sta
 also serve as the facts in the second stage (Stage~2). The rules of the forms (T1-T3)
 are then applied in Stage~2.
 It is obvious that, if both of Stage~1 and Stage~2 can be handled
-by performing $\mathcal{A}_{opt}^\psi$ for some poly-logarithmical function $\psi$, then
-the whole materialization can be handled by $\mathcal{A}_{opt}^\psi$.
+by performing $\mathcal{A}_{\text{opt}}^\psi$ for some poly-logarithmical function $\psi$, then
+the whole materialization can be handled by $\mathcal{A}_{\text{opt}}^\psi$.
 In what follows, we investigate the above two stages respectively, and show that,
 for any datalog program in $\mathcal{D}_{\textit{\text{dhl}}}$,
 such a poly-logarithmical function $\psi$ exists.
@@ -205,7 +212,7 @@ In Stage~1, the rules of the forms (R1-R3)
 are applied to add new nodes to the constructed materialization graph.
 We can observe that, rule (R3) is used for computation of transitive roles.
 As mentioned before, there exists an NC algorithm for transitivity computation.
-Inspired by this, we can prove that \emph{$\mathcal{A}_{opt}^\psi$
+Inspired by this, we can prove that \emph{$\mathcal{A}_{\text{opt}}^\psi$
 handles Stage~1 for some poly-logarithmical function $\psi$}.
 The proof of this result can be shown by separately considering non-transitive roles and
 the roles that are transitive or influenced by transitive roles.
@@ -244,16 +251,16 @@ which can be computed by an NC algorithm on $\delta_{R}$;
 one can further perform (R1) and (R2) iteratively based on all transitive closures $\delta^*_{R'}$
 where $R'$ is a transitive role.
 Since all nodes generated by only applying (R1) and (R2) have SWD paths,
-the computations of (1) and (3) can be handled by $\mathcal{A}_{opt}^\psi$.
-Further, transitive computation in part (2) can also be handled by $\mathcal{A}_{opt}^\psi$.
+the computations of (1) and (3) can be handled by $\mathcal{A}_{\text{opt}}^\psi$.
+Further, transitive computation in part (2) can also be handled by $\mathcal{A}_{\text{opt}}^\psi$.
 Thus, there exists a poly-logarithmical function $\psi$
-such that $\mathcal{A}_{opt}^\psi$ handles Stage~1.
+such that $\mathcal{A}_{\text{opt}}^\psi$ handles Stage~1.
 
 The results of Stage~1 serve as the facts of Stage~2. In other words, all binary atoms
 are explicit nodes in Stage~2. This also means that the rules of the forms (T1) and (T3)
 generate nodes with SWD paths. Due to the simple-concept restriction, for each rule
 instantiation $A_1(a),A_2(a)\rightarrow B(a)$, one of $A_1(a)$ and $A_2(a)$ always has an SWD path.
-Thus, Stage~2 can be handled by $\mathcal{A}_{opt}$ in at most two iterations.
+Thus, Stage~2 can be handled by $\mathcal{A}_{\text{opt}}$ in at most two iterations.
 Based on the above analysis, this theorem holds.
 
 We are now left to prove Lemma~\ref{lemma:ti}. We conduct the proof by an induction on
@@ -356,7 +363,7 @@ We finally study the case where $R$ is a TI but not a transitive role.
 \section{Proof of Theorem~\ref{theorem:dhlplus}}
 
 \textbf{Theorem~\ref{theorem:dhlplus}}
-\emph{There exists a poly-logarithmically bounded function $\psi$ s.t. $\mathcal{D}_{\textit{\text{dhl}}(\circ)}\subseteq\mathcal{D}_{\mathsf{A}_{opt}^{\psi}}$.}\\
+\emph{There exists a poly-logarithmically bounded function $\psi$ s.t. $\mathcal{D}_{\textit{\text{dhl}}(\circ)}\subseteq\mathcal{D}_{\mathsf{A}_{\text{opt}}^{\psi}}$.}\\
 
 \noindent\emph{Proof}: the proof idea of this theorem is similar to that of Theorem~\ref{theorem:dhl}.
 That is, we separate the materialization of DHL$(\circ)$ ontologies into two stages: in Stage~1,
@@ -364,7 +371,7 @@ all the rules of the forms (R1-R4) are exhaustively applied; in Stage~2, the rul
 are then applied while the results of Stage~1 serve as facts. Stage~2 is as same as that of DHL.
 Thus we only consider Stage~1 here.
 
-Our target is to show that $\mathcal{A}_{opt}^\psi$ handles Stage~1. To this end, we also
+Our target is to show that $\mathcal{A}_{\text{opt}}^\psi$ handles Stage~1. To this end, we also
 distinguish all roles by whether they are transitively influenced. Since we have to consider
 complex RIAs, we re-define TI and NTI roles as follows:
 a role $R$ is \emph{transitively influenced} (TI)
@@ -419,10 +426,10 @@ one can further perform (R1), (R2) and (R4) iteratively based on all
 transitive closures $\delta^*_{R'}$ where $R'$ is a transitive role.
 All nodes generated by applying (R1) and (R2) have SWD paths in the first iteration; at
 least one role in the left hand side of (R4) are restricted to be a simple role.
-Thus, the computations of (1) and (3) can be handled by $\mathcal{A}_{opt}^\psi$.
-Further, transitive computation in part (2) can also be handled by $\mathcal{A}_{opt}^\psi$.
+Thus, the computations of (1) and (3) can be handled by $\mathcal{A}_{\text{opt}}^\psi$.
+Further, transitive computation in part (2) can also be handled by $\mathcal{A}_{\text{opt}}^\psi$.
 In summary, there exists a poly-logarithmical function $\psi$
-such that $\mathcal{A}_{opt}^\psi$ handles Stage~1.
+such that $\mathcal{A}_{\text{opt}}^\psi$ handles Stage~1.
 
 We now prove Lemma~\ref{lemma:tiplus}.
 We conduct the proof by an induction on
@@ -613,7 +620,7 @@ a materialization graph $\mathcal{O}$.}\\
 this theorem is proved in two stages:
 (1) the graph $\mathcal{G}$ returned by $\mathsf{A}_{prc}$ is a materialization graph;
 (2) $\mathcal{G}$ is a complete materialization graph.
-One can show that (1) holds by performing the same induction on the iterations of \ref{alg3:updateG} of $\mathsf{A}_{opt}$
+One can show that (1) holds by performing the same induction on the iterations of \ref{alg3:updateG} of $\mathsf{A}_{\text{opt}}$
 (see the proof of Lemma~\ref{lemma:a3}). This is because that
 such an induction is performed regardless of how the relation $S_{\textit{\!\tiny rch}}$ is computed.
 
