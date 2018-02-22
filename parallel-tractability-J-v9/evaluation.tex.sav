@@ -77,7 +77,7 @@ the core ontology can be expressed in DHL.
 We can further check that the concepts occurring in (\ref{lubm:a1}--\ref{lubm:a6})
 are all simple concepts. Thus,
 the materialization of LUBM datasets is tractable in parallel and can be handled by
-Algorithm~$\mathsf{A}_{\text{prc}}$.
+Algorithm~$\mathsf{A}_{\texttt{prc}}$.
 
 
 \textbf{YAGO}. The knowledge base YAGO\footnote{http://www.mpi-inf.mpg.de/home/}
@@ -118,7 +118,7 @@ Rule (\ref{yago:r2}) can be rewritten into (T3).} (T1), (R1) and (R3) in Table~\
 Based on the above analysis, any YAGO ontology can be expressed in DHL
 and satisfies the simple-concept and the simple-role restrictions. We then have that,
 for any well-constructed class of YAGO ontologies,
-Algorithm~$\mathsf{A}_{\text{prc}}$
+Algorithm~$\mathsf{A}_{\texttt{prc}}$
 can handle all of the ontologies in the class.
 
 In addition to LUBM and YAGO, we further investigate different kinds of ontologies and datasets
@@ -181,10 +181,10 @@ yago-core&65,318&74&55,615&4,077,882&45,277,896\\
 \end{table}
 
 
-\subsection{Evaluating the Implementation of Algorithm~$\mathsf{A}_{\text{prc}}$}
+\subsection{Evaluating the Implementation of Algorithm~$\mathsf{A}_{\texttt{prc}}$}
 
 We implement a prototype system ParallelDHL for DHL$(\circ)$ materialization
-based on Algorithm~$\mathsf{A}_{\text{prc}}$. Since ParallelDHL is
+based on Algorithm~$\mathsf{A}_{\texttt{prc}}$. Since ParallelDHL is
 evaluated on a
 platform which has limited memory space and a fixed number of processors,
 the parallel assumption given in Section~\ref{sec:alg-bsc} does not apply to ParallelDHL.
@@ -232,25 +232,23 @@ is significantly slower.
 The reason is that the computation of the relation $S_{\textit{\!\tiny rch}}$ requires a large amount of time. When
 four and more threads are allocated, ParallelDHL has a better efficiency.
 Although ParallelDHL is by far not as optimized as RDFox, it also shows the scalability.
-For both of RDFox and ParallelDHL,
-we can see a linear trend of the reasoning times
-in Figure~\ref{fig:reasoningtime}(left) and
-an obvious downtrend of the reasoning times with an increasing number of threads
-in Figure~\ref{fig:reasoningtime}(right).
+From Figure~\ref{fig:reasoningtime}(left),
+we can see a linear trend of the reasoning times of ParallelDHL; in Figure~\ref{fig:reasoningtime}(right)
+an obvious downtrend of the reasoning times exists for ParallelDHL when 
 This also indicates that ParallelDHL will finish the materialization tasks on the test ontologies
 in a shorter period of time with more threads being allocated.
 
 \subsection{Depths of Materialization Graphs}
 
-From the complexity analysis for Algorithm~$\mathsf{A}_{\text{bsc}}$ (see Section~\ref{sec:alg-bsc}),
+From the complexity analysis for Algorithm~$\mathsf{A}_{\texttt{bsc}}$ (see Section~\ref{sec:alg-bsc}),
 we have that the computing time of
-Algorithm~$\mathsf{A}_{\text{bsc}}$ depends on the sizes of the input ontologies and the
+Algorithm~$\mathsf{A}_{\texttt{bsc}}$ depends on the sizes of the input ontologies and the
 numbers of iterations of \ref{alg1:updateG},
 which is equal to the \emph{depth of the target materialization
   graph}, which we abbreviate with \emph{MG-depth} in the remainder.
 Thus, the MG-depth also determines the computing time of
-Algorithm~$\mathsf{A}_{\text{bsc}}$ in theory.
-This conclusion also applies to Algorithm~$\mathsf{A}_{\text{opt}}$ and Algorithm~$\mathsf{A}_{\text{prc}}$
+Algorithm~$\mathsf{A}_{\texttt{bsc}}$ in theory.
+This conclusion also applies to Algorithm~$\mathsf{A}_{\texttt{opt}}$ and Algorithm~$\mathsf{A}_{\texttt{prc}}$
 based on the analysis in Section~\ref{sec:opt} and Section~\ref{sec:practicalAlg}, respectively.
 In this part, we examine the effects of MG-depths.
 
@@ -258,7 +256,8 @@ In this part, we examine the effects of MG-depths.
 \begin{center}
 \includegraphics[width=1\textwidth]{fig-graphdepth.eps}
 \caption{The numbers of nodes in different depths of lubm-250 (left)
-  and yago-core (right)}
+  and yago-core (right) \BG{Could you move the right diagram away from
+  the border so that the axis marks do not run into the border?}}
 \label{fig:graphdepth}
 \end{center}
 \end{figure}
@@ -284,6 +283,62 @@ of universities.
 %
 Thus, the above experiments hardly show the effects of MG-depths.
 
+\textbf{Generating Ontologies of Different MG-Depths}.
+In order to examine the effects of MG-depths, we consider modifying the core LUBM ontology
+such that ontologies of different MG-depths can be obtained.
+Inspired by Example~\ref{exp:simpleC},
+we add to the core LUBM ontology the following three axioms to
+describe the reference relationships among articles:\BG{I assume you
+  mean \texttt{CollegeArtic*le*} instead of the consistently used
+  \texttt{CollegeArtic*al*}. Global search and replace should fix that...}
+\begin{align}
+\exists\texttt{referTo}.\texttt{CollegeArtical} & \sqsubseteq\texttt{CollegeConference}\label{ptu:a1}\tag{$\beta_1$}\\
+\exists\texttt{cite}.\top & \sqsubseteq\texttt{CollegeSession}\label{ptu:a2}\tag{$\beta_2$}\\
+\texttt{CollegeConference}\sqcap\texttt{CollegeSession} & \sqsubseteq\texttt{CollegeArtical}\label{ptu:a3}\tag{$\beta_3$}
+\end{align}
+where Axiom~\eqref{ptu:a1} states that any article referring to a
+college article is published in a college conference,
+Axiom~\eqref{ptu:a2} defines that any article having citations is
+published in a college session and Axiom~\eqref{ptu:a3} states that
+any article published in both a college conference and a college
+session is a college article.
+
+We name the above new ontology PTU.
+Based on the newly added axioms in PTU, we further modify the ontology-generator
+of LUBM such that a \emph{reference chain} of articles can be generated as follows:
+$\texttt{referTo}(\texttt{a}_i,\texttt{a}_{i+1})$ and
+$\texttt{cite}(\texttt{a}_i,\texttt{a}_{i+1})$ ($i\in\{0,1,2,...\}$),
+where $\texttt{a}_i$ denotes an article instance.
+As discussed in Section~\ref{sec:lubm-yago},
+the original core ontology of LUBM is tractable in parallel via
+Skolemization. Further, it can be checked that the concepts in PTU
+are all simple concepts. Thus, PTU belongs to the parallel tractability class.
+For comparison, we create another core ontology, named NPTU, which
+is not tractable in parallel. NPTU is almost the same as PTU except that
+axiom~\ref{ptu:a2} in PTU is replaced by:
+\begin{align}
+\exists\texttt{cite}.\texttt{CollegeArtical}\sqsubseteq\texttt{CollegeSession}\label{nptu:a1}\tag{$\beta_4$}
+\end{align}
+which describes that any article citing a college article is published in a
+college session.
+It can be checked that NPTU does not satisfy the simple-concept
+restriction following analogous arguments to those given in Example~\ref{exp:dhl}.
+
+The two core ontologies, PTU and NPTU,
+and the modified ontology-generator are available online.\footnote{https://github.com/quanzz/PT}
+To reduce the effects of ontology sizes, we generate five datasets of
+the similar sizes for PTU (NPTU, respectively), denoted by
+ptu-$4m$-$i$ (nptu-$4m$-$i$, respectively), $i\in\{1,2,4,8,16\}$,
+where $i$ is the number of article reference chains
+and $4m$ denotes that $4$ million articles are involved on average in all of the reference chains.
+The statistics for the these generated datasets are given in Table~\ref{tab:generated}.
+Table~\ref{tab:generated} shows that the datasets ptu-$4m$-$i$ ($i\in\{1,2,4,8,16\}$)
+have an almost identical number of assertions while the MG-depth
+decreases proportionally, e.g., the MG-depth of ptu-$4m$-$1$ is
+$8,000,799$, while the MG-depth of ptu-$4m$-$16$ is just
+$500,049$. This is
+analogous for the datasets nptu-$4m$-$i$ ($i\in\{1,2,4,8,16\}$).
+
 \begin{table}
 \centering
 \caption{The statistics of the generated datasets}
@@ -306,61 +361,6 @@ nptu-$4m$-16&&&&&8,000,831&500,049\\
 \label{tab:generated}
 \end{table}
 
-\textbf{Generating Ontologies of Different MG-Depths}.
-In order to examine the effects of MG-depths, we consider modifying the core LUBM ontology
-such that ontologies of different MG-depths can be obtained.
-Inspired by Example~\ref{exp:simpleC},
-we add to the core LUBM ontology the following three axioms to
-describe the reference relationships among articles:
-\begin{align}
-\exists\texttt{referTo}.\texttt{CollegeArticle} & \sqsubseteq\texttt{CollegeConference}\label{ptu:a1}\tag{$\beta_1$}\\
-\exists\texttt{cite}.\top & \sqsubseteq\texttt{CollegeSession}\label{ptu:a2}\tag{$\beta_2$}\\
-\texttt{CollegeConference}\sqcap\texttt{CollegeSession} & \sqsubseteq\texttt{CollegeArticle}\label{ptu:a3}\tag{$\beta_3$}
-\end{align}
-where Axiom~\eqref{ptu:a1} states that any article referring to a
-college article is published in a college conference,
-Axiom~\eqref{ptu:a2} defines that any article having citations is
-published in a college session and Axiom~\eqref{ptu:a3} states that
-any article published in both a college conference and a college
-session is a college article.
-
-We name the above new ontology PTU.
-Based on the newly added axioms in PTU, we further modify the ontology-generator
-of LUBM such that a \emph{reference chain} of articles can be generated as follows:
-$\texttt{referTo}(\texttt{a}_i,\texttt{a}_{i+1})$ and
-$\texttt{cite}(\texttt{a}_i,\texttt{a}_{i+1})$ ($i\in\{0,1,2,...\}$),
-where $\texttt{a}_i$ denotes an article instance.
-As discussed in Section~\ref{sec:lubm-yago},
-the original core ontology of LUBM is tractable in parallel via
-Skolemization. Further, it can be checked that the concepts in PTU
-are all simple concepts. Thus, PTU belongs to the parallel tractability class.
-For comparison, we create another core ontology, named NPTU, which
-is not tractable in parallel. NPTU is almost the same as PTU except that
-Axiom~\eqref{ptu:a2} in PTU is replaced by:
-\begin{align}
-\exists\texttt{cite}.\texttt{CollegeArticle}\sqsubseteq\texttt{CollegeSession}\label{nptu:a1}\tag{$\beta_4$}
-\end{align}
-which describes that any article citing a college article is published in a
-college session.
-It can be checked that NPTU does not satisfy the simple-concept
-restriction following analogous arguments to those given in Example~\ref{exp:dhl}.
-
-The two core ontologies, PTU and NPTU,
-and the modified ontology-generator are available online.\footnote{https://github.com/quanzz/PT}
-To reduce the effects of ontology sizes, we generate five datasets of
-the similar sizes for PTU (NPTU, respectively), denoted by
-ptu-$4m$-$i$ (nptu-$4m$-$i$, respectively), $i\in\{1,2,4,8,16\}$,
-where $i$ is the number of article reference chains
-and $4m$ denotes that $4$ million articles are involved on average in all of the reference chains.
-The statistics for the generated datasets are given in Table~\ref{tab:generated}.
-Table~\ref{tab:generated} shows that the datasets ptu-$4m$-$i$ ($i\in\{1,2,4,8,16\}$)
-have an almost identical number of assertions while the MG-depth
-decreases proportionally, e.g., the MG-depth of ptu-$4m$-$1$ is
-$8,000,799$, while the MG-depth of ptu-$4m$-$16$ is just
-$500,049$. This is
-analogous for the datasets nptu-$4m$-$i$ ($i\in\{1,2,4,8,16\}$).
-
-
 \textbf{Experimental Results and Analysis}.
 Table~\ref{tab:speedup} compares the reasoning times and
 speedups\footnote{The speedup is computed by $\frac{T_1}{T_n}$ where $T_1$ is the computing time
@@ -372,28 +372,38 @@ Figure~\ref{fig:diffdepths} and~\ref{fig:diffthreads} show the trends of
 reasoning times. Specifically, the two line graphs of Figure~\ref{fig:diffdepths}
 show the reasoning times in seconds of ParallelDHL and RDFox over
 all the generated datasets with 24 threads being allocated. In Figure~\ref{fig:diffthreads},
-the abscissas of the two line graphs record the numbers of threads and
+the abscissas of the two line graphs record the reciprocals of the numbers of threads and
 the ordinates record the reasoning times over ptu-$4m$-1 and nptu-$4m$-1, respectively.
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=1\textwidth]{fig-diff-depths.eps}
-\caption{(left) reasoning times over the PTU datasets; (right)
-  reasoning times over the NPTU datasets}
+\caption{(left) reasoning times over the NPTU datasets; (right)
+  reasoning times over the PTU datasets\BG{Could we consistently have
+    first ParellelDHL and then RDFox in the legends (also in the text
+    I prefer to name ParallelDHL first as it is the main system
+    treated in the article). I would also suggest to first (left) have
+  the PTU and then (right) the NPTU diagram as this is the order now
+  consistently used in the text and PTU is the main focus here. }}
 \label{fig:diffdepths}
 \end{center}
 \end{figure}
 
 Figure~\ref{fig:diffdepths} shows that MG-depths indeed determines
 the reasoning times.
-For the five datasets ptu-$4m$-$i$, $i\in\{1,2,4,8,16\}$, the experimental
+For the five datasets nptu-$4m$-$i$, $i\in\{1,2,4,8,16\}$, the experimental
 results show an obvious downtrend of the reasoning times with declining MG-depths for
-both ParallelDHL and RDFox (see Figure~\ref{fig:diffdepths}(left)).
+both ParallelDHL and RDFox (see Figure~\ref{fig:diffdepths}(left))
+\BG{left should be adjusted to right if you follow my suggestion to
+  swap the two diagrams; analogously for the next sentence}.
 The downtrend of reasoning times also exists
-when handling the datasets nptu-$4m$-$i$, $i\in\{1,2,4,8,16\}$ (see Figure~\ref{fig:diffdepths}(right)).
-Although the PTU and NPTU datasets are unrealistic in practice, these experiments indeed
+when handling the datasets ptu-$4m$-$i$, $i\in\{1,2,4,8,16\}$ (see Figure~\ref{fig:diffdepths}(right)).
+Although the NPTU and PTU datasets are unrealistic in practice, these experiments indeed
 verify that MG-depths determines the reasoning time in parallel
-considering that the input ontology sizes are close.
+considering that the input ontology sizes are close.\BG{For this whole
+paragraph (and the figures) I would prefer to first discuss the PT
+case (PTU) and then the non PT (NPTU) case and always list/name the main
+system (ParallelDHL) first and then RDFox. }
 
 \begin{table}
 \centering
@@ -423,7 +433,7 @@ considering that the input ontology sizes are close.
                                 &4&147.20&1.71&142.34&0.95\\
                                 &8&102.83&2.45&145.04&0.93\\
                                 &16&56.48&4.46&156.05&0.87\\
-                                &24&48.19&5.23&172.81&0.78\\
+                                &24&48.19&5.23&172.81&078\BG{decimal point missing?}\\
 \hline
 \multirow{5}{*}{ \textbf{RDFox}}&1&20.55&1&50.95&1\\
                                 &4&56.48&0.36&72.42&0.7\\
@@ -437,46 +447,7 @@ considering that the input ontology sizes are close.
 
 We now discuss the issue of parallel tractability based on the experimental
 results of ptu-$4m$-1 and nptu-$4m$-1.
-For the dataset ptu-$4m$-1, the trends of reasoning times are different
-between ParallelDHL and RDFox.
-It can be checked from Table~\ref{tab:speedup} that
-RDFox does not benefit from the allocation of several threads for ptu-$4m$-1;
-the speedups under different numbers of threads stay around 1.
-This means that reasoning times are not reduced with an increasing number of threads.
-ParallelDHL shows a better speedup effect. With only one allocated thread, ParallelDHL finishes
-the materialization of ptu-$4m$-1 in $135.79$ seconds (Table~\ref{tab:speedup}). When four and more threads
-are allocated, the reasoning performance is improved significantly.
-The maximal speedup is $5.23$ using $24$ threads.
-Specially, with $16$ or more threads, ParallelDHL
-requires less time to finish the materialization compared to RDFox.
-From Figure~\ref{fig:diffthreads}(left), there is an obvious downtrend of the reasoning times
-from one thread to $24$ threads.
-The main reason for the difference between ParallelDHL and RDFox
-is that the PTU ontology is tractable in parallel and ParallelDHL
-is optimized based on SWD paths. The PTU ontology follows the
-simple-concept restriction. Thus, there is no twisting path in
-the materialization graph of ptu-$4m$-1 although all articles are involved
-in one reference chain. This allows for computing the relation $S_{\textit{\!\tiny
-    rch}}$ only once in the second iteration of \ref{alg3:updateG} of Algorithm~$\mathsf{A}_{\text{prc}}$
-when handling ptu-$4m$-1 (referring to the analysis for Example~\ref{exp:simpleC}).
-It can also be checked that all the axioms of the form \texttt{CollegeArticle}$(a_i)$ occur in
-an SWD path. Thus, the optimization based on SWD paths works when handling ptu-$4m$-1.
-For RDFox, since it is not optimized specially for this case, it performs the task of
-materialization over ptu-$4m$-1 similarly to that over nptu-$4m$-1;
-specifically, the axioms of the form \texttt{CollegeArticle}$(a_i)$ are derived sequentially.
-From Figure~\ref{fig:diffdepths}(left), we can see that the optimization used in ParallelDHL
-also leads to a better performance compared to
-RDFox when handling ptu-$4m$-1, ptu-$4m$-2 and ptu-$4m$-4 using $24$ threads.
-
-\begin{figure}[htbp]
-\begin{center}
-\includegraphics[width=1\textwidth]{fig-diff-threads.eps}
-\caption{(left) the reasoning times over nptu-$4m$-1; (right) the reasoning times over ptu-$4m$-1.}
-\label{fig:diffthreads}
-\end{center}
-\end{figure}
-
-From Figure~\ref{fig:diffthreads}(right),
+From Figure~\ref{fig:diffthreads}(left),
 we can see that for both ParallelDHL and RDFox the reasoning efficiency is not
 improved when several threads are allocated. On the contrary, with less than 24 threads allocated,
 materialization takes less time. In detail,
@@ -490,12 +461,12 @@ The NPTU ontology does not follow the simple-concept restriction since
 the concepts \texttt{CollegeConference} and \texttt{CollegeSession} are not simple.
 The materialization of nptu-$4m$-$i$ ($i\in\{1,2,4,8,16\}$) suffers from the issue
 of path twisting which is similar to the case in Example~\ref{exp:dhl}.
-Specifically, the axioms of the form \texttt{CollegeArticle}$(a_i)$ are
+Specifically, the axioms of the form \texttt{CollegeArtical}$(a_i)$ are
 the joint nodes in the twisted path.
 According to the analysis in Example~\ref{exp:dhl}, parallel computation can hardly
 handle this case. Moreover, the dataset nptu-$4m$-1 has only one
 article reference chain. This means that all
-the axioms of the form \texttt{CollegeArticle}$(a_i)$ actually
+the axioms of the form \texttt{CollegeArtical}$(a_i)$ actually
 appear in one path of the target materialization graph.
 Thus, they depend on each other and cannot be derived in parallel.
 On the other hand, the working mechanism of ParallelDHL and RDFox is based on
@@ -503,9 +474,46 @@ a thread pool, where several threads are maintained and scheduled.
 The maintenance and scheduling of the thread pool also produces
 overheads, in particular, when the parallel computation
 cannot improve the total efficiency.
-This is why the materialization of nptu-$4m$-1 using $1$
+This is why the materialization of nptu-$4m$-1 using one$1$
 thread has a better performance.
 
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=1\textwidth]{fig-diff-threads.eps}
+\caption{(left) the reasoning times over nptu-$4m$-1; (right) the reasoning times over ptu-$4m$-1.}
+\label{fig:diffthreads}
+\end{center}
+\end{figure}
+
+For the dataset ptu-$4m$-1, the trends of reasoning times are different
+between ParallelDHL and RDFox.
+Similarly to the case of handling nptu-$4m$-1,
+RDFox does not benefit from the allocation of several threads for ptu-$4m$-1. The speedups under different numbers of threads stay around 1 (see Table~\ref{tab:speedup}).
+This means that reasoning times are not reduced with an increasing number of threads.
+ParallelDHL shows a better speedup effect. With only one allocated thread, ParallelDHL finishes
+the materialization of ptu-$4m$-1 in $135.79$ seconds (Table~\ref{tab:speedup}). When four and more threads
+are allocated, the reasoning performance is improved significantly.
+The maximal speedup is $5.23$ using $24$ threads.
+Specially, with $16$ or more threads, ParallelDHL
+requires less time to finish the materialization compared to RDFox.
+From Figure~\ref{fig:diffthreads}(right), there is an obvious downtrend of the reasoning times
+from one thread to $24$ threads.
+The main reason for the difference between ParallelDHL and RDFox
+is that the PTU ontology is tractable in parallel and ParallelDHL
+is optimized based on SWD paths. The PTU ontology follows the
+simple-concept restriction. Thus, there is no twisting path in
+the materialization graph of ptu-$4m$-1 although all articles are involved
+in one reference chain. This allows for computing the relation $S_{\textit{\!\tiny
+    rch}}$ only once in the second iteration of \ref{alg3:updateG} of Algorithm~$\mathsf{A}_{\texttt{prc}}$
+when handling ptu-$4m$-1 (referring to the analysis for Example~\ref{exp:simpleC}).
+It can also be checked that all the axioms of the form \texttt{CollegeArtical}$(a_i)$ occur in
+an SWD path. Thus, the optimization based on SWD paths works when handling ptu-$4m$-1.
+For RDFox, since it is not optimized specially for this case, it performs the task of
+materialization over ptu-$4m$-1 similarly to that over nptu-$4m$-1;
+specifically, the axioms of the form \texttt{CollegeArtical}$(a_i)$ are derived sequentially.
+From Figure~\ref{fig:diffdepths}(right), we can see that the optimization used in ParallelDHL
+also leads to a better performance compared to
+RDFox when handling ptu-$4m$-1, ptu-$4m$-2 and ptu-$4m$-4 using $24$ threads.
 
 %%% Local Variables:
 %%% mode: latex

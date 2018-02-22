@@ -31,12 +31,12 @@ Thus, $\mathcal{G}$ has the minimal depth among all the materialization graphs o
 
 \textbf{Theorem~\ref{theorem:a1}}
 \emph{For any datalog program $P=\langle R, \textbf{I}\rangle$, $P\in\mathcal{D}_{\mathsf{A}_{\text{bsc}}^{\psi}}$ iff
-$P$ has a materialization graph whose depth is upper-bounded by $\psi(|P|)$.}\\
+$P$ has a materialization graph whose depth is upper-bounded by $\psi(|\textbf{I}|)$.}\\
 
 \noindent\emph{Proof:} We first prove that the number of iterations of \ref{alg1:updateG}
 is actually the depth of the constructed materialization graph.
 We define the depths of nodes iteratively as follows:
-for each explicit node $v$, \texttt{depth}($v$)=0;
+for each of the original node $v$, \texttt{depth}($v$)=0;
 for each implicit node $v'$ whose parents are $v_1,...,v_i$, \texttt{depth}($v'$)=$\max$$\{$ \texttt{depth}($v_1$), ..., \texttt{depth}($v_i$) $\}+1$.
 By performing an induction on the number of iterations of \ref{alg1:updateG},
 one can check that an implicit node $v'$ has to be added to $\mathcal{G}$ in the $n^{th}$ iteration
@@ -46,14 +46,14 @@ We then have that the number of iterations of \ref{alg1:updateG} is \texttt{dept
 
 ($\Rightarrow$) $P\in\mathcal{D}_{\mathsf{A}_{\text{bsc}}^{\psi}}$ means that $\mathsf{A}_{\text{bsc}}^{\psi}$ can return
 a materialization graph $\mathcal{G}$ of $P$.
-Recall that the number of iterations of \ref{alg1:updateG} is bounded by $\psi(|P|)$.
-Thus \texttt{depth}($\mathcal{G}$) is also bounded by $\psi(|P|)$.
+Recall that the number of iterations of \ref{alg1:updateG} is bounded by $\psi(|\textbf{I}|)$.
+Thus \texttt{depth}($\mathcal{G}$) is also bounded by $\psi(|\textbf{I}|)$.
 
 ($\Leftarrow$) Suppose $P$ has a materialization graph $\mathcal{G}$ whose depth
-is upper-bounded by $\psi(|P|)$.
+is upper-bounded by $\psi(|\textbf{I}|)$.
 If $\mathcal{G}$ has the minimal depth among other materialization graphs of $P$,
 the number of iterations of \ref{alg1:updateG} is also \texttt{depth}($\mathcal{G}$) (Lemma~\ref{lemma:a1})
-and, thus, upper-bounded by $\psi(|P|)$.
+and, thus, upper-bounded by $\psi(|\textbf{I}|)$.
 If $\mathsf{A}_{\text{bsc}}$ dose not return $\mathcal{G}$, then the returned graph $\mathcal{G}'$
 should have a smaller depth compared with $\mathcal{G}$.
 In this case, this conclusion still holds.\hfill$\Box$
@@ -62,7 +62,7 @@ In this case, this conclusion still holds.\hfill$\Box$
 
 \textbf{Lemma~\ref{lemma:a3}}
 \emph{Given a datalog program $P=\langle R, \textbf{I}\rangle$,
-$\mathsf{A}_{\text{opt}}$ halts and output a materialization graph
+$\mathsf{A}_{\text{opt}}$ halts and outputs a materialization graph
 $\mathcal{G}$ of $P$.}\\
 
 \noindent\emph{Proof}: We prove the lemma in two stages:
@@ -70,7 +70,7 @@ $\mathcal{G}$ of $P$.}\\
 (2) $\mathcal{G}$ is a complete materialization graph.
 We first show that (1) holds by an induction on the iterations of \ref{alg3:updateG} of $\mathsf{A}_{\text{opt}}$.
 
-\emph{Base case}. Initially, $\mathcal{G}$ only contains all the explicit nodes.
+\emph{Base case}. Initially, $\mathcal{G}$ only contains all the original nodes.
 In this case, $\mathcal{G}$ is obviously a materialization graph.
 
 \emph{Inductive case}.
@@ -113,23 +113,18 @@ of $\mathsf{A}_{\text{opt}}$.\hfill$\Box$
 \section{Proof of Lemma~\ref{lemma:dllite}}
 
 \textbf{Lemma~\ref{lemma:dllite}}
-\emph{Given a DL-Lite ontology $\mathcal{O}$, for any materialization graph $\mathcal{G}$ of $\mathcal{O}$,
-each atom of the form $A(x)$ ($A\neq\bot$) or $R(x,y)$ in
-$\mathcal{G}$ has an SWD path.}
-\BG{now in the main part:\\ For any DL-Lite$_{\text{core}}$ or DL-Lite$_\mathcal{R}$ ontology $\mathcal{O}$, there exists a materialization graph $\mathcal{G}$ such that
-each atom of the form $A(x)$ ($A\neq\bot$) or $R(x,y)$ in
-$\mathcal{G}$ has an SWD path.\\ The proof just speaks about DL-Lite
-in general as the original claim. Adapt?}\\
+\emph{For any DL-Lite$_{\text{core}}$ or DL-Lite$_\mathcal{R}$ ontology $\mathcal{O}$, there exists a materialization graph $\mathcal{G}$ such that
+each atom of the form $A(x)$ ($A\neq\bot$) or $R(x,y)$ in $\mathcal{G}$ has an SWD path.}\\
 
-\noindent\emph{Proof}: We prove the lemma by an induction on applications of
-the datalog rules corresponding to DL-Lite axioms.}\\
+\noindent\emph{Proof}: We first prove the lemma by an induction on applications of
+the datalog rules corresponding to DL-Lite$_\mathcal{R}$ axioms.\\
 
-\emph{Base case}. For each explicit node $v$ of the form $A(x)$ ($A\neq\bot$) or $R(x,y)$,
+\emph{Base case}. For each of the original node $v$ of the form $A(x)$ ($A\neq\bot$) or $R(x,y)$,
 $v$ has a special SWD path with $v$ as the unique node. This conclusion holds
 for any materialization graph.
 
 \emph{Inductive cases}. For each datalog rule of the form `$B_1,...,B_n\rightarrow H$'
-that is rewritten from some DL-Lite axiom, we have the induction hypothesis
+that is rewritten from some DL-Lite$_\mathcal{R}$ axiom, we have the induction hypothesis
 that $B_1,...,B_n$ have SWD paths.
 We are left to prove that $H$ has an SWD path as well
 in all materialization graphs of $\mathcal{O}$.
@@ -172,7 +167,12 @@ the above case.
 \end{enumerate}
 
 For both Case~2.1 and Case~2.2, node $R(x,y)$ has an SWD path. Thus,
-node $R(x,y)$ has an SWD path in all materialization graphs of $\mathcal{O}$.\hfill$\Box$
+node $R(x,y)$ has an SWD path in all materialization graphs of $\mathcal{O}$.
+We finish the proof for DL-Lite$_\mathcal{R}$. Since 
+DL-Lite$_{\text{core}}$ is a subset of DL-Lite$_\mathcal{R}$
+in terms of the expressivity, the above conclusion also applies
+to DL-Lite$_{\text{core}}$.\hfill$\Box$
+
 
 \section{Proof of Theorem~\ref{theorem:dl-lite}}
 
@@ -181,7 +181,7 @@ node $R(x,y)$ has an SWD path in all materialization graphs of $\mathcal{O}$.\hf
 $\mathcal{D}_{\textit{\text{dl-lite}}}\subseteq\mathcal{D}_{\mathsf{A}_{\text{opt}}^{\psi}}$.}\\
 
 \noindent\emph{Proof}: this theorem can be easily proved based on Lemma~\ref{lemma:dllite}.
-Specifically, for any DL-lite ontology $\mathcal{O}$,
+Specifically, for any DL-Lite$_{\text{core}}$ or DL-Lite$_\mathcal{R}$ ontology $\mathcal{O}$,
 there always exists a poly-logarithmically bounded function $\psi$ such that
 $\mathsf{A}_{\text{opt}}^{\psi}$ can handle the materialization of $\mathcal{O}$,
 since in any materialization graph, each node has an SWD path.
@@ -202,8 +202,8 @@ of the forms (R1-R3) are exhaustively applied; the consequences of the first sta
 also serve as the facts in the second stage (Stage~2). The rules of the forms (T1-T3)
 are then applied in Stage~2.
 It is obvious that, if both of Stage~1 and Stage~2 can be handled
-by performing $\mathcal{A}_{\text{opt}}^\psi$ for some poly-logarithmical function $\psi$, then
-the whole materialization can be handled by $\mathcal{A}_{\text{opt}}^\psi$.
+by performing $\mathsf{A}_{\text{opt}}^\psi$ for some poly-logarithmical function $\psi$, then
+the whole materialization can be handled by $\mathsf{A}_{\text{opt}}^\psi$.
 In what follows, we investigate the above two stages respectively, and show that,
 for any datalog program in $\mathcal{D}_{\textit{\text{dhl}}}$,
 such a poly-logarithmical function $\psi$ exists.
@@ -212,7 +212,7 @@ In Stage~1, the rules of the forms (R1-R3)
 are applied to add new nodes to the constructed materialization graph.
 We can observe that, rule (R3) is used for computation of transitive roles.
 As mentioned before, there exists an NC algorithm for transitivity computation.
-Inspired by this, we can prove that \emph{$\mathcal{A}_{\text{opt}}^\psi$
+Inspired by this, we can prove that \emph{$\mathsf{A}_{\text{opt}}^\psi$
 handles Stage~1 for some poly-logarithmical function $\psi$}.
 The proof of this result can be shown by separately considering non-transitive roles and
 the roles that are transitive or influenced by transitive roles.
@@ -251,16 +251,16 @@ which can be computed by an NC algorithm on $\delta_{R}$;
 one can further perform (R1) and (R2) iteratively based on all transitive closures $\delta^*_{R'}$
 where $R'$ is a transitive role.
 Since all nodes generated by only applying (R1) and (R2) have SWD paths,
-the computations of (1) and (3) can be handled by $\mathcal{A}_{\text{opt}}^\psi$.
-Further, transitive computation in part (2) can also be handled by $\mathcal{A}_{\text{opt}}^\psi$.
+the computations of (1) and (3) can be handled by $\mathsf{A}_{\text{opt}}^\psi$.
+Further, transitive computation in part (2) can also be handled by $\mathsf{A}_{\text{opt}}^\psi$.
 Thus, there exists a poly-logarithmical function $\psi$
-such that $\mathcal{A}_{\text{opt}}^\psi$ handles Stage~1.
+such that $\mathsf{A}_{\text{opt}}^\psi$ handles Stage~1.
 
 The results of Stage~1 serve as the facts of Stage~2. In other words, all binary atoms
-are explicit nodes in Stage~2. This also means that the rules of the forms (T1) and (T3)
+are the original nodes in Stage~2. This also means that the rules of the forms (T1) and (T3)
 generate nodes with SWD paths. Due to the simple-concept restriction, for each rule
 instantiation $A_1(a),A_2(a)\rightarrow B(a)$, one of $A_1(a)$ and $A_2(a)$ always has an SWD path.
-Thus, Stage~2 can be handled by $\mathcal{A}_{\text{opt}}$ in at most two iterations.
+Thus, Stage~2 can be handled by $\mathsf{A}_{\text{opt}}$ in at most two iterations.
 Based on the above analysis, this theorem holds.
 
 We are now left to prove Lemma~\ref{lemma:ti}. We conduct the proof by an induction on
@@ -371,7 +371,7 @@ all the rules of the forms (R1-R4) are exhaustively applied; in Stage~2, the rul
 are then applied while the results of Stage~1 serve as facts. Stage~2 is as same as that of DHL.
 Thus we only consider Stage~1 here.
 
-Our target is to show that $\mathcal{A}_{\text{opt}}^\psi$ handles Stage~1. To this end, we also
+Our target is to show that $\mathsf{A}_{\text{opt}}^\psi$ handles Stage~1. To this end, we also
 distinguish all roles by whether they are transitively influenced. Since we have to consider
 complex RIAs, we re-define TI and NTI roles as follows:
 a role $R$ is \emph{transitively influenced} (TI)
@@ -426,10 +426,10 @@ one can further perform (R1), (R2) and (R4) iteratively based on all
 transitive closures $\delta^*_{R'}$ where $R'$ is a transitive role.
 All nodes generated by applying (R1) and (R2) have SWD paths in the first iteration; at
 least one role in the left hand side of (R4) are restricted to be a simple role.
-Thus, the computations of (1) and (3) can be handled by $\mathcal{A}_{\text{opt}}^\psi$.
-Further, transitive computation in part (2) can also be handled by $\mathcal{A}_{\text{opt}}^\psi$.
+Thus, the computations of (1) and (3) can be handled by $\mathsf{A}_{\text{opt}}^\psi$.
+Further, transitive computation in part (2) can also be handled by $\mathsf{A}_{\text{opt}}^\psi$.
 In summary, there exists a poly-logarithmical function $\psi$
-such that $\mathcal{A}_{\text{opt}}^\psi$ handles Stage~1.
+such that $\mathsf{A}_{\text{opt}}^\psi$ handles Stage~1.
 
 We now prove Lemma~\ref{lemma:tiplus}.
 We conduct the proof by an induction on
@@ -613,12 +613,12 @@ We finally study the case where $R$ is a TI but not a transitive role.
 \section{Proof of Theorem~\ref{theorem:aprc}}
 
 \textbf{Theorem~\ref{theorem:aprc}}
-\emph{For any DHL$(\circ)$ ontology $\mathcal{O}$, Algorithm~$\mathsf{A}_{prc}$ halts and outputs
+\emph{For any DHL$(\circ)$ ontology $\mathcal{O}$, Algorithm~$\mathsf{A}_{\text{prc}}$ halts and outputs
 a materialization graph $\mathcal{O}$.}\\
 
 \noindent\emph{Proof}: similar to the proof of Lemma~\ref{lemma:a3},
 this theorem is proved in two stages:
-(1) the graph $\mathcal{G}$ returned by $\mathsf{A}_{prc}$ is a materialization graph;
+(1) the graph $\mathcal{G}$ returned by $\mathsf{A}_{\text{prc}}$ is a materialization graph;
 (2) $\mathcal{G}$ is a complete materialization graph.
 One can show that (1) holds by performing the same induction on the iterations of \ref{alg3:updateG} of $\mathsf{A}_{\text{opt}}$
 (see the proof of Lemma~\ref{lemma:a3}). This is because that
@@ -628,12 +628,12 @@ To prove that (2) holds, we conduct the induction used in the proof for Lemma~\r
 We aim to show that all the ground atoms in $T_R^{i+1}(\textbf{I})$ have to be added to $\mathcal{G}$,
 with the induction hypothesis that the ground atoms in $T_R^{i}(\textbf{I})$ are in $\mathcal{G}$.
 Suppose the ground atoms in $T_R^{i}(\textbf{I})$ have been added to $\mathcal{G}$ by
-performing $\mathsf{A}_{prc}$.
+performing $\mathsf{A}_{\text{prc}}$.
 For each atom $\alpha$ in $T_R^{i+1}(\textbf{I})$, there has to be a relation $(\beta,\alpha)$
 in $S_{\textit{\!\tiny rch}}$ obtained in some iteration; further
 $\beta$ is already in $\mathcal{G}$ according to the inductive hypothesis. Thus,
 $\alpha$ has to be added to $\mathcal{G}$ by applying \ref{alg4:updateG}
-of $\mathsf{A}_{prc}$.\hfill$\Box$
+of $\mathsf{A}_{\text{prc}}$.\hfill$\Box$
 
 
 \section{Proof of Theorem~\ref{theorem:aprcpt}}
@@ -674,7 +674,7 @@ and $R(x,y),A(y)\rightarrow B(x)$ respectively. Since role assertions are suppos
 during in Stage~SCM, role $R$ in each rule of the form $R(x,y),A(y)\rightarrow B(x)$
 can be viewed as an EDB predicate. This further means that,
 for each atom of the form $A(a)$ where $A$ is a simple concept,
-$A(a)$ has an SWD path in the first iteration of $\mathsf{A}_{prc}$.
+$A(a)$ has an SWD path in the first iteration of $\mathsf{A}_{\text{prc}}$.
 Recall Algorithm~$\mathsf{Prc}$. We use an induction to show that
 such an SWD path of $A(a)$ can be determined by $S_{\textit{\!\tiny rch}}$.
 The atom $A(a)$ can be derived through either of the following rule instantiations:
@@ -696,7 +696,7 @@ We next discuss the non-simple concept materialization (Stage~NSCM), which is co
 According to the simple-concept restriction, for each axiom of the form $A_1\sqcap A_2\sqsubseteq B$,
 one of $A_1$ and $A_2$ should be simple concept and can be viewed as an EDB predicate, since Stage~SCM is completed.
 In Stage~NSCM, for each atom of the form $A(a)$ where $A$ is not a simple concept,
-$A(a)$ has an SWD path in the first iteration of $\mathsf{A}_{prc}$ due to the simple concept restriction.
+$A(a)$ has an SWD path in the first iteration of $\mathsf{A}_{\text{prc}}$ due to the simple concept restriction.
 We also use an induction to show that
 such an SWD path of $A(a)$ can be determined by distinguishing different rule instantiations.
 The case of the rule instantiation of the form $B(a)\rightarrow A(a)$ (resp., $R(a,b),B(b)\rightarrow A(a)$)
@@ -716,11 +716,11 @@ here.
 The simple-role materialization (Stage~SRM) can be simply conducted by checking the transitive closure
 of role inclusions, i.e., the axioms of the forms (R1-R2).
 It is easy to check that the simple-role materialization can be finished after the
-first iteration of $\mathsf{A}_{prc}$.
+first iteration of $\mathsf{A}_{\text{prc}}$.
 
 We now discuss Stage~NSRM. For each atom of the form $R(a,b)$ where $R$ is not a simple role
 and not a transitive role,
-$R(a,b)$ has an SWD path in the first iteration of $\mathsf{A}_{prc}$ due to the simple role restriction.
+$R(a,b)$ has an SWD path in the first iteration of $\mathsf{A}_{\text{prc}}$ due to the simple role restriction.
 We use an induction to show that
 such an SWD path of $R(a,b)$ can be determined by distinguishing different rule instantiations
 as follows.
@@ -754,7 +754,7 @@ $R(a,b)\in\delta^*_R$ holds.
 According to the simple role restriction, for each sub-role $S$ of $R$, $S$ is a simple role,
 or there exists such axioms
 of the form $S_1\circ S_2\sqsubseteq S$ where $S_1$ and $S_2$ are simple roles.
-One can check the set $\delta_R$ can computed by $\mathsf{A}_{prc}$ in
+One can check the set $\delta_R$ can computed by $\mathsf{A}_{\text{prc}}$ in
 at most two iterations (see Case~4, Case~5 and Case~6).
 We should prove that the transitive closure $\delta^*_R$
 can also be computed by $\mathsf{A}_{prc}^\psi$ for some
@@ -764,7 +764,7 @@ poly-logarithmically bounded function $\psi$.
 \item[Case~7] $R(a,c),R(c,b)\rightarrow R(a,b)$ where $R$ is a transitive role.
     One can construct a binary tree $t$ where the root node is $R(a,b)$,
     the leaves are in $\delta_R$ and the hight of $t$ is up-bounded by
-    $\log(|\delta_R|)$. It can be checked that, $\mathsf{A}_{prc}$ can generate
+    $\log(|\delta_R|)$. It can be checked that, $\mathsf{A}_{\text{prc}}$ can generate
     all nodes in each level of $t$ in one iteration from the bottom. Thus,
     $R(a,b)$ can be derived in at most $\log(|\delta_R|)$ iterations.\hfill$\Box$
 \end{enumerate}
