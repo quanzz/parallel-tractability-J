@@ -1,7 +1,7 @@
 \section{Related Work}
 \label{sec:related}
 
-The parallel reasoner RDFox \cite{MotikNPHO14} is used to evaluate our implementation. RDFox is a state-of-the-art system that handles reasoning on datalog rewritable ontology languages. Algorithm~$\mathsf{A}_{bsc}$ proposed in Section~\ref{sec:ptclass} is similar to the main algorithm of RDFox (see \cite{MotikNPHO14}, Sections~3 and 4). The difference lies in that, a group of rule instantiations are handled by one processor (namely a thread) in RDFox, while in Algorithm~$\mathsf{A}_{bsc}$, each rule instantiation is assigned to a unique processor. Analogous to the method used in RDFox, ParallelDHL is also implemented by assigning a group of 
+The parallel reasoner RDFox \cite{MotikNPHO14} is used to evaluate our implementation. RDFox is a state-of-the-art system that handles reasoning on datalog rewritable ontology languages. Algorithm~$\mathsf{A}_{\text{bsc}}$ proposed in Section~\ref{sec:ptclass} is similar to the main algorithm of RDFox (see \cite{MotikNPHO14}, Sections~3 and 4). The difference lies in that, a group of rule instantiations are handled by one processor (namely a thread) in RDFox, while in Algorithm~$\mathsf{A}_{\text{bsc}}$, each rule instantiation is assigned to a unique processor. Analogous to the method used in RDFox, ParallelDHL is also implemented by assigning a group of
 rule instantiations to a processor.
 The experimental results show that ParallelDHL is comparable to RDFox when handling
 the LUBM and the YAGO ontologies.

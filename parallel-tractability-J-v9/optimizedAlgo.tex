@@ -17,7 +17,7 @@ Algorithm~$\mathsf{A}_{\text{opt}}$ constructs a materialization graph of the gi
 datalog program $P$ by checking all possible rule
 instantiations in $P^*$.
 One can check that $|P^*|$ could be the quadratic or cubic in the number of constants occurring in $P$.
-Recall the analysis of the parallel complexity of Algorithm~$\mathsf{A}_{bsc}$ and Algorithm~$\mathsf{A}_{\text{opt}}$.
+Recall the analysis of the parallel complexity of Algorithm~$\mathsf{A}_{\text{bsc}}$ and Algorithm~$\mathsf{A}_{\text{opt}}$.
 The number of constants is at most $|\textbf{I}|e$ where $e$ denotes the maximum arity of any predicate in $\textbf{I}$.
 Consider a datalog rule of the form `$R(x,y),A(y)\rightarrow B(x)$'.
 Since there are two variables in this rule, the number of all possible rule instantiations
@@ -63,7 +63,7 @@ Note that, for rule instantiations of two body atoms,
 we do not require that both of these two body atoms have been added to
 the constructed materialization graph.
 Otherwise, the algorithm would
-perform as Algorithm~$\mathsf{A}_{bsc}$ and, thus, the
+perform as Algorithm~$\mathsf{A}_{\text{bsc}}$ and, thus, the
 optimizations used in Algorithm~$\mathsf{A}_{\text{opt}}$ cannot further work.
 
 

@@ -77,7 +77,7 @@ the core ontology can be expressed in DHL.
 We can further check that the concepts occurring in (\ref{lubm:a1}--\ref{lubm:a6})
 are all simple concepts. Thus,
 the materialization of LUBM datasets is tractable in parallel and can be handled by
-Algorithm~$\mathsf{A}_{\texttt{prc}}$.
+Algorithm~$\mathsf{A}_{\text{prc}}$.
 
 
 \textbf{YAGO}. The knowledge base YAGO\footnote{http://www.mpi-inf.mpg.de/home/}
@@ -118,7 +118,7 @@ Rule (\ref{yago:r2}) can be rewritten into (T3).} (T1), (R1) and (R3) in Table~\
 Based on the above analysis, any YAGO ontology can be expressed in DHL
 and satisfies the simple-concept and the simple-role restrictions. We then have that,
 for any well-constructed class of YAGO ontologies,
-Algorithm~$\mathsf{A}_{\texttt{prc}}$
+Algorithm~$\mathsf{A}_{\text{prc}}$
 can handle all of the ontologies in the class.
 
 In addition to LUBM and YAGO, we further investigate different kinds of ontologies and datasets
@@ -181,10 +181,10 @@ yago-core&65,318&74&55,615&4,077,882&45,277,896\\
 \end{table}
 
 
-\subsection{Evaluating the Implementation of Algorithm~$\mathsf{A}_{\texttt{prc}}$}
+\subsection{Evaluating the Implementation of Algorithm~$\mathsf{A}_{\text{prc}}$}
 
 We implement a prototype system ParallelDHL for DHL$(\circ)$ materialization
-based on Algorithm~$\mathsf{A}_{\texttt{prc}}$. Since ParallelDHL is
+based on Algorithm~$\mathsf{A}_{\text{prc}}$. Since ParallelDHL is
 evaluated on a
 platform which has limited memory space and a fixed number of processors,
 the parallel assumption given in Section~\ref{sec:alg-bsc} does not apply to ParallelDHL.
@@ -242,15 +242,15 @@ in a shorter period of time with more threads being allocated.
 
 \subsection{Depths of Materialization Graphs}
 
-From the complexity analysis for Algorithm~$\mathsf{A}_{\texttt{bsc}}$ (see Section~\ref{sec:alg-bsc}),
+From the complexity analysis for Algorithm~$\mathsf{A}_{\text{bsc}}$ (see Section~\ref{sec:alg-bsc}),
 we have that the computing time of
-Algorithm~$\mathsf{A}_{\texttt{bsc}}$ depends on the sizes of the input ontologies and the
+Algorithm~$\mathsf{A}_{\text{bsc}}$ depends on the sizes of the input ontologies and the
 numbers of iterations of \ref{alg1:updateG},
 which is equal to the \emph{depth of the target materialization
   graph}, which we abbreviate with \emph{MG-depth} in the remainder.
 Thus, the MG-depth also determines the computing time of
-Algorithm~$\mathsf{A}_{\texttt{bsc}}$ in theory.
-This conclusion also applies to Algorithm~$\mathsf{A}_{\texttt{opt}}$ and Algorithm~$\mathsf{A}_{\texttt{prc}}$
+Algorithm~$\mathsf{A}_{\text{bsc}}$ in theory.
+This conclusion also applies to Algorithm~$\mathsf{A}_{\text{opt}}$ and Algorithm~$\mathsf{A}_{\text{prc}}$
 based on the analysis in Section~\ref{sec:opt} and Section~\ref{sec:practicalAlg}, respectively.
 In this part, we examine the effects of MG-depths.
 
@@ -457,7 +457,7 @@ is optimized based on SWD paths. The PTU ontology follows the
 simple-concept restriction. Thus, there is no twisting path in
 the materialization graph of ptu-$4m$-1 although all articles are involved
 in one reference chain. This allows for computing the relation $S_{\textit{\!\tiny
-    rch}}$ only once in the second iteration of \ref{alg3:updateG} of Algorithm~$\mathsf{A}_{\texttt{prc}}$
+    rch}}$ only once in the second iteration of \ref{alg3:updateG} of Algorithm~$\mathsf{A}_{\text{prc}}$
 when handling ptu-$4m$-1 (referring to the analysis for Example~\ref{exp:simpleC}).
 It can also be checked that all the axioms of the form \texttt{CollegeArticle}$(a_i)$ occur in
 an SWD path. Thus, the optimization based on SWD paths works when handling ptu-$4m$-1.
