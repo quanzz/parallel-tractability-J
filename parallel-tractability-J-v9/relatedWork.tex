@@ -1,10 +1,14 @@
 \section{Related Work}
 \label{sec:related}
 
-The parallel reasoner RDFox \cite{MotikNPHO14} is used to evaluate our implementation. RDFox is a state-of-the-art system that handles reasoning on datalog rewritable ontology languages. Algorithm~$\mathsf{A}_{\text{bsc}}$ proposed in Section~\ref{sec:ptclass} is similar to the main algorithm of RDFox (see \cite{MotikNPHO14}, Sections~3 and 4). The difference lies in that, a group of rule instantiations are handled by one processor (namely a thread) in RDFox, while in Algorithm~$\mathsf{A}_{\text{bsc}}$, each rule instantiation is assigned to a unique processor. Analogous to the method used in RDFox, ParallelDHL is also implemented by assigning a group of
+The parallel reasoner RDFox \cite{MotikNPHO14} is used to evaluate our implementation. RDFox is a highly optimized system that handles reasoning on datalog rewritable ontology languages. Algorithm~$\mathsf{A}_{\text{bsc}}$ proposed in Section~\ref{sec:ptclass} is similar to the main algorithm of RDFox (see \cite{MotikNPHO14}, Sections~3 and 4). The difference lies in that, a group of rule instantiations are handled by one processor (namely a thread) in RDFox, while in Algorithm~$\mathsf{A}_{\text{bsc}}$, each rule instantiation is assigned to a unique processor.
+Analogous to the method used in RDFox, ParallelDHL is also implemented by assigning a group of
 rule instantiations to a processor.
-The experimental results show that ParallelDHL is comparable to RDFox when handling
-the LUBM and the YAGO ontologies.
+Specially, ParallelDHL is also optimized by using SWD paths for handling
+ontologies that belong to parallel tractability classes.
+The experimental results show that this optimization results in a
+better performance on ontologies that are
+tractable in parallel compared with RDFox.
 
 There is work that studies parallel reasoning in RDFS and OWL. The current methods mainly focus on optimizing reasoning algorithms from different aspects. The authors of \cite{GoodmanJMAAH11} propose a new kind of encoding method for RDF triples to achieve a high performance. This method can significantly yield a throughput improvement and optimize the parallel RDF reasoning and query answering. In the work of \cite{PetersSZ15}, the RETE algorithm is used to accelerate rule matching for RDFS reasoning. The authors of \cite{SubercazeGCL16} propose a more efficient storage technique and optimize the join operations in parallel reasoning. The issue of balance distribution of parallel tasks is also studied \cite{SomaP08,WeaverH09}. Two approaches are explored, i.e., \emph{rule partitioning} (allocating parallel tasks to different processors based on rules) and \emph{data partitioning} (allocating parallel tasks based on data). The evaluation results indicate that the efficiency of balance distribution varies with respect to different datasets. On the other hand, parallel reasoning is also implemented for OWL fragments, e.g., OWL~RL \cite{KolovskiWE10}, OWL~EL \cite{KazakovKS14}, OWL~QL \cite{LemboSS13}, and even highly expressive languages \cite{SteigmillerLG14,LiebigM07,SchlichtS08,WuH12}. In current work, several techniques are proposed to adapt parallel computation to OWL reasoning tasks. A kind of graph-based method is discussed in \cite{LemboSS13} to enhance OWL~QL classification. The authors of \cite{LiebigM07,SchlichtS08,WuH12} propose pruning techniques to optimize the Tableaux algorithm. The \emph{lock-free technique} is applied in the work \cite{KazakovKS14,SteigmillerLG14}.
 
