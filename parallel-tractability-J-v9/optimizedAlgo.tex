@@ -89,7 +89,15 @@ This algorithm outputs an \texttt{rch} relation $S_{\!\textit{\tiny rch}}$ that
 is computed as follows:
 
 \begin{enumerate}[leftmargin=4ex,label=$\bullet$]
-\item add \texttt{rch}$(A(a),B(a))$ to $S_{\textit{\!\tiny rch}}$ where $A(a)\rightarrow B(a)\in P^*$, $\mathcal{O}\models A\sqsubseteq_* B$ and $A(a)\in V$;
+\item add \texttt{rch}$(A(a),B(a))$ to $S_{\textit{\!\tiny rch}}$
+  where $A(a)\rightarrow B(a)\in P^*$, $\mathcal{O}\models
+  A\sqsubseteq_* B$ \BG{By referring to the entailment relation, the *
+  seems not needed: $\mathcal{O}\models
+  A\sqsubseteq B$. Similarly below. I noticed that, when checking
+  whether we introduced the * notation with a clear reference to the
+  ontology/RBox, but we no not. I added a sentence to say that we omit
+the RBox (as we never introduced the * w.r.t.\ the whole ontology) if
+it is clear from the context. } and $A(a)\in V$;
 
 \item add \texttt{rch}$(A(b),B(a))$ to $S_{\textit{\!\tiny rch}}$ where $R(a,b),A(b)\rightarrow B(a)\in P^*$, $\exists R.A\sqsubseteq B\in\mathcal{T}$ and $R(a,b)\in V$;
 

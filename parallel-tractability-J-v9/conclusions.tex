@@ -2,7 +2,7 @@
 \label{sec:conclusion}
 
 In this paper, we studied the problem of parallel tractability of
-materialization on the datalog rewritable ontologies.
+materialization on datalog rewritable ontologies.
 To identify the parallel tractability classes,
 we proposed two \texttt{NC} algorithms, Algorithm~$\mathsf{A}_{\text{bsc}}^\psi$
 and Algorithm~$\mathsf{A}_{\text{opt}}^\psi$, that perform materialization on
@@ -21,21 +21,22 @@ to give a practical algorithm variant Algorithm~$\mathsf{A}_{\text{prc}}$, which
 also be restricted to an \texttt{NC} version.
 We implemented a system based on Algorithm~$\mathsf{A}_{\text{prc}}$ and compared it to
 the state-of-the-art reasoner RDFox.
-The experimental results showed that the optimizations proposed in this paper resulted in a
-better performance on ontologies that were
-tractable in parallel compared with RDFox.
+The experimental results showed that the optimizations proposed in this paper result in a
+better performance on ontologies that are
+tractable in parallel compared to RDFox.
 
-In the future work, we will extend our work in two lines.
-One line is a further study of the parallel tractability of
+In future work, we plan to extend our work in two lines.
+One line is a further study of parallel tractability of
 other expressive ontology languages, in addition to
 datalog rewritable ontology languages. Since different expressive OWL languages
 have different syntaxes and higher reasoning complexities than \texttt{PTime}-complete, we need to
 explore more restrictions that are practical and make materialization
-tractable in parallel. Another line of the future work is to
+tractable in parallel. Another line of work is to
 study how to further apply the
 results in practice.
-One idea is to apply the technique of SWD paths to enhance other reasoning-based tasks,
-like ontology classification, ontology debugging and query answering.
+One idea is to apply the technique of SWD paths to enhance other
+reasoning-based tasks such as ontology classification, ontology
+debugging and query answering.
 
 
 
