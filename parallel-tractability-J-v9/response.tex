@@ -10,9 +10,19 @@
 % pandoc reviews.tex -o rebuttal.txt
 \setlength{\parindent}{0pt}
 
+\usepackage[usenames, dvipsnames]{color}
+\newcommand{\BG}[1]{\textcolor{red}{BG: #1}}
+%\renewcommand{\BG}[1]{}
+
 \begin{document}
 
-We thank the reviewers for the time and effort invested in the detailed reviews and the valuable suggestions and comments to improve the quality of the paper.  Below we reply to the individual points of the reviewers.
+We thank the reviewers for the time and effort invested in the
+detailed reviews and the valuable suggestions and comments to improve
+the quality of the paper. The paper has been carefully proof-read and,
+hopefully, all wording and structural issues are fixed now. We also
+fixed all mentioned minor issues. Below we reply to the other points
+raised by the reviewers for which we completely revised the evaluation
+section.
 
 
 \section{Rebuttal to Review 1}
@@ -27,16 +37,16 @@ with a small number of threads (certainly up to hundreds) and maybe not even
 for very many threads (because of general overhead).
 \end{quote}
 
-We added the parallel complexity analysis for Algorithm~$\mathsf{A}_{\text{bsc}}$
+We added a parallel complexity analysis for Algorithm~$\mathsf{A}_{\text{bsc}}$
 and Algorithm~$\mathsf{A}_{\text{opt}}$
 in Section~3.3 and Section~3.4 respectively.
 Based on the analysis and Theorem~1, we have that the parallel complexity
-of Algorithm~$\mathsf{A}_{\text{bsc}}$ depends only on the graph depths,
+of Algorithm~$\mathsf{A}_{\text{bsc}}$ depends only on the graph depth,
 while the parallel complexity of Algorithm~$\mathsf{A}_{\text{opt}}$
-depends on both of the graph depths and the sizes of input ontologies.\\
+depends on both of the graph depth and the size of the input ontology.\\
 
-We added the evaluation and the analysis of graph depths in Section~6.3.
-The experimental results showed that, when the graph depth is comparable to
+We added an evaluation and analysis of the role of the graph depth in Section~6.3.
+The experimental results show that, when the graph depth is comparable to
 the size of the given ontology, it determines the reasoning time.
 
 
@@ -70,7 +80,7 @@ be materialzed tractably in parallel.  Instead there has to be a class of
 ontologies that cannot be so materialized.
 \end{quote}
 
-We did the revision for Example~6 (see the paragraph following Example~6),
+We revised Example~6 (see the paragraph following Example~6) and also
 and Example~1 (see the last paragraph of Section~3.2).
 
 
@@ -94,12 +104,15 @@ This is different from an ontology only containing simple concepts.
 
 
 We investigated many real ontologies from different data source. These ontologies cover
-several domains and only contain simple concepts (see Section~6.1). \\
+several domains and only contain simple concepts (see
+Section~6.1). \BG{Sec.~6.1 now only covers LUBM and YAGO. I don't think the
+current answer is convincing. Did this refer to the old Sec.~6.1 with
+the many more ontologies?}\\
 
 In this work, we focused on exploring the properties
 that make ontologies tractable in parallel. Thus, we did not study how to make ontologies
-tractable in parallel by having simple concepts or making concepts simple.
-We will study this problem in the future work.
+tractable in parallel by having simple concepts or making concepts
+simple. This could be a direction for future work.
 
 
 \begin{quote}
@@ -148,9 +161,9 @@ DBpedia, would be very useful.   If YAGO is not benchmarked then it needs to
 be dropped entirely.   Similarly for LUBM.
 \end{quote}
 
-We extended Section~6.1 to further discuss in what cases
+We extended Section~6.1 to further discuss in which cases
 the two ontologies, YAGO and LUBM, are tractable in parallel.
-We added the evaluation for these two kinds of ontologies in Section~6.2.
+We added an evaluation for these ontologies in Section~6.2.
 
 \begin{quote}
 The benchmarking part of the paper is very limited and extremely hard to
@@ -166,7 +179,7 @@ We modified the LUBM ontology to generate ontologies of different graph depths.
 The experimental results were clearer for explaining the issues of graph depths
 and parallel tractability.\\
 
-We used at most 24 threads in the new experiments.
+We used up to 24 threads in the revised experiments.
 
 
 \begin{quote}
@@ -176,12 +189,12 @@ in the KB are connected together.  It is not stated which ontologies belong
 to which DL.
 \end{quote}
 
-In order to make the original experiments close to real scenes, we did not
-construct these eight ontologies for some purpose, e.g., to
-make the graph depth deeper. Thus, these ontologies acted like common ones.\\
+In the original experiments, we did not
+construct these eight ontologies for a certain purpose, e.g., to
+make the graph depth deeper. The main purpose was to closely reflect real-world scenarios. \\
 
-In the revision, we modified the LUBM ontology to generate ontologies of
-different graph depths. We gave the description of how these ontologies
+In the revision, we modified the LUBM benchmark to generate ontologies of
+different graph depths. We further provide a description of how these ontologies
 were constructed.
 
 
@@ -197,9 +210,9 @@ why this is so, but I would have liked to see a longer one.
 \end{quote}
 
 
-In the original experiments, we checked that ParallelDHL costed a large amount of time for computing
-the relation $S_{\textit{\!\tiny rch}}$ when only one thread being allocated.
-When more than one threads are allocated, ParallelDHL has a better efficiency.
+In the original experiments, ParallelDHL required a large amount of time for computing
+the relation $S_{\textit{\!\tiny rch}}$ when only one thread is being allocated.
+With several threads allocated, ParallelDHL has a better efficiency.
 This also resulted in the difference of the speedups between RDFox and ParallelDHL.
 
 
@@ -211,9 +224,9 @@ this number have any importance?
 
 We used the speedup numbers to show different performances between the
 ontologies in $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$ and
-that in $\mathcal{D}^-_{\textit{\text{dhl}}(\circ)}$.\\
+that not in $\mathcal{D}_{\textit{\text{dhl}}(\circ)}$.\\
 
-In the revision, we gave the formula of speedup and analyzed
+In the revision, we provide the formula for the speedup and analyze
 the speedup numbers.
 
 
@@ -225,14 +238,14 @@ it appears that even for several of the more well-behaved ontologies that there
 is very little speedup between 6 and 8 processors.
 \end{quote}
 
-
-In order to make the original experiments close to real scenes, we did not
+\BG{The answer is not very much to the point and just a repetition of
+  a previous answer.}
+In order to make the original experiments close to real-world scenarios, we did not
 construct the eight ontologies for some special purpose, e.g., to
-make the graph depth deeper
-Thus, these ontologies acted like common ones.
+make the graph depth deeper.
 The differences between the ontologies in
-$\mathcal{D}_{\textit{\text{dhl}}(\circ)}$ and that in
-$\mathcal{D}^-_{\textit{\text{dhl}}(\circ)}$ were not clear
+$\mathcal{D}_{\textit{\text{dhl}}(\circ)}$ and those not in
+$\mathcal{D}_{\textit{\text{dhl}}(\circ)}$ were not clear
 for the test ontologies.\\
 
 In the revision, we did not continue to use the eight ontologies.
@@ -250,29 +263,9 @@ problems.
 \end{quote}
 
 
-We added the detailed analysis for LUBM and YAGO and the evaluation of
+We added a detailed analysis for LUBM and YAGO and the evaluation of
 graph depths in the revision.
 
-
-\begin{quote}
-Wording and structural problems:
-
-The paper has so many grammatical errors near its beginning that I gave up
-marking them after the first two pages.  I give a few that I noticed here.\\
-- [high-performance] computing platforms [] to\\
-- do exist ontologies[] for which materialization\\
-- (we use experiments to show [this] in Section 6).\\
-- There has been work [] propos[ing] parallel reasoning algorithms and employ[ing] parallel\\
-- e.g., dictionary encoding, balanc[ing] workload, [and] data partitioning,\\
-- It has also been shown that[] some well-known large-scale ontologies,\\
-The paper needs to be carefully copy-edited before any publication to remove
-these errors.
-
-"parallely tractable" is very grating.  It would be better to rewrite
-sentences to not use it.
-\end{quote}
-
-The paper has been carefully proof-read and hopefully all wording and structural issues are fixed now.
 
 \begin{quote}
 "parallely tractable" is very grating.  It would be better to rewrite
@@ -313,10 +306,10 @@ Under this assumption, a processor can check the applicability of its correspond
 rule instance and access the state of an atom occurring in this rule instance in constant time.
 This assumption also applies to analyzing the computation of transitive closures \cite{Allender07} and
 the problem of boolean matrix multiplication \cite{Raymond95}. Without this assumption, the program
-costs at least linear time to load the inputs. Thus, the requirements of the NC algorithms
+costs at least linear time to load the inputs. Thus, the requirements of the \texttt{NC} algorithms
 cannot be satisfied.\\
 
-We gave the detailed description of the above assumption before Algorithm~$\mathsf{A}_{\text{bsc}}$.
+We provide a detailed description of the above assumption before Algorithm~$\mathsf{A}_{\text{bsc}}$.
 
 
 \begin{quote}
@@ -324,9 +317,9 @@ The computation of the rch relation $S_{\text{rch}}$ ($\dag$) looks problematic,
 \end{quote}
 
 The requirement ``H has been added to G'' in the description of computing the rch relation $S_{\text{rch}}$ ($\dag$) is indeed
-incorrect. It should be ``H has not been added to G''. We fixed this error.\\
+incorrect. It should be ``H has \textbf{not} been added to G''. We fixed this error.\\
 
-We rewrote the paragraph under Lemma~2 to give a more detailed
+We rewrote the paragraph following Lemma~2 to give a more detailed
 analysis of the parallel complexity of Algorithm~$\mathsf{A}_{\text{opt}}$.
 In Step~2 of Algorithm~$\mathsf{A}_{\text{opt}}$, an \texttt{NC} algorithm is used to compute
 the transitive closure of $S_{\text{rch}}$.
@@ -338,36 +331,23 @@ The total computing time is still in poly-logarithmic time (see the detailed ana
 Finally, the algorithms assume each processor handling a rule instantiation. I wonder how it is implemented in ParallelDHL.
 \end{quote}
 
-We added the discussion of how each processor handles rule instantiations at the beginning of Section~6.2.
+We added a discussion of how each processor handles rule instantiations at the beginning of Section~6.2.
 
-\begin{quote}
-I list some relatively minor issues regarding presentation and technical details:
 
-- p5, saying ``y is a free variable'' in $A(x) \to \exists y.R(x,y)$ is confusing\\
--  p6, the definition of (complete) materialisation graphs seems problematic. According to Definition~2, a graph containing all ground atoms in $T_R^\omega(I)$ but no edge is a materialisation graph and is complete. In particular,  it does not guarantee ``the nodes whose in-degree is $0$ are the original facts in I'' as claimed.\\
-- p6, the use of $\forall$ in Definition~2 is confusing and even worse in p18 Algorithm PRC.\\
-- p20, it mentions a group of materialisation rules in YAGO which belong to $D_{\text{dhl}}$. It deserves a clarification on what these rules are like and why they do not fall into existing parallel tractable classes.\\
-- p20, Table 2, it should mention how these ontologies were selected. \\
-- p21, ``devided'' —> ``divided''\\
-- p21, the discussion on line graph lg1 is confusing (i.e.\ ``line-2 stays higher than line-6, but lower than line-4''). Maybe I was looking at the wrong place. \\
-- p25, the section heading ``Reference'' occur twice.
-\end{quote}
 
-All minor issues have been fixed.\\
+% We extended Section~6.1 to further discuss in what cases
+% the two ontologies, YAGO and LUBM, are tractable in parallel.
+% We also added the evaluation for these two kinds of ontologies in Section~6.2.\\
 
-We extended Section~6.1 to further discuss in what cases
-the two ontologies, YAGO and LUBM, are tractable in parallel.
-We also added the evaluation for these two kinds of ontologies in Section~6.2.\\
+% The eight ontologies were selected since they satisfy the properties for parallel tractability.
+% We used them to examine the effects of parallel tractability.
+% In the revision, we did not continue to use the eight ontologies.
+% We modified the LUBM ontology to generate ontologies of different graph depths.
+% We gave the description of how these ontologies
+% were constructed.\\
 
-The eight ontologies were selected since they satisfy the properties for parallel tractability.
-We used them to examine the effects of parallel tractability.
-In the revision, we did not continue to use the eight ontologies.
-We modified the LUBM ontology to generate ontologies of different graph depths.
-We gave the description of how these ontologies
-were constructed.\\
-
-In the new experiments, the results were clearer for explaining the issues of graph depths
-and parallel tractability.
+% In the new experiments, the results were clearer for explaining the issues of graph depths
+% and parallel tractability.
 
 
 
@@ -375,3 +355,8 @@ and parallel tractability.
 \bibliography{response}
 
 \end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
