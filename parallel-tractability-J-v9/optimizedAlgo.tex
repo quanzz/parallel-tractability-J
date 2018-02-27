@@ -91,13 +91,7 @@ is computed as follows:
 \begin{enumerate}[leftmargin=4ex,label=$\bullet$]
 \item add \texttt{rch}$(A(a),B(a))$ to $S_{\textit{\!\tiny rch}}$
   where $A(a)\rightarrow B(a)\in P^*$, $\mathcal{O}\models
-  A\sqsubseteq_* B$ \BG{By referring to the entailment relation, the *
-  seems not needed: $\mathcal{O}\models
-  A\sqsubseteq B$. Similarly below. I noticed that, when checking
-  whether we introduced the * notation with a clear reference to the
-  ontology/RBox, but we no not. I added a sentence to say that we omit
-the RBox (as we never introduced the * w.r.t.\ the whole ontology) if
-it is clear from the context. } and $A(a)\in V$;
+  A\sqsubseteq B$ and $A(a)\in V$;
 
 \item add \texttt{rch}$(A(b),B(a))$ to $S_{\textit{\!\tiny rch}}$ where $R(a,b),A(b)\rightarrow B(a)\in P^*$, $\exists R.A\sqsubseteq B\in\mathcal{T}$ and $R(a,b)\in V$;
 
@@ -108,10 +102,10 @@ it is clear from the context. } and $A(a)\in V$;
     $A_1\sqcap A_2\sqsubseteq B\in\mathcal{T}$ and $A_2(a)\in V$;
 
 \item add \texttt{rch}$(R(a,b)$, $S(a,b))$ to $S_{\textit{\!\tiny rch}}$ where $R(a,b)\rightarrow S(a,b)\in P^*$,
-    $\mathcal{O}\models R\sqsubseteq_* S$ and $R(a,b)\in V$;
+    $\mathcal{O}\models R\sqsubseteq S$ and $R(a,b)\in V$;
 
 \item add \texttt{rch}$(R(a,b)$, $S(b,a))$ to $S_{\textit{\!\tiny rch}}$ where $R(a,b)\rightarrow S(b,a)\in P^*$,
-    $\mathcal{O}\models R\sqsubseteq_* S^-$ and $R(a,b)\in V$;
+    $\mathcal{O}\models R\sqsubseteq S^-$ and $R(a,b)\in V$;
 
 \item add \texttt{rch}$(R_2(b,c),R_3(a,c))$ to $S_{\textit{\!\tiny rch}}$ where $R_1(a,b),R_2(b,c)\rightarrow R_3(a,c)\in P^*$,
     $R_1\circ R_2\sqsubseteq R_3\in\mathcal{R}$ (the case
