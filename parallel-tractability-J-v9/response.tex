@@ -103,11 +103,10 @@ This is different from an ontology only containing simple concepts.
 \end{quote}
 
 
-We investigated many real ontologies from different data source. These ontologies cover
-several domains and only contain simple concepts (see
-Section~6.1). \BG{Sec.~6.1 now only covers LUBM and YAGO. I don't think the
-current answer is convincing. Did this refer to the old Sec.~6.1 with
-the many more ontologies?}\\
+We investigated real ontologies from different data source. These ontologies cover
+several domains and only contain simple concepts (these ontologies can be
+obtained from the address given in the last paragraph of
+Section~6.1).\\
 
 In this work, we focused on exploring the properties
 that make ontologies tractable in parallel. Thus, we did not study how to make ontologies
@@ -238,20 +237,25 @@ it appears that even for several of the more well-behaved ontologies that there
 is very little speedup between 6 and 8 processors.
 \end{quote}
 
-\BG{The answer is not very much to the point and just a repetition of
-  a previous answer.}
-In order to make the original experiments close to real-world scenarios, we did not
-construct the eight ontologies for some special purpose, e.g., to
-make the graph depth deeper.
-The differences between the ontologies in
-$\mathcal{D}_{\textit{\text{dhl}}(\circ)}$ and those not in
-$\mathcal{D}_{\textit{\text{dhl}}(\circ)}$ were not clear
-for the test ontologies.\\
 
-In the revision, we did not continue to use the eight ontologies.
-We modified the LUBM ontology to generate ontologies of different graph depths.
-The experimental results were clearer for explaining the issues of graph depths
-and parallel tractability.
+ParallelDHL is mainly
+optimized based on the graph depth. Thus, when the graph depth is the
+dominate factor that determines the reasoning time, the experiment 
+should have a better performance. 
+In the original experiments, the eight ontologies were used to make
+the experiments close to real-world scenarios.
+Since the graph depths of different ontologies affect the reasoning times
+to different degrees, the experimental results are not very clear
+to explain the issue of parallel tractability.
+This is also why
+Figure 5 does not show the differences between the ontologies in
+$\mathcal{D}_{\textit{\text{dhl}}(\circ)}$ and those not in
+$\mathcal{D}_{\textit{\text{dhl}}(\circ)}$ well.\\
+
+In order to make the graph depth as a dominate factor, we modified the LUBM benchmark to 
+generate ontologies of different graph depths and conducted the new experiments
+in the revision.
+
 
 
 \begin{quote}
