@@ -34,7 +34,7 @@ This complexity class consists of problems that can be solved efficiently in par
 To show that a problem is in \texttt{NC}, one can give an \emph{\texttt{NC} algorithm} that handles this problem
 using parallel computation \cite{Raymond95}.
 An \texttt{NC} algorithm is required to terminate in parallel poly-logarithmic time.
-However, current materialization algorithms of datalog rewritable ontology languages
+However, \mbox{current} materialization algorithms of datalog rewritable ontology languages
 (e.g., the core algorithm used in RDFox \cite{MotikNPHO14}) are not \texttt{NC} algorithms
 since they are designed for general datalog programs and have \texttt{PTime}-complete complexity.
 Thus, we first give \texttt{NC} algorithms that perform materialization
@@ -52,17 +52,17 @@ Based on the analysis of this case, we propose to restrict the usage of DHL such
 restricted ontologies can be handled by the proposed \texttt{NC} algorithms.
 We further extend the results to an extension of DHL that also allows complex role inclusion axioms.
 Finally, we analyze the well-known benchmark, LUBM, and the real-world dataset, YAGO, and
-show that these ontologies following the
-proposed restrictions belong to the parallel tractability classes.
+show that these ontologies satisfy the
+proposed restrictions and, hence, belong to the parallel tractability classes.
 We implement a system based on an optimized \texttt{NC} algorithm for DHL materialization,
-which we compare to the state-of-the-art reasoner RDFox.
+which we compare to the state-of-the-art reasoner RDFox \cite{MotikNPHO14}.
 The experimental results show that the optimizations proposed in this paper result in a
 better performance on ontologies that are
-tractable in parallel compared with RDFox.
+tractable in parallel compared to RDFox.
 
 The remainder of the paper is organized as follows. In Section~\ref{sec:background}, we introduce some basic notions.
 We then give two \texttt{NC} algorithms for ontology materialization in Section~\ref{sec:ptclass}.
-We study parallel tractability of materialization in DL-Lite, DHL and an extension of DHL in Section~\ref{sec:ptonto}, respectively.
+We study parallel tractability of materialization in DL-Lite, DHL and an extension of DHL in Section~\ref{sec:ptonto}.
 In Section~\ref{sec:practicalAlg},
 we discuss how to optimize and implement the given \texttt{NC} algorithms.
 We analyze the LUBM and the YAGO ontologies and evaluate our implementation in Section~\ref{sec:evaluation}.

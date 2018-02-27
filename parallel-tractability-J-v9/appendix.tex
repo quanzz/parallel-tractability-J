@@ -37,7 +37,7 @@ $P$ has a materialization graph whose depth is upper-bounded by $\psi(|\textbf{I
 is actually the depth of the constructed materialization graph.
 We define the depths of nodes iteratively as follows:
 for each of the original node $v$, \texttt{depth}($v$)=0;
-for each implicit node $v'$ whose parents are $v_1,...,v_i$, \texttt{depth}($v'$)=$\max$$\{$ \texttt{depth}($v_1$), ..., \texttt{depth}($v_i$) $\}+1$.
+for each implicit node $v'$ whose parents are $v_1,\ldots ,v_i$, \texttt{depth}($v'$)=$\max$$\{$ \texttt{depth}($v_1$), \ldots , \texttt{depth}($v_i$) $\}+1$.
 By performing an induction on the number of iterations of \ref{alg1:updateG},
 one can check that an implicit node $v'$ has to be added to $\mathcal{G}$ in the $n^{th}$ iteration
 where $n$=\texttt{depth}($v'$).
@@ -88,13 +88,13 @@ and $B'$ is in $\mathcal{G}$. This means that $B_k$ and $H$ are derivable.
 The algorithm then adds new nodes $B_k$ and $H$ to $\mathcal{G}^{i}$
 according to three cases.
 (1) If $H$ is not in $\mathcal{G}^{i}$ while $B_k$ is in $\mathcal{G}^{i}$,
-then $H$ is added to $\mathcal{G}^{i+1}$, and the edges $e(B_1, H),...,e(B_n, H)$ are created.
+then $H$ is added to $\mathcal{G}^{i+1}$, and the edges $e(B_1, H),\ldots ,e(B_n, H)$ are created.
 (2) If neither of $H$ and $B_k$ is in $\mathcal{G}^{i}$,
-then $H$ and $B_k$ are added to $\mathcal{G}^{i+1}$, and the edges $e(B_1, H),...,e(B_n, H)$ are also created.
+then $H$ and $B_k$ are added to $\mathcal{G}^{i+1}$, and the edges $e(B_1, H),\ldots ,e(B_n, H)$ are also created.
 In the above two cases, $H$ is a new node. Thus,
 $\mathcal{G}^{i+1}$ is acyclic.
 (3) If $H$ is in $\mathcal{G}^{i}$ and $H$ has no parent,
-$B_k$ is added to $\mathcal{G}^{i+1}$, and the edges $e(B_1, H),...,e(B_n, H)$ are also created.
+$B_k$ is added to $\mathcal{G}^{i+1}$, and the edges $e(B_1, H),\ldots ,e(B_n, H)$ are also created.
 For the case that $H$ is in $\mathcal{G}^{i}$ and $H$ has parents,
 the algorithm does nothing.
 Thus, $\mathcal{G}^{i+1}$ is acyclic and satisfies the definition of materialization graph.
@@ -123,9 +123,9 @@ the datalog rules corresponding to DL-Lite$_\mathcal{R}$ axioms.\\
 $v$ has a special SWD path with $v$ as the unique node. This conclusion holds
 for any materialization graph.
 
-\emph{Inductive cases}. For each datalog rule of the form `$B_1,...,B_n\rightarrow H$'
+\emph{Inductive cases}. For each datalog rule of the form `$B_1,\ldots ,B_n\rightarrow H$'
 that is rewritten from some DL-Lite$_\mathcal{R}$ axiom, we have the induction hypothesis
-that $B_1,...,B_n$ have SWD paths.
+that $B_1,\ldots ,B_n$ have SWD paths.
 We are left to prove that $H$ has an SWD path as well
 in all materialization graphs of $\mathcal{O}$.
 
@@ -135,15 +135,15 @@ distinguishing these two cases as follows:
 
 \begin{enumerate}[leftmargin=12ex,label=Case~1.\arabic*]
 \item $B\sqsubseteq A$. According to the induction hypothesis,
-node $B(x)$ has an SWD path, denoted by $(v_1,...,v_n,B(x))$.
+node $B(x)$ has an SWD path, denoted by $(v_1,\ldots ,v_n,B(x))$.
 We have that, in some materialization graph, node $A(x)$
-has an SWD path of the form $(v_1,...,v_n,B(x),A(x))$.
+has an SWD path of the form $(v_1,\ldots ,v_n,B(x),A(x))$.
 
 \item $\exists R\sqsubseteq A$. Node $R(x,y)$ has an SWD path,
-denoted by $(v_1,...,v_n,R(x,y))$,
+denoted by $(v_1,\ldots ,v_n,R(x,y))$,
 according to the induction hypothesis.
 It is obvious that node $A(x)$
-has an SWD path of the form $(v_1,...,v_n,B(x),R(x,y))$
+has an SWD path of the form $(v_1,\ldots ,v_n,B(x),R(x,y))$
 in some materialization graph.
 \end{enumerate}
 
@@ -157,9 +157,9 @@ applying (R1) and (R2), we discuss these two cases.
 
 \begin{enumerate}[leftmargin=12ex,label=Case~2.\arabic*]
 \item $S\sqsubseteq R$. According to the induction hypothesis,
-node $S(x,y)$ has an SWD path, denoted by $(v_1,...,v_n,S(x,y))$.
+node $S(x,y)$ has an SWD path, denoted by $(v_1,\ldots ,v_n,S(x,y))$.
 Obviously, node $R(x,y)$
-has an SWD path of the form $(v_1,...,v_n,S(x,y),R(x,y))$
+has an SWD path of the form $(v_1,\ldots ,v_n,S(x,y),R(x,y))$
 in some materialization graph.
 
 \item $S\sqsubseteq R^-$. This case is similar to
@@ -324,9 +324,9 @@ We next analyze the case where $R$ is a transitive role.
         $R''$ (if $R'$ is a transitive role, then $R''\equiv R'$) such that
         $R''\sqsubseteq_* R'$ and $R''(a,b)\in\delta_{R''}^*$. Since $\delta_{R''}^*$ is
         the transitive closure of $\delta_{R''}$, we then have that there must
-        exist such atoms ($R''(a,c_1),R''(c_1,c_2),...,R''(c_n,b)$) in $\delta_{R''}$.
+        exist such atoms ($R''(a,c_1),R''(c_1,c_2),\ldots ,R''(c_n,b)$) in $\delta_{R''}$.
         Further, due to $R''\sqsubseteq_* R$ and Definition~\ref{def:deltaRdhl},
-        we have that $R(a,c_1),R(c_1,c_2),...,$ $R(c_n,b)\in\delta_{R}$. Thus, $R(a,b)\in\delta_{R}^*$
+        we have that $R(a,c_1)$, $R(c_1,c_2)$, \ldots, $R(c_n,b)\in\delta_{R}$. Thus, $R(a,b)\in\delta_{R}^*$
         also holds.
     \end{enumerate}
 
@@ -342,9 +342,9 @@ We next analyze the case where $R$ is a transitive role.
         $R''$ (if $R'$ is a transitive role, then $R''\equiv R'$) such that
         $R''\sqsubseteq_* R'$ and $R''(b,a)\in\delta_{R''}^*$. Since $\delta_{R''}^*$ is
         the transitive closure of $\delta_{R''}$, we then have that there must
-        exist such atoms ($R''(b,c_1),R''(c_1,c_2),...,R''(c_n,a)$) in $\delta_{R''}$.
+        exist such atoms ($R''(b,c_1),R''(c_1,c_2),\ldots ,R''(c_n,a)$) in $\delta_{R''}$.
         Further, due to $R''\sqsubseteq_* R^-$ and Definition~\ref{def:deltaRdhl},
-        we have that $R(a,c_n),R(c_n,c_{n-1}),...,$ $R(c_1,b)\in\delta_{R}$. Thus, $R(a,b)\in\delta_{R}^*$
+        we have that $R(a,c_n)$, $R(c_n,c_{n-1})$, \ldots, $R(c_1,b)\in\delta_{R}$. Thus, $R(a,b)\in\delta_{R}^*$
         also holds.
     \end{enumerate}
 
@@ -419,7 +419,7 @@ $\mathcal{L}(R)$, is defined as follows:
 % \end{enumerate}
 \end{definition}
 
-In the above definition, for a role sequence $L=R_1R_2,...,R_n$, let $L^-=R_n^-,...,R_2^-R_1^-$.
+In the above definition, for a role sequence $L=R_1R_2,\ldots ,R_n$, let $L^-=R_n^-,\ldots ,R_2^-R_1^-$.
 We then give the following definition for $\delta_R$.
 
 \begin{definition}\label{def:deltaRdhlplus}
@@ -433,14 +433,14 @@ $R\in\textbf{NR}$, we define $\delta_R$ as the following set of assertions:
 & \{ R(a,b) \mid R'(b,a)\in\mathcal{A} \text{ and } R'\sqsubseteq_{*}
   R^- \}\\
 & \{ R(a,b) \mid R_0R_1,\ldots,R_n\in\mathcal{L}(R),
-  R_i(x_i,x_{i+1})\in\mathcal{A}, i\in\{0,1,...,n\}, x_0=a, x_{n+1}=b \}.
+  R_i(x_i,x_{i+1})\in\mathcal{A}, i\in\{0,1,\ldots ,n\}, x_0=a, x_{n+1}=b \}.
 \end{align*}
 % For each $R\in\textbf{RN}$, let $\delta_R$ be the set of all assertions as follows:
 % \begin{enumerate}[leftmargin=4ex,label=\arabic*.]
 % \item for each $R(a,b)\in\mathcal{A}$;
 % \item $R(a,b)$, for each $R'(a,b)\in\mathcal{A}$ and $R'\sqsubseteq_{*}R$;
 % \item $R(a,b)$, for each $R'(b,a)\in\mathcal{A}$ and $R'\sqsubseteq_{*}R^-$;
-% \item $R(a,b)$, for each $R_0R_1,...,R_n\in\mathcal{L}(R)$, where $R_i(x_i,x_{i+1})\in\mathcal{A}$ and $x_0=a, x_{n+1}=b$ for $i\in\{0,1,...,n\}$.
+% \item $R(a,b)$, for each $R_0R_1,\ldots ,R_n\in\mathcal{L}(R)$, where $R_i(x_i,x_{i+1})\in\mathcal{A}$ and $x_0=a, x_{n+1}=b$ for $i\in\{0,1,\ldots ,n\}$.
 % \end{enumerate}
 \end{definition}
 
@@ -452,9 +452,9 @@ Let
   then have that
 $P\models R(a,b)$ implies: (1) if $R$ is a simple role, $R(a,b)\in\delta_R$;
 (2) if $R$ is a transitive role, then $R(a,b)\in\delta^*_R$;
-(3) if $R$ is a non-simple but not transitive role, then there exists a role sequence $R_0R_1,...,R_n\in\mathcal{L}(R)$ such that
+(3) if $R$ is a non-simple but not transitive role, then there exists a role sequence $R_0R_1,\ldots ,R_n\in\mathcal{L}(R)$ such that
 $R_i(x_i,x_{i+1})\in\delta_{R_i}$, or, $R_i(x_i,x_{i+1})\in\delta^*_{R_i}$ if $R_i$ is a transitive role,
-where $i\in\{0,1,...,n\}$ and $x_0=a, x_{n+1}=b$.
+where $i\in\{0,1,\ldots ,n\}$ and $x_0=a, x_{n+1}=b$.
 \end{lemma}
 
 The set $\delta^*_R$ also denotes the transitive closure of $\delta_R$ where $R$ is a transitive role.
@@ -494,9 +494,9 @@ the consequences (1), (2) and (3) in Lemma~\ref{lemma:tiplus} hold.
     role $R''$ such that $R''(a,b)\in\mathcal{A}$ and $R''\sqsubseteq R'$, we also have that
     $R(a,b)\in\delta_{R}$ because $R''\sqsubseteq_* R$ holds (Case~1.1.3). If there exists some
     role $R''$ such that $R''(b,a)\in\mathcal{A}$ and $R''\sqsubseteq R'^-$, the case is
-    similar to Case~1.1.2 (Case~1.1.4). There exists $R_0R_1,...,R_n\in\mathcal{L}(R')$,
-    where $R_i(x_i,x_{i+1})\in\mathcal{A}$ and $x_0=a, x_{n+1}=b$ for $i\in\{0,1,...,n\}$.
-    According to Definition~\ref{def:language}, $R_0R_1,...,R_n\in\mathcal{L}(R)$ holds since
+    similar to Case~1.1.2 (Case~1.1.4). There exists $R_0R_1,\ldots ,R_n\in\mathcal{L}(R')$,
+    where $R_i(x_i,x_{i+1})\in\mathcal{A}$ and $x_0=a, x_{n+1}=b$ for $i\in\{0,1,\ldots ,n\}$.
+    According to Definition~\ref{def:language}, $R_0R_1,\ldots ,R_n\in\mathcal{L}(R)$ holds since
     $R'\sqsubseteq R\in\mathcal{R}$ (Case~1.1.5).\label{dhlplus:NTIcaseR1}
 
 \item $R(a,b)$ is derived by applying the rule (R2), w.l.o.g., $R'(a,b)\rightarrow R(b,a)$,
@@ -507,9 +507,9 @@ the consequences (1), (2) and (3) in Lemma~\ref{lemma:tiplus} hold.
     role $R''$ such that $R''(b,a)\in\mathcal{A}$ and $R''\sqsubseteq R'$, we also have that
     $R(a,b)\in\delta_{R}$ because $R''\sqsubseteq_* R^-$ holds (Case~1.2.3). If there exists some
     role $R''$ such that $R''(a,b)\in\mathcal{A}$ and $R''\sqsubseteq R'^-$, this case is
-    similar to Case~1.2.2 (Case~1.2.4). There exists $R_0R_1,...,R_n\in\mathcal{L}(R')$,
-    where $R_i(x_i,x_{i+1})\in\mathcal{A}$ and $x_0=b, x_{n+1}=a$ for $i\in\{0,1,...,n\}$.
-    According to Definition~\ref{def:language}, $R_n^-,...,R_0^-\in\mathcal{L}(R)$ holds since
+    similar to Case~1.2.2 (Case~1.2.4). There exists $R_0R_1,\ldots ,R_n\in\mathcal{L}(R')$,
+    where $R_i(x_i,x_{i+1})\in\mathcal{A}$ and $x_0=b, x_{n+1}=a$ for $i\in\{0,1,\ldots ,n\}$.
+    According to Definition~\ref{def:language}, $R_n^-,\ldots ,R_0^-\in\mathcal{L}(R)$ holds since
     $R'\sqsubseteq R^-\in\mathcal{R}$ (Case~1.2.5).\label{dhlplus:NTIcaseR2}
 
 \item $R(a,b)$ is derived by applying the rule (R4), w.l.o.g.,
@@ -528,8 +528,8 @@ the consequences (1), (2) and (3) in Lemma~\ref{lemma:tiplus} hold.
         and $R'_i\sqsubseteq_* R_i^-$, then we have that $L_i=R^{'-}_i$.
 
     \item If there exists a role sequence
-      $R_0R_1,...,R_m\in\mathcal{L}(R')$ s.t.\ $R_j(x_j,x_{j+1})\in\mathcal{A}$ and $x_0=c_i, x_{n+1}=c_{i+1}$ for $i\in\{0,1,...,m\}$
-        and $R'\sqsubseteq_* R_i$, then $L_i=R_0R_1,...,R_m$ holds.
+      $R_0R_1,\ldots ,R_m\in\mathcal{L}(R')$ s.t.\ $R_j(x_j,x_{j+1})\in\mathcal{A}$ and $x_0=c_i, x_{n+1}=c_{i+1}$ for $i\in\{0,1,\ldots ,m\}$
+        and $R'\sqsubseteq_* R_i$, then $L_i=R_0R_1,\ldots ,R_m$ holds.
     \end{enumerate}
 
     Based on $L_i, i\in\{1,2\}$, we have that $L_1L_2\in\mathcal{L}(R)$. Further $R(a,b)\in\delta_R$
@@ -551,15 +551,15 @@ We next study the case where $R$ is a transitive role.
         obviously, $R\in\mathcal{L}(R)$ holds.
 
     \item $R'$ is a non-simple but not a transitive role.
-        By the induction hypothesis, there exists $R_0R_1,...,R_n\in\mathcal{L}(R')$
-        such that $R_i(x_i,x_{i+1})\in\delta_{R_i}$ or $R_i(x_i,x_{i+1})\in\delta^*_{R_i}$, where $i\in\{0,1,...,n\}$
-        and $x_0=a, x_{n+1}=b$. Since $R'\sqsubseteq R$ holds, $R_0R_1,...,R_n\in\mathcal{L}(R)$ also holds.
+        By the induction hypothesis, there exists $R_0R_1,\ldots ,R_n\in\mathcal{L}(R')$
+        such that $R_i(x_i,x_{i+1})\in\delta_{R_i}$ or $R_i(x_i,x_{i+1})\in\delta^*_{R_i}$, where $i\in\{0,1,\ldots ,n\}$
+        and $x_0=a, x_{n+1}=b$. Since $R'\sqsubseteq R$ holds, $R_0R_1,\ldots ,R_n\in\mathcal{L}(R)$ also holds.
 
     \item $R'$ is a transitive role.
         By the induction hypothesis, there exists $R'(a,b)\in\delta^*_{R'}$.
-        Further, let $R'(a,c_1),R'(c_1,c_2),...,R'(c_n,b)\in\delta_{R'}$.
+        Further, let $R'(a,c_1),R'(c_1,c_2),\ldots ,R'(c_n,b)\in\delta_{R'}$.
         Since $R'\sqsubseteq R\in\mathcal{R}$ holds, we also have that
-        $R(a,c_1),R(c_1,c_2)$ $,...,R(c_n,b)\in\delta_{R}$. Obviously $R(a,b)\in\delta^*_{R}$ holds.
+        $R(a,c_1),R(c_1,c_2)$ $,\ldots ,R(c_n,b)\in\delta_{R}$. Obviously $R(a,b)\in\delta^*_{R}$ holds.
     \end{enumerate}
 
 \item $R(a,b)$ is derived by applying the rule (R2), w.l.o.g., $R'(b,a)\rightarrow R(a,b)$,
@@ -570,15 +570,15 @@ We next study the case where $R$ is a transitive role.
         Similarly to \ref{dhlplus:NTIcaseR2}, $R(a,b)\in\delta_{R}$ holds and
         obviously, $R\in\mathcal{L}(R)$ holds.
 
-    \item $R'$ is a non-simple but not transitive role. By the induction hypothesis, there exists $R_0R_1,...,R_n\in\mathcal{L}(R')$
-        such that $R_i(x_i,x_{i+1})\in\delta_{R_i}$ or $R_i(x_i,x_{i+1})\in\delta^*_{R_i}$, where $i\in\{0,1,...,n\}$
-        and $x_0=b, x_{n+1}=a$. Since $R'\sqsubseteq R^-$ holds, $R_n^-,...,R_0^-\in\mathcal{L}(R)$ also holds.
+    \item $R'$ is a non-simple but not transitive role. By the induction hypothesis, there exists $R_0R_1,\ldots ,R_n\in\mathcal{L}(R')$
+        such that $R_i(x_i,x_{i+1})\in\delta_{R_i}$ or $R_i(x_i,x_{i+1})\in\delta^*_{R_i}$, where $i\in\{0,1,\ldots ,n\}$
+        and $x_0=b, x_{n+1}=a$. Since $R'\sqsubseteq R^-$ holds, $R_n^-,\ldots ,R_0^-\in\mathcal{L}(R)$ also holds.
 
      \item $R'$ is a transitive role.
         By the induction hypothesis, there exists $R'(b,a)\in\delta^*_{R'}$.
-        Further, let $R'(b,c_1),R'(c_1,c_2),...,R'(c_n,a)\in\delta_{R'}$.
+        Further, let $R'(b,c_1),R'(c_1,c_2),\ldots ,R'(c_n,a)\in\delta_{R'}$.
         Since $R'\sqsubseteq R^-\in\mathcal{R}$, we also have that
-        $R(a,c_1),R(c_1,c_2)$ $,...,R(c_n,b)\in\delta_{R}$. Obviously $R(a,b)\in\delta^*_{R}$ holds.
+        $R(a,c_1),R(c_1,c_2)$ $,\ldots ,R(c_n,b)\in\delta_{R}$. Obviously $R(a,b)\in\delta^*_{R}$ holds.
     \end{enumerate}
 
 \item $R(a,b)$ is derived by applying the rule (R4), w.l.o.g.,
@@ -608,9 +608,9 @@ We finally study the case where $R$ is a non-simple but not a transitive role.
         obviously, $R\in\mathcal{L}(R)$ holds.
 
     \item $R'$ is a non-simple but not a transitive role.
-        By the induction hypothesis, there exists $R_0R_1,...,R_n\in\mathcal{L}(R')$
-        such that $R_i(x_i,x_{i+1})\in\delta_{R_i}$ or $R_i(x_i,x_{i+1})\in\delta^*_{R_i}$, where $i\in\{0,1,...,n\}$
-        and $x_0=a, x_{n+1}=b$. Since $R'\sqsubseteq R$, $R_0R_1,...,R_n\in\mathcal{L}(R)$ also holds.
+        By the induction hypothesis, there exists $R_0R_1,\ldots ,R_n\in\mathcal{L}(R')$
+        such that $R_i(x_i,x_{i+1})\in\delta_{R_i}$ or $R_i(x_i,x_{i+1})\in\delta^*_{R_i}$, where $i\in\{0,1,\ldots ,n\}$
+        and $x_0=a, x_{n+1}=b$. Since $R'\sqsubseteq R$, $R_0R_1,\ldots ,R_n\in\mathcal{L}(R)$ also holds.
 
     \item $R'$ is a transitive role.
         By the induction hypothesis, there exists $R'(a,b)\in\delta^*_{R'}$.
@@ -627,9 +627,9 @@ We finally study the case where $R$ is a non-simple but not a transitive role.
         Similarly to \ref{dhlplus:NTIcaseR2}, $R(a,b)\in\delta_{R}$ holds and
         obviously, $R\in\mathcal{L}(R)$ holds.
 
-    \item $R'$ is a non-simple but not a transitive role. By the induction hypothesis, there exists $R_0R_1,...,R_n\in\mathcal{L}(R')$
-        such that $R_i(x_i,x_{i+1})\in\delta_{R_i}$ or $R_i(x_i,x_{i+1})\in\delta^*_{R_i}$, where $i\in\{0,1,...,n\}$
-        and $x_0=b, x_{n+1}=a$. Since $R'\sqsubseteq R^-$, $R_n^-,...,R_0^-\in\mathcal{L}(R)$ also holds.
+    \item $R'$ is a non-simple but not a transitive role. By the induction hypothesis, there exists $R_0R_1,\ldots ,R_n\in\mathcal{L}(R')$
+        such that $R_i(x_i,x_{i+1})\in\delta_{R_i}$ or $R_i(x_i,x_{i+1})\in\delta^*_{R_i}$, where $i\in\{0,1,\ldots ,n\}$
+        and $x_0=b, x_{n+1}=a$. Since $R'\sqsubseteq R^-$, $R_n^-,\ldots ,R_0^-\in\mathcal{L}(R)$ also holds.
 
      \item $R'$ is a transitive role.
         By the induction hypothesis, there exists $R'(b,a)\in\delta^*_{R'}$.

@@ -13,11 +13,11 @@ based on two modified versions of LUBM.
 
 
 
-\subsection{Parallel Tractability of the LUBM Datasets and YAGO Ontologies}
+\subsection{Parallel Tractability of LUBM Datasets and YAGO}
 \label{sec:lubm-yago}
 
-\textbf{LUBM}. In the Semantic Web community, LUBM
-(The Lehigh University Benchmark) is proposed to
+\textbf{LUBM}. In the Semantic Web community, 
+the Lehigh University Benchmark (LUBM) is proposed to
 facilitate the evaluation of ontology-based systems
 in a standard and systematic way.
 In the latest version of LUBM,\footnote{http://swat.cse.lehigh.edu/projects/lubm/}
@@ -391,7 +391,7 @@ results show an obvious downtrend of the reasoning times with declining MG-depth
 both ParallelDHL and RDFox (see Figure~\ref{fig:diffdepths}(left)).
 The downtrend of reasoning times also exists
 when handling the datasets nptu-$4m$-$i$, $i\in\{1,2,4,8,16\}$ (see Figure~\ref{fig:diffdepths}(right)).
-Although the PTU and NPTU datasets are unrealistic in practice, these experiments indeed
+Although the PTU and NPTU datasets are not real-world examples, these experiments indeed
 verify that MG-depths determines the reasoning time in parallel
 considering that the input ontology sizes are close.
 
@@ -439,7 +439,7 @@ We now discuss the issue of parallel tractability based on the experimental
 results of ptu-$4m$-1 and nptu-$4m$-1.
 For the dataset ptu-$4m$-1, the trends of reasoning times are different
 between ParallelDHL and RDFox.
-It can be checked from Table~\ref{tab:speedup} that
+Table~\ref{tab:speedup} shows that
 RDFox does not benefit from the allocation of several threads for ptu-$4m$-1;
 the speedups under different numbers of threads stay around 1.
 This means that reasoning times are not reduced with an increasing number of threads.

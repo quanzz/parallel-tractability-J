@@ -146,8 +146,9 @@ occurring on the right-hand side of axioms of the forms (R3) and (R4); (2) $S^-$
 Based on the above representations, ontology materialization
 corresponds to the evaluation of datalog programs.
 Specifically, given a datalog program $P=\langle R, \textbf{I}\rangle$,
-let $T_R(\textbf{I})=\{H\theta|\forall B_1,\ldots,B_n\rightarrow H\in R,
-B_i\theta\in\textbf{I}, 1\leq i\leq n \}$,
+we set\\[.5\baselineskip]
+\mbox{}\hfill $T_R(\textbf{I})=\{H\theta \mid \forall B_1,\ldots,B_n\rightarrow H\in R,
+B_i\theta\in\textbf{I}, 1\leq i\leq n \}$,\hfill\mbox{}\\[.5\baselineskip]
 where $\theta$ is some substitution; further let $T_R^{0}(\textbf{I})=\textbf{I}$ and
  $T_R^{i}(\textbf{I})=T_R^{i-1}(\textbf{I})\cup T_R(T_R^{i-1}(\textbf{I}))$ for each $i>0$.
 The smallest integer $n$ such that $T_R^{n}(\textbf{I})= T_R^{n+1}(\textbf{I})$ is called \emph{stage},
