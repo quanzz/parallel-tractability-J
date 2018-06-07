@@ -16,7 +16,8 @@ represents a Boolean conjunction `$\wedge$'.} where $H$ is referred to as
 the \emph{head atom} and $B_1,\ldots,B_n$ the \emph{body atoms}. Each variable in the head atom
 of a rule must occur in at least one body atom of the same rule. A \emph{fact} is a rule of
 the form `$\rightarrow H$', i.e., a rule with an empty body and the head $H$ being a ground atom.
-A datalog program $P$ consists of rules and facts.
+A datalog program  $P=\langle R, \textbf{I}\rangle$ consists of a
+finite set of rules $R$ and a finite set of facts $\textbf{I}$.
 A \emph{substitution} $\theta$ is a partial mapping of variables to constants.
 For an atom $A$, $A\theta$ is the result of replacing each variable $x$ in $A$
 with $\theta(x)$ if the latter is defined. We call $\theta$ a \emph{ground substitution}
