@@ -89,19 +89,17 @@ A \emph{materialization graph}, with respect to
 a datalog program $P=\langle R, \textbf{I}\rangle$, is a directed acyclic graph
 denoted by $\mathcal{G}=\langle V, E\rangle$ where,
 \begin{enumerate}[leftmargin=4ex,label=$\bullet$]
-  \item $V$ is the node set and $V\subseteq T_R^{\omega}(\textbf{I})$;
+  \item $V$ is the node set and $\textbf{I} \subseteq V\subseteq T_R^{\omega}(\textbf{I})$;
   \item $E$ is the edge set and $E\subseteq T_R^{\omega}(\textbf{I})\times T_R^{\omega}(\textbf{I})$.
 \end{enumerate}
 For each edge of the form $e(v_1, v_2)$ where $v_1$ and $v_2$ are two nodes,
 we say that the node $v_1$ is the parent (node) of $v_2$ and the node $v_2$ is the child (node)
-of $v_1$. 
-
-Further, for each $H,B_1,\ldots,B_n\in V$, $\mathcal{G}$ satisfies the following conditions:
+of $v_1$. A materialization graph satisfies the following conditions:
 \begin{enumerate}[leftmargin=4ex,label=$\bullet$]
-  \item if $e(B_1, H),\ldots,e(B_n, H)\in E$ and
-  $B_1,\ldots,B_n$ are all the parents of $H$, then $B_1,\ldots,B_n\rightarrow H\in P^*$;
-  \item if $H$ has an in-degree of $0$, then $H$ is an original fact
-    of $P$.
+\item each $v \in \textbf{I}$, $v$ has an in-degree of $0$;
+\item each $H \in V \setminus \textbf{I}$ such that $B_1,\ldots,B_n$
+  are all the parents of $H$, there is exactly one
+  $B_1,\ldots,B_n\rightarrow H\in P^*$.
 \end{enumerate}
 A materialization graph $\mathcal{G}$ is a \emph{complete materialization graph},
 when $\mathcal{G}$ contains all ground atoms in $T_R^{\omega}(\textbf{I})$.
