@@ -371,12 +371,17 @@ We call RDFS statements of the form (S1--S4) \emph{the schema data}
 
 
 
-The original rule set for RDFS reasoning is
-given by \citet{RDFSrec04}. By applying the rules in this rule set,
-new schema data could be derived. Thus, the reasoning task of RDFS
-is different from the task of materialization. Further, an RDFS ontology allows
-statements about blank nodes which act like variables. This possibly
-leads to infinite entailments. Additionally, the original rule set is
+The original rule set for RDFS reasoning is given by
+\citet{RDFSrec04}. By applying the rules in this rule set, new schema
+data can be derived. Thus, the reasoning task of RDFS is different
+from the task of materialization. In general, the RDFS (deductive)
+closure is infinite since infinitely many axiomatic triples are
+entailed by any (even the empty) RDF ontology. There are infinitely
+many axiomatic triples due to the infinite numer of container
+membership properties, which can be used to state that a resource is a
+member of some container. Further, RDFS ontologies allow statements
+about blank nodes, which act like variables. This possibly leads to
+infinite entailments. Additionally, the original rule set is
 incomplete with the RDF restriction that
 blank nodes cannot occur in predicate positions \cite{Horst05},
 however, by allowing blank nodes in predicate position

@@ -1,0 +1,191 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{url}
+
+\let\quoteOld\quote
+\let\endquoteOld\endquote
+\renewenvironment{quote}{\quoteOld\itshape}{\endquoteOld}
+
+% use the following command line to convert to standard text file
+% pandoc reviews.tex -o rebuttal.txt
+\setlength{\parindent}{0pt}
+
+\usepackage[usenames, dvipsnames]{color}
+\newcommand{\BG}[1]{\textcolor{red}{BG: #1}}
+%\renewcommand{\BG}[1]{}
+
+\begin{document}
+
+We thank the reviewers for the time and effort invested in the revised
+submission and their helpful comments to improve the paper. Below we
+reply to the points raised by the reviewers.
+
+
+\section{Rebuttal to Review 1}
+
+\begin{quote}
+In Section 4.4 it should be "can be derived" instead of "could be derived".
+The wording in the submission looks as if that is something that is no
+longer possible.
+\end{quote}
+
+done
+
+\begin{quote}
+RDF(S) materialization is also infinite because of the infinite non-trivial
+vocabulary for RDF containers.  This doesn't matter in theory because the
+inferences can be easily summarized and doesn't matter in practice because
+this vocabulary is hardly used.  However, there should be a bit on it
+anyway.
+\end{quote}
+
+We discuss this now in Sec.~4.4 on p.~17.
+
+
+\section{Rebuttal to Review 2}
+
+\begin{quote}
+  For the revised Definition~1, I wonder why it requires all datalog
+  programs in a class $\mathcal{D}$ to share the same rule set. And it
+  contradicts to the claim after the definition that each \texttt{NC}
+  algorithm $\mathsf{A}$ corresponds to a class
+  $\mathcal{D}_\mathsf{A}$. Does it mean a \texttt{NC} algorithm only
+  applies to one rule set? To study data complexity, one can assume
+  the size of the rule set is fixed, but I do not see why the rules
+  need to be fixed.
+\end{quote}
+
+Since we study the data complexity (see last sentence before
+Section~2.4 and the second sentence of Sec.~3), we consider only the
+data (the facts $\textbf{I}$ as input), whereas the rule set is
+assumed to be fixed. This is the standard definition for data
+complexity. We have rephrased Definition~1 and now use a phrasing
+closer to that used by Lutz and Wolter \cite{LuWo17a}, which hopefully
+makes this clearer. It is important (and not specific to our work)
+that only the data is considered as (variable) input. 
+
+This does not mean that an \texttt{NC} algorithm applies to just one
+rule set, but it means that for studying the data complexity, we
+assume that only the input data can be different (is in the input),
+whereas the rule set is considered fixed.
+
+Hence, while the algorithms (e.g.\ Algorithm $\mathsf{A}_\text{bsc}$
+or (or $\mathsf{A}_\text{opt}$) involve two inputs (rules and facts),
+for the complexity analysis, we assume the rules part of the input to
+be fixed. In general, however, the algorithms can handle different
+rule sets. Please note that we still have to show taht the (data)
+complexity holds for all possible sets of facts.
+
+\begin{quote}
+  The revised Definition~2 also has some issues. The second condition
+  does not preclude the cases where original facts get parents and
+  where derived facts get no parents; and the third condition does not
+  mention which rules in $P^*$ the graph $G$ must satisfy or wether
+  $G$ need to satisfy any rule at all.
+\end{quote}
+
+Thanks for pointing that out. The definition indeed had issues and we
+have revised it. Original facts now have to be present in $G$ and have
+to have an in-degree of $0$. Derived facts now have to have parents
+(otherwise they would have an in-degree of $0$, which is only allowed
+for original facts) and the parents correspond to a ground rule that
+allows for deriving the fact. We have also moved the definition of a
+\emph{complete} materialization graph forward, which was so far in
+text and not in the definition environment. This will hopefully make
+it clearer that not all derivable facts have to be present in a
+materialization graph unless it is a complete materialization graph.
+
+\textcolor{red}{Why do you write $e(v_1, v_2)$ for edges and not just
+  $(v_1, v_2)$?}
+
+\textcolor{red}{In the materialization graph for Example~5, how is
+  $A(a)$ derived from the ontology and $Q(a, b)$? }
+
+\begin{quote}
+  In Algorithm $\mathsf{A}_\text{bst}$, the reason why Step~2 costs
+  constant time is still unclear. The paragraph below Lemma~1 does not
+  provide any explanation. The authors pointed out two references in
+  their response, but I could not find any clue in those articles (one
+  of which is just a two page summary \textcolor{red}{I can also not
+    see why this reference is of any help. Maybe we should comment on
+    this? }). \textcolor{red}{For the second reference
+    \cite{Raymond95}, I can also not see where it talks about matrix
+    multiplication? Does this follow from what is written below
+    Def.~3.2.10?} Again, even under the assumption that there is an
+  one-to-one correspondence between processors and rule instances, for
+  each processor and the corresponding rule $B_1, \ldots, B_n \to H$,
+  the complexity of checking the applicability of
+  $B_1, \ldots, B_n \to H$ in $G$ and at the same time updating $G$
+  should depend on the size of $G$. 
+\end{quote}
+
+For the constant time claims, an important precondition is the
+computation model used for analysis. Parallel random access machine
+(PRAM for short) is used as the basic computation model in this
+paper. PRAM is an extension of the random access machine (RAM) model.
+
+1) Suppose that there is a one-to-one correspondence between
+processors and rule instances, and each processor can access the
+location of any atom in constant time (given as the parallel
+assumption in Section~3.3).  \textcolor{red}{What might be confusing
+  is the term rule instance. In Sec.~2.1, we do not introduce the
+  term, but we say `ground instantiation of a rule`, which I suppose
+  means the same thing, but maybe the reviewer reads `rule instance`
+  as `rule', which is a significant difference. If `rule instance'
+  indeed means `ground instantiation of a rule', we should unify our
+  terminology to avoid confusion. } Since a processor $p$ corresponds
+to a rule instance, e.g., $B_1, \ldots, B_n \to H$, processor $p$
+knowns the relationship among $B_1, \ldots, B_n$ and $H$. Further,
+processor $p$ knows the locations of the nodes $B_1, \ldots, B_n$ and
+$H$. Thus, it could check the derivability of $B_1, \ldots, B_n$, and
+bridge \textcolor{red}{`to bridge' means to connect in the sense of
+  adding the edge to $G$?} $B_i$ and $H$ ($1 \leq i \leq n$) in
+constant time instead of searching the whole graph $G$.
+
+
+2) How to establish such a one-to-one correspondence between processors 
+and rule instances and the constant-time access to each atom for processors? 
+
+We should also introduce the notion of Boolean circuit, which is a
+circuit that consists of logic gates, e.g., AND and OR gates (see
+\cite[Section~2.3]{Raymond95}).  A materialization graph can also be
+seen as a Boolean circuit by treating the nodes as AND gates.\\
+%
+First, the evaluation of a Datalog program is equivalent to the evaluation 
+of its corresponding Boolean circuit in terms of computational
+complexity \cite{DMRT14a}. \\
+%
+Second, a Boolean circuit can be simulated by PRAM based on an
+algorithm called parallel prefix computation \cite{LaFi80a}.  Further,
+the complexity of simulation is lower than that of the evaluation of
+the Boolean circuit \cite[Lemma~2.4.1]{Raymond95}.\\
+%
+Third, during the above simulation procedure, a one-to-one
+correspondence between each gate in the Boolean circuit and the
+processors in PRAM and the constant-time access are established.\\
+%
+In our case, the one-to-one correspondence between processors and rule
+instances and the constant-time access to each node can also be
+established by PRAM similarly to the above simulation procedure.
+
+\textcolor{red}{We have added the above argumentation also to the
+  paper. (needed?, TBD)}
+
+\begin{quote}
+  Again, in Algorithm $\mathsf{A}_\text{opt}$ the claim that the
+  computation of $S_\text{rch}$ and updating $G$ cost only constant
+  time is unclear.
+\end{quote}
+
+\textcolor{red}{The argumentation for this claim is similar to the one
+  given above. (?)}
+
+\bibliographystyle{elsarticle-num}
+\bibliography{response2}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

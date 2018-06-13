@@ -1,12 +1,13 @@
 \section{Parallel Tractability of Datalog Programs}
 \label{sec:ptclass}
 
-Our target is to find for which kinds of ontologies (not ontology languages)
-materialization is tractable in parallel. We consider data complexity,
-i.e., we consider classes of datalog programs which share a fixed rule set.
-The data complexity of the materialization problem in this case is
-$\texttt{PTime}$-complete, which is considered to be inherently sequential in the worst
-case \cite{Raymond95}.
+Our target is to find for which kinds of ontologies (not ontology
+languages) materialization is tractable in parallel. We consider
+\emph{data complexity}, i.e., we \emph{assume that only the data is
+  considered to be an input, whereas the rule set $R$ is fixed}.
+  The data complexity of the materialization problem in this case
+is $\texttt{PTime}$-complete, which is considered to be inherently
+sequential in the worst case \cite{Raymond95}.
 % Since we assume that, for any class of datalog programs where the rule
 % set of each datalog program is fixed, the materialization problem is, thus, in data complexity
 % $\texttt{PTime}$-complete, which is considered to be inherently sequential in the worst
@@ -22,26 +23,27 @@ In this section, we identify such classes of datalog programs by studying differ
 \subsection{Parallel Tractability Classes}
 
 We first give the following definition for a class of datalog programs
-that is tractable in parallel, i.e., an \texttt{NC} algorithm exists for handling each datalog program in this class.
+that is tractable in parallel, i.e., an \texttt{NC} algorithm exists
+for handling each datalog program in this class.
 
 \begin{definition}[Parallel Tractability Class]\label{def:ptd}
-Given a class $\mathcal{D}$ of
-datalog programs sharing the same rule set, we say that $\mathcal{D}$
-is a class of datalog programs with \emph{p}arallel
-\emph{t}ractability, short a \emph{\texttt{PTD} class},
-if there exists an \texttt{NC} algorithm that performs sound and complete materialization for each datalog program
-in $\mathcal{D}$. The corresponding class of ontologies of $\mathcal{D}$ is called a
-class of ontologies with parallel tractability, short a \texttt{PTO} class.
+% Given a class $\mathcal{D}$ of
+% datalog programs sharing the same rule set, we say that $\mathcal{D}$
+% is a class of datalog programs with \emph{p}arallel
+% \emph{t}ractability, short a \emph{\texttt{PTD} class},
+% if there exists an \texttt{NC} algorithm that performs sound and complete materialization for each datalog program
+% in $\mathcal{D}$. The corresponding class of ontologies of $\mathcal{D}$ is called a
+% class of ontologies with parallel tractability, short a \texttt{PTO} class.
 
-\textcolor{red}{Suggested revision:} (Parallel Tractability Class). Let $R$ be a set of Datalog
-  rules. Materialization w.r.t.\ to $R$ is tractable in parallel, if,
-  for every set of facts $\textbf{I}$, there exists an \texttt{NC}
-  algorithm that performs sound and complete materialization for
-  $P=\langle R, \textbf{I}\rangle$; the set $\mathcal{D}$ of all
-  such Datalog programs $P$ is called a \emph{\texttt{PTD} class}.
-  The corresponding class of ontologies of $\mathcal{D}$ is called a
-  class of ontologies with parallel tractability, short a \texttt{PTO}
-  class.
+% \textcolor{red}{Suggested revision:} (Parallel Tractability Class). 
+  Let $R$ be a set of Datalog rules. Materialization w.r.t.\ to $R$ is
+  tractable in parallel, if, for every set of facts $\textbf{I}$,
+  there exists an \texttt{NC} algorithm that performs sound and
+  complete materialization for $P=\langle R, \textbf{I}\rangle$; the
+  set $\mathcal{D}$ of all such Datalog programs $P$ is called a
+  \emph{\texttt{PTD} class}.  The corresponding class of ontologies of
+  $\mathcal{D}$ is called a class of ontologies with parallel
+  tractability, short a \texttt{PTO} class.
 \end{definition}
 
 According to the above definition, if we find an \texttt{NC} algorithm $\mathsf{A}$
@@ -63,46 +65,73 @@ In order to give a parallel materialization algorithm,
 we introduce the notion of \emph{materialization graphs}, which
 facilitates the analysis of the given algorithm.
 
-\begin{definition}[Materialization Graph]\label{def:mg}
-A \emph{materialization graph}, with respect to
-a datalog program $P=\langle R, \textbf{I}\rangle$, is a directed acyclic graph
-denoted by $\mathcal{G}=\langle V, E\rangle$ where,
-\begin{enumerate}[leftmargin=4ex,label=$\bullet$]
-  \item $V$ is the node set and $V\subseteq T_R^{\omega}(\textbf{I})$;
-  \item $E$ is the edge set and $E\subseteq T_R^{\omega}(\textbf{I})\times T_R^{\omega}(\textbf{I})$.
-\end{enumerate}
-For each edge of the form $e(v_1, v_2)$ where $v_1$ and $v_2$ are two nodes,
-we say that the node $v_1$ is the parent (node) of $v_2$ and the node $v_2$ is the child (node)
-of $v_1$. Further, $\forall H,B_1,\ldots,B_n\in V$, $\mathcal{G}$ satisfies the following conditions:
-\begin{enumerate}[leftmargin=4ex,label=$\bullet$]
-  \item $H$ has a parent node or a child node;
-  \item if $H$ has an in-degree of $0$, then $H$ is an original fact of $P$;
-  \item $B_1,\ldots,B_n\rightarrow H\in P^*$ is satisfied if $e(B_1, H),\ldots,e(B_n, H)\in E$ and
-  $B_1,\ldots,B_n$ are all the parents of $H$.
-\end{enumerate}
-A materialization graph $\mathcal{G}$ is a \emph{complete materialization graph},
-when $\mathcal{G}$ contains all ground atoms in $T_R^{\omega}(\textbf{I})$.
+% \begin{definition}[Materialization Graph]\label{def:mg}
+% A \emph{materialization graph}, with respect to
+% a datalog program $P=\langle R, \textbf{I}\rangle$, is a directed acyclic graph
+% denoted by $\mathcal{G}=\langle V, E\rangle$ where,
+% \begin{enumerate}[leftmargin=4ex,label=$\bullet$]
+%   \item $V$ is the node set and $V\subseteq T_R^{\omega}(\textbf{I})$;
+%   \item $E$ is the edge set and $E\subseteq T_R^{\omega}(\textbf{I})\times T_R^{\omega}(\textbf{I})$.
+% \end{enumerate}
+% For each edge of the form $e(v_1, v_2)$ where $v_1$ and $v_2$ are two nodes,
+% we say that the node $v_1$ is the parent (node) of $v_2$ and the node $v_2$ is the child (node)
+% of $v_1$. Further, $\forall H,B_1,\ldots,B_n\in V$, $\mathcal{G}$ satisfies the following conditions:
+% \begin{enumerate}[leftmargin=4ex,label=$\bullet$]
+%   \item $H$ has a parent node or a child node;
+%   \item if $H$ has an in-degree of $0$, then $H$ is an original fact of $P$;
+%   \item $B_1,\ldots,B_n\rightarrow H\in P^*$ is satisfied if $e(B_1, H),\ldots,e(B_n, H)\in E$ and
+%   $B_1,\ldots,B_n$ are all the parents of $H$.
+% \end{enumerate}
+% A materialization graph $\mathcal{G}$ is a \emph{complete materialization graph},
+% when $\mathcal{G}$ contains all ground atoms in $T_R^{\omega}(\textbf{I})$.
 
-\textcolor{red}{Suggested revision:}
-(Materialization Graph).
-A \emph{materialization graph}, with respect to
-a datalog program $P=\langle R, \textbf{I}\rangle$, is a directed acyclic graph
-denoted by $\mathcal{G}=\langle V, E\rangle$ where,
-\begin{enumerate}[leftmargin=4ex,label=$\bullet$]
-  \item $V$ is the node set and $\textbf{I} \subseteq V\subseteq T_R^{\omega}(\textbf{I})$;
-  \item $E$ is the edge set and $E\subseteq T_R^{\omega}(\textbf{I})\times T_R^{\omega}(\textbf{I})$.
-\end{enumerate}
-For each edge of the form $e(v_1, v_2)$ where $v_1$ and $v_2$ are two nodes,
-we say that the node $v_1$ is the parent (node) of $v_2$ and the node $v_2$ is the child (node)
-of $v_1$. A materialization graph satisfies the following conditions:
-\begin{enumerate}[leftmargin=4ex,label=$\bullet$]
-\item each $v \in \textbf{I}$, $v$ has an in-degree of $0$;
-\item each $H \in V \setminus \textbf{I}$ such that $B_1,\ldots,B_n$
-  are all the parents of $H$, there is exactly one
-  $B_1,\ldots,B_n\rightarrow H\in P^*$.
-\end{enumerate}
-A materialization graph $\mathcal{G}$ is a \emph{complete materialization graph},
-when $\mathcal{G}$ contains all ground atoms in $T_R^{\omega}(\textbf{I})$.
+% \textcolor{red}{Suggested revision:}
+% (Materialization Graph).
+% A \emph{materialization graph}, with respect to
+% a datalog program $P=\langle R, \textbf{I}\rangle$, is a directed acyclic graph
+% denoted by $\mathcal{G}=\langle V, E\rangle$ where,
+% \begin{enumerate}[leftmargin=4ex,label=$\bullet$]
+%   \item $V$ is the node set and $\textbf{I} \subseteq V\subseteq T_R^{\omega}(\textbf{I})$;
+%   \item $E$ is the edge set and $E\subseteq T_R^{\omega}(\textbf{I})\times T_R^{\omega}(\textbf{I})$.
+% \end{enumerate}
+% For each edge of the form $e(v_1, v_2)$ where $v_1$ and $v_2$ are two nodes,
+% we say that the node $v_1$ is the parent (node) of $v_2$ and the node $v_2$ is the child (node)
+% of $v_1$. A materialization graph satisfies the following conditions:
+% \begin{enumerate}[leftmargin=4ex,label=$\bullet$]
+% \item each $v \in \textbf{I}$, $v$ has an in-degree of $0$;
+% \item each $H \in V \setminus \textbf{I}$ such that $B_1,\ldots,B_n$
+%   are all the parents of $H$, there is exactly one
+%   $B_1,\ldots,B_n\rightarrow H\in P^*$.
+% \end{enumerate}
+% A materialization graph $\mathcal{G}$ is a \emph{complete materialization graph},
+% when $\mathcal{G}$ contains all ground atoms in $T_R^{\omega}(\textbf{I})$.
+% \end{definition}
+
+\begin{definition}[Materialization Graph]\label{def:mg}
+  A \emph{materialization graph} $\mathcal{G}$ with respect to a
+  datalog program $P=\langle R, \textbf{I}\rangle$ is a directed
+  acyclic graph $\langle V, E\rangle$ such that the set of nodes $V$
+  satisfies $\textbf{I} \subseteq V\subseteq T_R^{\omega}(\textbf{I})$
+  and the set of edges $E$ satisfies
+  $E\subseteq T_R^{\omega}(\textbf{I})\times
+  T_R^{\omega}(\textbf{I})$. For each edge $(v_1, v_2)$, we say that
+  the node $v_1$ is the \emph{parent} (node) of $v_2$ and the node
+  $v_2$ is the \emph{child} (node) of $v_1$. A materialization graph
+  further satisfies the following conditions:
+  \begin{itemize}
+  \item each $v \in \textbf{I}$, $v$ has an in-degree of $0$;
+  \item each $H \in V \setminus \textbf{I}$ such that $B_1,\ldots,B_n$
+    are all the parents of $H$, there is exactly one
+    $B_1,\ldots,B_n\rightarrow H\in P^*$.
+  \end{itemize}
+  A materialization graph $\mathcal{G}$ is a \emph{complete
+    materialization graph} when $V$ contains all ground atoms in
+  $T_R^{\omega}(\textbf{I})$.
+
+  The \emph{size} of $\mathcal{G}$, denoted by $|\mathcal{G}|$, is the
+  number of nodes in $\mathcal{G}$.  The depth of $\mathcal{G}$,
+  denoted by \texttt{depth}($\mathcal{G}$), is the maximal length of a
+  path in $\mathcal{G}$.
 \end{definition}
 
 For some derived atom $H$, there may exist several rule instantiations where $H$
@@ -110,12 +139,9 @@ occurs as a head atom.
 This also means that $H$ can be derived in different ways.
 The condition in the definition above results in only one way of deriving $H$ being
 described by a materialization graph.
-Suppose $\mathcal{G}$ is a materialization graph such that the nodes
-with in-degree 0 are the
-original facts in $\textbf{I}$.
-The size of $\mathcal{G}$, denoted by $|\mathcal{G}|$, is the number of nodes in $\mathcal{G}$.
-The depth of $\mathcal{G}$, denoted by \texttt{depth}($\mathcal{G}$), is the maximal length of a path
-in $\mathcal{G}$.
+% Suppose $\mathcal{G}$ is a materialization graph such that the nodes
+% with in-degree 0 are the
+% original facts in $\textbf{I}$.
 We next give an example of a materialization graph.\\
 
 \begin{example}\label{exp:mg}
