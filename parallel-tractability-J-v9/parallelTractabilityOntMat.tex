@@ -30,7 +30,7 @@ we use the following example.
 Given a DL-Lite ontology $\mathcal{O}_{\text{ex}_5}$
 where the TBox and RBox contain the following axioms:
 $A\sqsubseteq B_1$, $A\sqsubseteq B_2$, $B_1\sqcap B_2\sqsubseteq\bot$,
-$\exists R.B_2\sqsubseteq\bot$, $Q\sqsubseteq S^-$, $S\sqsubseteq R$;
+$\exists R.B_2\sqsubseteq\bot$, $Q\sqsubseteq S^-$, $\exists Q.\top\sqsubseteq A$ and $S\sqsubseteq R$;
 its ABox contains an assertion $Q(a,b)$.
 We denote the corresponding datalog program of $\mathcal{O}_{\text{ex}_5}$ by $P_{\text{ex}_5}=\langle R, \textbf{I}\rangle$,
 where $R$ contains the rules that are transformed from the above axioms; $\textbf{I}$ contains $Q(a,b)$
