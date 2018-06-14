@@ -62,7 +62,7 @@ assumed to be fixed. This is the standard definition for data
 complexity. We have rephrased Definition~1 and now use a phrasing
 closer to that used by Lutz and Wolter \cite{LuWo17a}, which hopefully
 makes this clearer. It is important (and not specific to our work)
-that only the data is considered as (variable) input. 
+that only the data is considered as (variable) input.
 
 This does not mean that an \texttt{NC} algorithm applies to just one
 rule set, but it means that for studying the data complexity, we
@@ -73,7 +73,7 @@ Hence, while the algorithms (e.g.\ Algorithm $\mathsf{A}_\text{bsc}$
 or (or $\mathsf{A}_\text{opt}$) involve two inputs (rules and facts),
 for the complexity analysis, we assume the rules part of the input to
 be fixed. In general, however, the algorithms can handle different
-rule sets. Please note that we still have to show taht the (data)
+rule sets. Please note that we still have to show that the (data)
 complexity holds for all possible sets of facts.
 
 \begin{quote}
@@ -95,12 +95,6 @@ text and not in the definition environment. This will hopefully make
 it clearer that not all derivable facts have to be present in a
 materialization graph unless it is a complete materialization graph.
 
-\textcolor{red}{Why do you write $e(v_1, v_2)$ for edges and not just
-  $(v_1, v_2)$?}
-
-\textcolor{red}{In the materialization graph for Example~5, how is
-  $A(a)$ derived from the ontology and $Q(a, b)$? }
-
 \begin{quote}
   In Algorithm $\mathsf{A}_\text{bst}$, the reason why Step~2 costs
   constant time is still unclear. The paragraph below Lemma~1 does not
@@ -116,8 +110,30 @@ materialization graph unless it is a complete materialization graph.
   each processor and the corresponding rule $B_1, \ldots, B_n \to H$,
   the complexity of checking the applicability of
   $B_1, \ldots, B_n \to H$ in $G$ and at the same time updating $G$
-  should depend on the size of $G$. 
+  should depend on the size of $G$.
 \end{quote}
+
+In the submission, we used both of the two terms `rule instance'
+and `ground instantiation of a rule', which denote the same thing.
+We now unify the term by `rule instantiation' which is introduced
+in Sec.~2.1. A rule instantiation is different from a rule.
+A rule instantiation has no variable while a rule can have variables.
+Checking the applicability of a rule depends on the size of the
+processed graph. However, checking the applicability of a rule
+instantiation only depends on the derivability of the ground atoms
+in this rule instantiation. Suppose that a processor can access the
+location of any atom in constant time. It can also check the applicability of
+a rule instantiation in constant time.
+
+In the last response, we gave another two kinds of problems, i.e.,
+the computation of transitive closure and the matrix manipulation (
+see \cite[Part~\uppercase\expandafter{\romannumeral2}~A]{Raymond95}. 
+We made a mistake to use `matrix multiplication'
+in the last response), to show that the constant time assumption
+is also applicable. The first reference in the last response gives the related works
+about this issue but not covering the details. It is also hard to find
+the clues in the second reference.
+In the following, we give a more detailed explanation.
 
 For the constant time claims, an important precondition is the
 computation model used for analysis. Parallel random access machine
@@ -125,33 +141,25 @@ computation model used for analysis. Parallel random access machine
 paper. PRAM is an extension of the random access machine (RAM) model.
 
 1) Suppose that there is a one-to-one correspondence between
-processors and rule instances, and each processor can access the
+processors and rule instantiations, and each processor can access the
 location of any atom in constant time (given as the parallel
-assumption in Section~3.3).  \textcolor{red}{What might be confusing
-  is the term rule instance. In Sec.~2.1, we do not introduce the
-  term, but we say `ground instantiation of a rule`, which I suppose
-  means the same thing, but maybe the reviewer reads `rule instance`
-  as `rule', which is a significant difference. If `rule instance'
-  indeed means `ground instantiation of a rule', we should unify our
-  terminology to avoid confusion. } Since a processor $p$ corresponds
-to a rule instance, e.g., $B_1, \ldots, B_n \to H$, processor $p$
+assumption in Section~3.3). Since a processor $p$ corresponds
+to a rule instantiation, e.g., $B_1, \ldots, B_n \to H$, processor $p$
 knowns the relationship among $B_1, \ldots, B_n$ and $H$. Further,
 processor $p$ knows the locations of the nodes $B_1, \ldots, B_n$ and
 $H$. Thus, it could check the derivability of $B_1, \ldots, B_n$, and
-bridge \textcolor{red}{`to bridge' means to connect in the sense of
-  adding the edge to $G$?} $B_i$ and $H$ ($1 \leq i \leq n$) in
+add an edge from $B_i$ to $H$ ($1 \leq i \leq n$) in
 constant time instead of searching the whole graph $G$.
 
-
-2) How to establish such a one-to-one correspondence between processors 
-and rule instances and the constant-time access to each atom for processors? 
+2) How to establish such a one-to-one correspondence between processors
+and rule instantiations and the constant-time access to each atom for processors?
 
 We should also introduce the notion of Boolean circuit, which is a
 circuit that consists of logic gates, e.g., AND and OR gates (see
 \cite[Section~2.3]{Raymond95}).  A materialization graph can also be
 seen as a Boolean circuit by treating the nodes as AND gates.\\
 %
-First, the evaluation of a Datalog program is equivalent to the evaluation 
+First, the evaluation of a Datalog program is equivalent to the evaluation
 of its corresponding Boolean circuit in terms of computational
 complexity \cite{DMRT14a}. \\
 %
@@ -165,11 +173,11 @@ correspondence between each gate in the Boolean circuit and the
 processors in PRAM and the constant-time access are established.\\
 %
 In our case, the one-to-one correspondence between processors and rule
-instances and the constant-time access to each node can also be
+instantiations and the constant-time access to each node can also be
 established by PRAM similarly to the above simulation procedure.
 
 \textcolor{red}{We have added the above argumentation also to the
-  paper. (needed?, TBD)}
+  paper. (needed?, TBD) \emph{Rephrase the relevant paragraphs in a brief way?}}
 
 \begin{quote}
   Again, in Algorithm $\mathsf{A}_\text{opt}$ the claim that the
