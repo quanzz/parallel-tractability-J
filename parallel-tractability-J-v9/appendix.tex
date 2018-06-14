@@ -88,13 +88,13 @@ and $B'$ is in $\mathcal{G}$. This means that $B_k$ and $H$ are derivable.
 The algorithm then adds new nodes $B_k$ and $H$ to $\mathcal{G}^{i}$
 according to three cases.
 (1) If $H$ is not in $\mathcal{G}^{i}$ while $B_k$ is in $\mathcal{G}^{i}$,
-then $H$ is added to $\mathcal{G}^{i+1}$, and the edges $e(B_1, H),\ldots ,e(B_n, H)$ are created.
+then $H$ is added to $\mathcal{G}^{i+1}$, and the edges $(B_1, H),\ldots ,(B_n, H)$ are created.
 (2) If neither of $H$ and $B_k$ is in $\mathcal{G}^{i}$,
-then $H$ and $B_k$ are added to $\mathcal{G}^{i+1}$, and the edges $e(B_1, H),\ldots ,e(B_n, H)$ are also created.
+then $H$ and $B_k$ are added to $\mathcal{G}^{i+1}$, and the edges $(B_1, H),\ldots ,(B_n, H)$ are also created.
 In the above two cases, $H$ is a new node. Thus,
 $\mathcal{G}^{i+1}$ is acyclic.
 (3) If $H$ is in $\mathcal{G}^{i}$ and $H$ has no parent,
-$B_k$ is added to $\mathcal{G}^{i+1}$, and the edges $e(B_1, H),\ldots ,e(B_n, H)$ are also created.
+$B_k$ is added to $\mathcal{G}^{i+1}$, and the edges $(B_1, H),\ldots ,(B_n, H)$ are also created.
 For the case that $H$ is in $\mathcal{G}^{i}$ and $H$ has parents,
 the algorithm does nothing.
 Thus, $\mathcal{G}^{i+1}$ is acyclic and satisfies the definition of materialization graph.
