@@ -35,7 +35,7 @@ for handling each datalog program in this class.
 % in $\mathcal{D}$. The corresponding class of ontologies of $\mathcal{D}$ is called a
 % class of ontologies with parallel tractability, short a \texttt{PTO} class.
 
-% \textcolor{red}{Suggested revision:} (Parallel Tractability Class). 
+% \textcolor{red}{Suggested revision:} (Parallel Tractability Class).
   Let $R$ be a set of Datalog rules. Materialization w.r.t.\ to $R$ is
   tractable in parallel, if, for every set of facts $\textbf{I}$,
   there exists an \texttt{NC} algorithm that performs sound and
@@ -189,10 +189,10 @@ In this part, we propose a parallel algorithm
 Our computational model is a PRAM (parallel, random-access machine) that is mostly used to analyze parallel
 complexity. This model allows us to introduce \emph{the parallel assumption}:
 for any datalog program $P=\langle R, \textbf{I}\rangle$,
-any substitution of some atom and any rule instance in $P^*$ can be mapped to a unique memory
-location; further, a one-to-one relation can be established between processors and rule instances.
+any substitution of some atom and any rule instantiation in $P^*$ can be mapped to a unique memory
+location; further, a one-to-one relation can be established between processors and rule instantiations.
 Under this assumption, a processor can check the applicability of its corresponding
-rule instance and access the state of an atom occurring in this rule instance in constant time.
+rule instantiation and access the state of an atom occurring in this rule instantiation in constant time.
 Algorithm~$\mathsf{A}_{\text{bsc}}$ is then given as follows.\\
 
 
@@ -252,10 +252,10 @@ a rule set is shared for each datalog program $P=\langle R, \textbf{I}\rangle$ i
 Let $e$, $v$ and $r$ represent the maximum arity of any predicate in $\textbf{I}$, the maximum number of variables
 in any datalog rule, and the number of datalog rules respectively.
 We then have that the number of
-constants is at most $|\textbf{I}|e$, and the number of all possible rule instances in $P^*$
+constants is at most $|\textbf{I}|e$, and the number of all possible rule instantiations in $P^*$
 is at most $r(|\textbf{I}|e)^v$.
 Note that $e, v$ and $r$ depend only on the rule set $R$ and not on the fact set $\textbf{I}$.
-Thus, the memory space for storing the atoms and the rule instances is polynomial in the size of $\textbf{I}$.
+Thus, the memory space for storing the atoms and the rule instantiations is polynomial in the size of $\textbf{I}$.
 This also means that the number of processors is polynomially bounded.
 The computing time of \ref{alg1:addFacts} and \ref{alg1:halt} occupy constant time (denoted by $c_1$) because of parallelism.
 Since Algorithm~$\mathsf{A}_{\text{bsc}}$ works under the parallel assumption, one iteration of

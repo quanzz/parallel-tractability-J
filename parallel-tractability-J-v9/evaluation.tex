@@ -16,7 +16,7 @@ based on two modified versions of LUBM.
 \subsection{Parallel Tractability of LUBM Datasets and YAGO}
 \label{sec:lubm-yago}
 
-\textbf{LUBM}. In the Semantic Web community, 
+\textbf{LUBM}. In the Semantic Web community,
 the Lehigh University Benchmark (LUBM) is proposed to
 facilitate the evaluation of ontology-based systems
 in a standard and systematic way.
@@ -188,9 +188,9 @@ based on Algorithm~$\mathsf{A}_{\text{prc}}$. Since ParallelDHL is
 evaluated on a
 platform which has limited memory space and a fixed number of processors,
 the parallel assumption given in Section~\ref{sec:alg-bsc} does not apply to ParallelDHL.
-In the implementation of ParallelDHL, we use a hash function to map any rule instance
+In the implementation of ParallelDHL, we use a hash function to map any rule instantiation
 to the identifier of some processor. Thus, when performing ParallelDHL,
-each processor handles a group of rule instances.
+each processor handles a group of rule instantiations.
 
 We run ParallelDHL on LUBM and YAGO to further analyze these
 two kinds of ontologies. We also use the reasoning system RDFox \cite{MotikNPHO14}
@@ -329,7 +329,7 @@ Based on the newly added axioms in PTU, we further modify the ontology-generator
 of LUBM such that a \emph{reference chain} of articles can be generated as follows:
 $\texttt{referTo}(\texttt{a}_i,\texttt{a}_{i+1})$ and
 $\texttt{cite}(\texttt{a}_i,\texttt{a}_{i+1})$ ($i\in\{0,1,2,...\}$),
-where $\texttt{a}_i$ denotes an article instance.
+where $\texttt{a}_i$ denotes an article instantiation.
 As discussed in Section~\ref{sec:lubm-yago},
 the original core ontology of LUBM is tractable in parallel via
 Skolemization. Further, it can be checked that the concepts in PTU
