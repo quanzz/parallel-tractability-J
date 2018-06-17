@@ -186,13 +186,14 @@ It should also be noted that there may exist several materialization graphs for 
 
 In this part, we propose a parallel algorithm
 (denoted by Algorithm~$\mathsf{A}_{\text{bsc}}$) that constructs a materialization graph for a given datalog program.
-Our computational model is a PRAM (parallel, random-access machine) that is mostly used to analyze parallel
-complexity. This model allows us to introduce \emph{the parallel assumption}:
-for any datalog program $P=\langle R, \textbf{I}\rangle$,
-any substitution of some atom and any rule instantiation in $P^*$ can be mapped to a unique memory
-location; further, a one-to-one relation can be established between processors and rule instantiations.
-Under this assumption, a processor can check the applicability of its corresponding
-rule instantiation and access the state of an atom occurring in this rule instantiation in constant time.
+The basic computational model is PRAM (parallel, random-access machine) that is mostly used to analyze parallel
+complexity. For any datalog program $P=\langle R, \textbf{I}\rangle$, the PRAM model
+allows each rule instantiation in $P^*$ corresponding to a unique processor, and each processor accessing the
+location of any atom in constant time.\footnote{This is feasible based on the PRAM model and
+the parallel prefix computation \cite{LaFi80a}. We refer the readers to the details in \cite{Raymond95}.} 
+We use \emph{the parallel condition} to denote the above condition.
+On the parallel condition, a processor can check the applicability of its corresponding
+rule instantiation and access the location of an atom occurring in this rule instantiation in constant time.
 Algorithm~$\mathsf{A}_{\text{bsc}}$ is then given as follows.\\
 
 
@@ -258,8 +259,10 @@ Note that $e, v$ and $r$ depend only on the rule set $R$ and not on the fact set
 Thus, the memory space for storing the atoms and the rule instantiations is polynomial in the size of $\textbf{I}$.
 This also means that the number of processors is polynomially bounded.
 The computing time of \ref{alg1:addFacts} and \ref{alg1:halt} occupy constant time (denoted by $c_1$) because of parallelism.
-Since Algorithm~$\mathsf{A}_{\text{bsc}}$ works under the parallel assumption, one iteration of
-\ref{alg1:updateG} also costs constant time (denoted by $c_2$). Thus,
+Since Algorithm~$\mathsf{A}_{\text{bsc}}$ works on the parallel condition,
+each processor can check the applicability of its corresponding
+rule instantiation can then create edges between atoms in constant time. Thus,
+one iteration of \ref{alg1:updateG} costs constant time (denoted by $c_2$). In summary,
 the whole computing time of Algorithm~$\mathsf{A}_{\text{bsc}}$ turns out to be $c_1+\ell\cdot c_2$
 where $\ell$ denotes the number of iterations of \ref{alg1:updateG}.
 
@@ -457,7 +460,7 @@ We now consider the computing time of Algorithm~$\mathsf{A}_{\text{opt}}$. It
 is obvious that \ref{alg3:addFacts} and
 \ref{alg3:halt} occupy constant time (denoted by $c_1$). In \ref{alg3:updateG}, the phases of
 computing $S_{\!\textit{\tiny rch}}$ and updating $\mathcal{G}$ also take constant time (denoted by $c_2$)
-under the parallel assumption. Recall that the number of constants is at most $|\textbf{I}|e$ (see Section~\ref{sec:alg-bsc}).
+on the parallel condition. Recall that the number of constants is at most $|\textbf{I}|e$ (see Section~\ref{sec:alg-bsc}).
 Let $w$ and $p$ represent the maximum arity of any predicate and the number of predicates, respectively.
 We have that the number of all possible substitutions of atoms is at most $p(|\textbf{I}|e)^w$.
 The relation $S_{\!\textit{\tiny rch}}$ consists of pairs of the atoms. Thus, the size of $S_{\!\textit{\tiny rch}}$
