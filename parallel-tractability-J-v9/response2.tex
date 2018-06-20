@@ -70,7 +70,7 @@ assume that only the input data can be different (is in the input),
 whereas the rule set is considered fixed.
 
 Hence, while the algorithms (e.g.\ Algorithm $\mathsf{A}_\text{bsc}$
-or (or $\mathsf{A}_\text{opt}$) involve two inputs (rules and facts),
+(or $\mathsf{A}_\text{opt}$) involve two inputs (rules and facts),
 for the complexity analysis, we assume the rules part of the input to
 be fixed. In general, however, the algorithms can handle different
 rule sets. Please note that we still have to show that the (data)
@@ -95,6 +95,9 @@ text and not in the definition environment. This will hopefully make
 it clearer that not all derivable facts have to be present in a
 materialization graph unless it is a complete materialization graph.
 
+We have further added a simple example (now Example~1) to illustrate
+the different aspects of the definition. 
+
 \begin{quote}
   In Algorithm $\mathsf{A}_\text{bst}$, the reason why Step~2 costs
   constant time is still unclear. The paragraph below Lemma~1 does not
@@ -113,9 +116,10 @@ materialization graph unless it is a complete materialization graph.
   should depend on the size of $G$.
 \end{quote}
 
-In the submission, we used both of the two terms `rule instance'
-and `ground instantiation of a rule', which denote the same thing.
-We now unify the term by `rule instantiation' which is introduced
+One issue might have been our use of the two terms `rule instance'
+and `ground instantiation of a rule', which denote the same thing (but
+this was maybe not clear in the paper).
+We now unify the terms and only use `rule instantiation', which is introduced
 in Sec.~2.1. A rule instantiation is different from a rule.
 A rule instantiation has no variable while a rule can have variables.
 Checking the applicability of a rule depends on the size of the
@@ -123,17 +127,19 @@ processed graph. However, checking the applicability of a rule
 instantiation only depends on the derivability of the ground atoms
 in this rule instantiation. Suppose that a processor can access the
 location of any atom in constant time. It can also check the applicability of
-a rule instantiation in constant time.
+a rule \emph{instantiation} in constant time.
 
-In the last response, we gave another two kinds of problems, i.e.,
-the computation of transitive closure and the matrix manipulation (
-see \cite[Part~\uppercase\expandafter{\romannumeral2}~A]{Raymond95}. 
-We made a mistake to use `matrix multiplication'
-in the last response), to show that the constant time assumption
-is also applicable. The first reference in the last response gives the related works
-about this issue but not covering the details. It is also hard to find
-the clues in the second reference.
-In the following, we give a more detailed explanation.
+The two references given in the previous response were pointing to two
+other kinds of problems, i.e., the computation of the transitive
+closure and matrix manipulation (see
+\cite[Part~\uppercase\expandafter{\romannumeral2}~A]{Raymond95}, to
+show that the constant time assumption is also
+applicable. Unfortunately, we referred to `matrix manipulation' as
+`matrix multiplication' in the previous response by accident. The
+first reference in the previous response gives related works about
+this issue without covering the details. The second reference is
+indeed too brief to go much beyond the problem description. In the
+following, we give a more detailed explanation.
 
 For the constant time claims, an important precondition is the
 computation model used for analysis. Parallel random access machine
@@ -142,20 +148,25 @@ paper. PRAM is an extension of the random access machine (RAM) model.
 
 1) Suppose that there is a one-to-one correspondence between
 processors and rule instantiations, and each processor can access the
-location of any atom in constant time (given as the parallel
-assumption in Section~3.3). Since a processor $p$ corresponds
-to a rule instantiation, e.g., $B_1, \ldots, B_n \to H$, processor $p$
-knowns the relationship among $B_1, \ldots, B_n$ and $H$. Further,
-processor $p$ knows the locations of the nodes $B_1, \ldots, B_n$ and
-$H$. Thus, it could check the derivability of $B_1, \ldots, B_n$, and
-add an edge from $B_i$ to $H$ ($1 \leq i \leq n$) in
-constant time instead of searching the whole graph $G$.
+location of any atom \textcolor{red}{within a rule? atom here means
+  derived facts?} in constant time
+(given as the parallel assumption in Section~3.3). Since a processor
+$p$ corresponds to a rule instantiation, e.g.,
+$B_1, \ldots, B_n \to H$, processor $p$ knowns the relationship among
+$B_1, \ldots, B_n$ and $H$. Further, processor $p$ knows the locations
+of the nodes $B_1, \ldots, B_n$ and $H$ \textcolor{red}{within the
+  materialization graph? how?  by checking (in constant time) the
+  derived facts?}. Thus, it could check the
+derivability of $B_1, \ldots, B_n$ \textcolor{red}{Check the
+  derivability or whether the (ground) atoms have been derived?}, and add an edge from $B_i$ to $H$
+($1 \leq i \leq n$) in constant time instead of searching the whole
+graph $G$.
 
 2) How to establish such a one-to-one correspondence between processors
 and rule instantiations and the constant-time access to each atom for processors?
 
-We should also introduce the notion of Boolean circuit, which is a
-circuit that consists of logic gates, e.g., AND and OR gates (see
+We should also introduce the notion of Boolean circuits, which are 
+circuits that consist of logic gates, e.g., AND and OR gates (see
 \cite[Section~2.3]{Raymond95}).  A materialization graph can also be
 seen as a Boolean circuit by treating the nodes as AND gates.\\
 %
@@ -186,7 +197,7 @@ established by PRAM similarly to the above simulation procedure.
 \end{quote}
 
 \textcolor{red}{The argumentation for this claim is similar to the one
-  given above. (?)}
+  given above. (?) Is it? Can we simply reply like that?}
 
 \bibliographystyle{elsarticle-num}
 \bibliography{response2}

@@ -158,25 +158,25 @@ DHL$(\circ)$ materialization.
 
 \begin{example}\label{exp:prc}
 Consider performing Algorithm~$\mathsf{A}_{\text{prc}}$ on the ontology
-$\mathcal{O}_{ex_1}$ of Example~\ref{exp:mg}. Note that the individual
+$\mathcal{O}_{\text{ex}_\ref{exp:mg}}$ of Example~\ref{exp:mg}. Note that the individual
 set \textbf{IN} is $\{a_1,...,a_k,b\}$, i.e., $k+1$ individuals are involved.
 Initially, Algorithm~$\mathsf{A}_{\text{prc}}$ adds
 all the facts ($A(b),R(a_1,b),S(a_2,a_1),...,S(a_{k},a_{k-1})$) to the
-result $\mathcal{G}_{ex_1}$ (\ref{alg4:addFacts}). In the first iteration of
+result $\mathcal{G}_{\text{ex}_\ref{exp:mg}}$ (\ref{alg4:addFacts}). In the first iteration of
 \ref{alg4:updateG}, Algorithm~$\mathsf{A}_{\text{prc}}$ computes $S_{\textit{\!\tiny rch}}$ first.
 According to Algorithm~$\mathsf{PRC}$, for each atom of the form
 $S(a_i,a_{i-1})$, $2\leq i\leq k$,
 and $\forall o\in \mbox{\textbf{IN}}$,
 an $\texttt{\emph{rch}}$ relation of the form $\texttt{\emph{rch}}(R(a_{i-1},o),R(a_i,o))$ is added to
-$S_{\textit{\!\tiny rch}}$. Since the atom $R(a_1,b)$ has been added to $\mathcal{G}_{ex_1}$,
+$S_{\textit{\!\tiny rch}}$. Since the atom $R(a_1,b)$ has been added to $\mathcal{G}_{\text{ex}_\ref{exp:mg}}$,
 Algorithm~$\mathsf{A}_{\text{prc}}$ checks that all atoms of the form
 $R(a_i,b)$, $2\leq i\leq k$,
-have SWD paths and are added to $\mathcal{G}_{ex_1}$ in the first iteration.
+have SWD paths and are added to $\mathcal{G}_{\text{ex}_\ref{exp:mg}}$ in the first iteration.
 In the second iteration of \ref{alg4:updateG}, since all atoms of the
 form $R(a_i,b)$, $1\leq i\leq k$,
-have been in $\mathcal{G}_{ex_1}$, the $\texttt{\emph{rch}}$ relations of the form $\texttt{\emph{rch}}(A(b),A(a_i))$
+have been in $\mathcal{G}_{\text{ex}_\ref{exp:mg}}$, the $\texttt{\emph{rch}}$ relations of the form $\texttt{\emph{rch}}(A(b),A(a_i))$
 are checked with respect to the axiom $\exists R.A\sqsubseteq A$; further all
-atoms of the form $A(a_i)$, $1\leq i\leq k$, are finally added to $\mathcal{G}_{ex_1}$
+atoms of the form $A(a_i)$, $1\leq i\leq k$, are finally added to $\mathcal{G}_{\text{ex}_\ref{exp:mg}}$
 by Algorithm~$\mathsf{A}_{\text{prc}}$.
 \end{example}
 
