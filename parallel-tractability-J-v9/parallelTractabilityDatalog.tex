@@ -145,16 +145,16 @@ facilitates the analysis of the given algorithm.
 We next give two examples of materialization graphs.\\
 
 \begin{example}\label{exp:matgraph}
-  Given a (DL-Lite) ontology $\mathcal{O}_{\text{ex}_\ref{exp:matgraph}}$ where the
+  Given a (DL-Lite) ontology $\mathcal{O}_{\text{ex}_{\ref{exp:matgraph}}}$ where the
   TBox contains the following axioms: $A_1\sqsubseteq B$,
   $A_2\sqsubseteq B$, $A_1\sqsubseteq A_2$; its ABox contains the
   assertions $A_1(a)$, $A_2(a)$ and $B(b)$.  We denote the
-  corresponding datalog program of $\mathcal{O}_{\text{ex}_\ref{exp:matgraph}}$ by
-  $P_{\text{ex}_\ref{exp:matgraph}}=\langle R, \textbf{I}\rangle$, where $R$ contains
+  corresponding datalog program of $\mathcal{O}_{\text{ex}_{\ref{exp:matgraph}}}$ by
+  $P_{\text{ex}_{\ref{exp:matgraph}}}=\langle R, \textbf{I}\rangle$, where $R$ contains
   the rules that are transformed from the above axioms
   ($A_1(x) \to B(x)$, $A_2(x) \to A_1(x)$, $A_1(x) \to A_2(x)$);
   $\textbf{I}$ contains $A_1(a)$, $A_2(a)$ and $B(b)$. The two
-  complete materialization graphs of $P_{\text{ex}_\ref{exp:matgraph}}$ are
+  complete materialization graphs of $P_{\text{ex}_{\ref{exp:matgraph}}}$ are
   shown in Figure~\ref{fig:ex\theexample}.
 
   Note that despite the rule $A_1(x) \to A_2(x)$, there is no edge
@@ -164,7 +164,7 @@ We next give two examples of materialization graphs.\\
   $B(a)$ and from $A_2(a)$ to $B(a)$ is not allowed. In this case the
   node $B(a)$ would have the two parents $A_1(a)$ and $A_2(a)$ and,
   hence, there should be a rule
-  $A_1(a), A_2(a) \to B(a) \in P_{\text{ex}_\ref{exp:matgraph}}^*$ by the
+  $A_1(a), A_2(a) \to B(a) \in P_{\text{ex}_{\ref{exp:matgraph}}}^*$ by the
   definition of materialization graphs, which is not the case. When
   dropping the node $B(a)$ and its incoming edge, we obtain an
   incomplete materialization graph. Note, however, that all facts must
@@ -175,30 +175,30 @@ We next give two examples of materialization graphs.\\
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{fig-matgraph}
-\caption{The two complete materialization graphs of $\mathcal{O}_{\text{ex}_\ref{exp:matgraph}}$}
+\caption{The two complete materialization graphs of $\mathcal{O}_{\text{ex}_{\ref{exp:matgraph}}}$}
 \label{fig:ex\theexample}
 \end{figure}
 
 The following example serves as a running example within this
-section. 
+section.
 
 \begin{example}\label{exp:mg}
-Consider a DHL($\circ$) ontology $\mathcal{O}_{\text{ex}_\ref{exp:mg}}$ where the TBox is
+Consider a DHL($\circ$) ontology $\mathcal{O}_{\text{ex}_{\ref{exp:mg}}}$ where the TBox is
 $\{\exists R.A\sqsubseteq A\}$, the RBox is $\{S\circ R\sqsubseteq R\}$ and
 the ABox is $\{A(b),R(a_1,b),S(a_i,a_{i-1})\}$ for $2\leq i\leq k$ and
 $k$ an integer greater than $2$.
-The corresponding datalog program of this ontology is $P_{\text{ex}_\ref{exp:mg}}=\langle R, \textbf{I}\rangle$
+The corresponding datalog program of this ontology is $P_{\text{ex}_{\ref{exp:mg}}}=\langle R, \textbf{I}\rangle$
 where $\textbf{I}$ contains all the assertions in the ABox
 and $R$ contains the two rules `$R(x,y),A(y)\rightarrow A(x)$'
 and `$S(x,y),R(y,z)\rightarrow R(x,z)$'.
-The graph in Figure~\ref{fig:mg} is a materialization graph with respect to $P_{\text{ex}_\ref{exp:mg}}$,
-denoted by $\mathcal{G}_{\text{ex}_\ref{exp:mg}}$.
+The graph in Figure~\ref{fig:mg} is a materialization graph with respect to $P_{\text{ex}_{\ref{exp:mg}}}$,
+denoted by $\mathcal{G}_{\text{ex}_{\ref{exp:mg}}}$.
 The nodes with in-degree 0 are the original facts in $\textbf{I}$;
 each of the other nodes corresponds to a ground instantiation of some rule.
 For example, the node $A(a_k)$ corresponds to the ground rule instantiation
 `$R(a_k,b),A(b)\rightarrow A(a_k)$'.
 The size of this materialization graph is the number of nodes, that is $3k$.
-The depth of $\mathcal{G}_{\text{ex}_\ref{exp:mg}}$ is $k$.
+The depth of $\mathcal{G}_{\text{ex}_{\ref{exp:mg}}}$ is $k$.
 \end{example}
 
 \begin{figure}[htbp]
@@ -227,8 +227,8 @@ In this part, we propose a parallel algorithm
 The basic computational model is PRAM (parallel, random-access machine) that is mostly used to analyze parallel
 complexity. For any datalog program $P=\langle R, \textbf{I}\rangle$, the PRAM model
 allows each rule instantiation in $P^*$ corresponding to a unique processor, and each processor accessing the
-location of any atom in constant time.\footnote{This is feasible based on the PRAM model and
-the parallel prefix computation \cite{LaFi80a}. We refer the readers to the details in \cite{Raymond95}.} 
+locations of the atoms in the corresponding rule instantiation in constant time.\footnote{This is feasible based on the PRAM model and
+the parallel prefix computation \cite{LaFi80a}. We refer the readers to the details in \cite{Raymond95}.}
 We use \emph{the parallel condition} to denote the above condition.
 On the parallel condition, a processor can check the applicability of its corresponding
 rule instantiation and access the location of an atom occurring in this rule instantiation in constant time.
@@ -251,16 +251,16 @@ Initially $\mathcal{G}$ is empty. The following three steps are then performed:
 \end{enumerate}
 
 \begin{example}
-We consider the datalog program $P_{\text{ex}_\ref{exp:mg}}$ in Example~\ref{exp:mg} again,
+We consider the datalog program $P_{\text{ex}_{\ref{exp:mg}}}$ in Example~\ref{exp:mg} again,
 and perform Algorithm~$\mathsf{A}_{\text{bsc}}$ on it.
 Initially, all the facts ($A(b),R(a_1,b),S(a_2,a_1),\ldots,S(a_{k},a_{k-1})$) are added to the
-result $\mathcal{G}_{\text{ex}_\ref{exp:mg}}$ (\ref{alg1:addFacts}).
+result $\mathcal{G}_{\text{ex}_{\ref{exp:mg}}}$ (\ref{alg1:addFacts}).
 Then in different iterations of \ref{alg1:updateG}, the remaining nodes are added to
-$\mathcal{G}_{\text{ex}_\ref{exp:mg}}$ by different processors.
+$\mathcal{G}_{\text{ex}_{\ref{exp:mg}}}$ by different processors.
 For example, a processor $p$ is allocated a rule instantiation `$R(a_2,b),A(b)\rightarrow A(a_2)$'.
-Then, processor $p$ adds $A(a_2)$ to $\mathcal{G}_{\text{ex}_\ref{exp:mg}}$ after it checks that
-$A(b)$ and $R(a_2,b)$ are in $\mathcal{G}_{\text{ex}_\ref{exp:mg}}$.
-Algorithm~$\mathsf{A}_{\text{bsc}}$ halts when $A(a_k)$ has been added to $\mathcal{G}_{\text{ex}_\ref{exp:mg}}$ (\ref{alg1:halt}).
+Then, processor $p$ adds $A(a_2)$ to $\mathcal{G}_{\text{ex}_{\ref{exp:mg}}}$ after it checks that
+$A(b)$ and $R(a_2,b)$ are in $\mathcal{G}_{\text{ex}_{\ref{exp:mg}}}$.
+Algorithm~$\mathsf{A}_{\text{bsc}}$ halts when $A(a_k)$ has been added to $\mathcal{G}_{\text{ex}_{\ref{exp:mg}}}$ (\ref{alg1:halt}).
 \end{example}
 
 Lemma~\ref{lemma:a1} shows the correctness of Algorithm~$\mathsf{A}_{\text{bsc}}$ and that, for any datalog program $P$,
@@ -299,7 +299,7 @@ This also means that the number of processors is polynomially bounded.
 The computing time of \ref{alg1:addFacts} and \ref{alg1:halt} occupy constant time (denoted by $c_1$) because of parallelism.
 Since Algorithm~$\mathsf{A}_{\text{bsc}}$ works on the parallel condition,
 each processor can check the applicability of its corresponding
-rule instantiation can then create edges between atoms in constant time. Thus,
+rule instantiation and then create edges between atoms in constant time. Thus,
 one iteration of \ref{alg1:updateG} costs constant time (denoted by $c_2$). In summary,
 the whole computing time of Algorithm~$\mathsf{A}_{\text{bsc}}$ turns out to be $c_1+\ell\cdot c_2$
 where $\ell$ denotes the number of iterations of \ref{alg1:updateG}.
@@ -336,25 +336,25 @@ Lemma~\ref{lemma:a1}.
 \end{proof}
 
 Consider Example~\ref{exp:mg} again. Let the integer $k$ be a variable. We can
-get a class of datalog programs, denoted by $\mathbb{P}_{\text{ex}_\ref{exp:mg}}$, where the rule set
+get a class of datalog programs, denoted by $\mathbb{P}_{\text{ex}_{\ref{exp:mg}}}$, where the rule set
 is $\{R(x,y),A(y)\rightarrow A(x), S(x,y),R(y,z)\rightarrow R(x,z)\}$ and the fact
-set varies according to $k$. The algorithm $\mathsf{A}_{\text{bsc}}^{\psi}$ is restricted in the sense that it cannot even work on the rather simple datalog program class $\mathbb{P}_{\text{ex}_\ref{exp:mg}}$.
-Let $\mathcal{G}_{\text{ex}_\ref{exp:mg}}$ be some materialization graph corresponding
-to some datalog program in $\mathbb{P}_{\text{ex}_\ref{exp:mg}}$. It can be checked that
-\texttt{depth}($\mathcal{G}_{\text{ex}_\ref{exp:mg}}$)$=k$ for some $k$.
+set varies according to $k$. The algorithm $\mathsf{A}_{\text{bsc}}^{\psi}$ is restricted in the sense that it cannot even work on the rather simple datalog program class $\mathbb{P}_{\text{ex}_{\ref{exp:mg}}}$.
+Let $\mathcal{G}_{\text{ex}_{\ref{exp:mg}}}$ be some materialization graph corresponding
+to some datalog program in $\mathbb{P}_{\text{ex}_{\ref{exp:mg}}}$. It can be checked that
+\texttt{depth}($\mathcal{G}_{\text{ex}_{\ref{exp:mg}}}$)$=k$ for some $k$.
 This means that the depths of the materialization graphs are linearly bounded by $k$.
-On the other hand, the sizes of the datalog programs in $\mathbb{P}_{\text{ex}_\ref{exp:mg}}$ are polynomial in $k$.
+On the other hand, the sizes of the datalog programs in $\mathbb{P}_{\text{ex}_{\ref{exp:mg}}}$ are polynomial in $k$.
 Thus, for any $\psi$ that is poly-logarithmically bounded, we can always find a $k$ large
 enough such that $\mathsf{A}_{\text{bsc}}^{\psi}$ terminates without constructing a materialization
-graph for each datalog program in $\mathbb{P}_{\text{ex}_\ref{exp:mg}}$.
-However, there indeed exists an \texttt{NC} algorithm that can handle $\mathbb{P}_{\text{ex}_\ref{exp:mg}}$.
+graph for each datalog program in $\mathbb{P}_{\text{ex}_{\ref{exp:mg}}}$.
+However, there indeed exists an \texttt{NC} algorithm that can handle $\mathbb{P}_{\text{ex}_{\ref{exp:mg}}}$.
 We discuss this in the next part.
 
 
 \subsection{Optimizing Algorithm~$\mathsf{A}_{\text{bsc}}$ via Single-Way Derivability}
 \label{sec:opt}
 
-In this part, we optimize Algorithm~$\mathsf{A}_{\text{bsc}}$ such that $P_{\text{ex}_\ref{exp:mg}}$
+In this part, we optimize Algorithm~$\mathsf{A}_{\text{bsc}}$ such that $P_{\text{ex}_{\ref{exp:mg}}}$
 can be handled. Based on the optimized variant of Algorithm~$\mathsf{A}_{\text{bsc}}$,
 we can identify another \texttt{PTD} class.
 
@@ -475,8 +475,8 @@ $\mathsf{A}_{\text{opt}}$ halts and outputs a materialization graph $\mathcal{G}
 \end{lemma}
 
 \begin{example}\label{exp:opt}
-We perform Algorithm~$\mathsf{A}_{\text{opt}}$ on the datalog program $P_{\text{ex}_\ref{exp:mg}}$ in Example~\ref{exp:mg}.
-Initially, $R(a_1,b)$ is in the materialization graph $\mathcal{G}_{\text{ex}_\ref{exp:mg}}$.
+We perform Algorithm~$\mathsf{A}_{\text{opt}}$ on the datalog program $P_{\text{ex}_{\ref{exp:mg}}}$ in Example~\ref{exp:mg}.
+Initially, $R(a_1,b)$ is in the materialization graph $\mathcal{G}_{\text{ex}_{\ref{exp:mg}}}$.
 In the first iteration of \ref{alg3:updateG}, all the rule instantiations are in two kinds of forms:
 `$R(a_i,b),A(b)\rightarrow A(a_i)$' and `$S(a_i,a_{i-1}),$ $R(a_{i-1},b)\rightarrow R(a_i,b)$', $2\leq i\leq k$,
 $S_{\!\textit{\tiny rch}}$ is the set $\{$\texttt{rch}$(R(a_{i-1},b),
@@ -486,7 +486,7 @@ In the transitive closure of $S_{\!\textit{\tiny rch}}$,
 one can check that \texttt{rch}$(R(a_1,b), R(a_i,b)),$
 \texttt{rch}$(R(a_1,b), A(a_i))\in S^*_{\!\textit{\tiny rch}}, 2\leq i\leq k$.
 Thus, $R(a_i,b)$ and $A(a_i)$, $2\leq i\leq k$, can all be added to
-$\mathcal{G}_{\text{ex}_\ref{exp:mg}}$
+$\mathcal{G}_{\text{ex}_{\ref{exp:mg}}}$
 in the first iteration of \ref{alg3:updateG}.
 \end{example}
 
@@ -496,9 +496,18 @@ We use the same symbols $e$, $v$ and $r$ that are used for analyzing the complex
 the number of processors is polynomial in $|\textbf{I}|$, i.e., $r(|\textbf{I}|e)^v$.
 We now consider the computing time of Algorithm~$\mathsf{A}_{\text{opt}}$. It
 is obvious that \ref{alg3:addFacts} and
-\ref{alg3:halt} occupy constant time (denoted by $c_1$). In \ref{alg3:updateG}, the phases of
-computing $S_{\!\textit{\tiny rch}}$ and updating $\mathcal{G}$ also take constant time (denoted by $c_2$)
-on the parallel condition. Recall that the number of constants is at most $|\textbf{I}|e$ (see Section~\ref{sec:alg-bsc}).
+\ref{alg3:halt} occupy constant time (denoted by $c_1$).
+Algorithm~$\mathsf{A}_{\text{opt}}$ also works on the parallel condition.
+That is each processor $q$ corresponds to a rule instantiation, e.g., $B_1,\ldots,B_n\rightarrow H$,
+and processor $q$ can access the locations of nodes $B_1,\ldots,B_n, H$ in constant time.
+In order to compute $S_{\!\textit{\tiny rch}}$, processor $q$ should check the derivability
+of nodes $B_1,\ldots,B_n, H$. If only node $B_i$ ($i\in\{1,\ldots n\}$) and node $H$
+are still not derived, then processor $q$ creates a pair $(B_i, H)$ in $S_{\!\textit{\tiny rch}}$.
+The other elements in $S_{\!\textit{\tiny rch}}$ are similarly computed.
+It is obvious that the above procedure occupies constant time as well on the parallel condition.
+Thus, in \ref{alg3:updateG}, the phases of
+computing $S_{\!\textit{\tiny rch}}$ and updating $\mathcal{G}$ also take constant time (denoted by $c_2$).
+Recall that the number of constants is at most $|\textbf{I}|e$ (see Section~\ref{sec:alg-bsc}).
 Let $w$ and $p$ represent the maximum arity of any predicate and the number of predicates, respectively.
 We have that the number of all possible substitutions of atoms is at most $p(|\textbf{I}|e)^w$.
 The relation $S_{\!\textit{\tiny rch}}$ consists of pairs of the atoms. Thus, the size of $S_{\!\textit{\tiny rch}}$
