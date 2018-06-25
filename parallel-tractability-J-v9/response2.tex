@@ -194,15 +194,18 @@ to the details.
 \end{quote}
 
 Algorithm~$\mathsf{A}_{\text{opt}}$ also works on the parallel condition.
-That is each processor $p$ corresponds to a rule instantiation, e.g., $B_1,\ldots,B_n\rightarrow H$,
+That is, each processor $p$ corresponds to a rule instantiation, e.g., $B_1,\ldots,B_n\rightarrow H$,
 and processor $p$ can access the locations of nodes $B_1,\ldots,B_n, H$ in constant time.
 In order to compute $S_{\!\textit{\tiny rch}}$, processor $p$ should check the derivability
 of nodes $B_1,\ldots,B_n, H$. If only node $B_i$ ($i\in\{1,\ldots n\}$) and node $H$
 are still not derived, then processor $p$ creates a pair $(B_i, H)$ in $S_{\!\textit{\tiny rch}}$.
 The other elements in $S_{\!\textit{\tiny rch}}$ are similarly computed.
-On the parallel condition, the above procedure occupies constant time as well as checking
-the applicability of a rule instantiation.
-We have added the above content to make the claim that computation of $S_\text{rch}$ costs
+Under the parallel condition, the above procedure uses constant time as well as checking
+the applicability of a rule instantiation. \textcolor{red}{BG: I
+  cannot parse the previous sentence, in particular the `as well as
+  checking\ldots' part.}
+We have added the above arguments \textcolor{red}{to the paper?} to
+make the claim that the computation of $S_\text{rch}$ costs
 constant time clearer.
 The procedure of updating $G$ is similar to that of Algorithm~$\mathsf{A}_{\text{bsc}}$.
 

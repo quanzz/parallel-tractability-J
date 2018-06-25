@@ -498,13 +498,13 @@ We now consider the computing time of Algorithm~$\mathsf{A}_{\text{opt}}$. It
 is obvious that \ref{alg3:addFacts} and
 \ref{alg3:halt} occupy constant time (denoted by $c_1$).
 Algorithm~$\mathsf{A}_{\text{opt}}$ also works on the parallel condition.
-That is each processor $q$ corresponds to a rule instantiation, e.g., $B_1,\ldots,B_n\rightarrow H$,
+That is, each processor $q$ corresponds to a rule instantiation, e.g., $B_1,\ldots,B_n\rightarrow H$,
 and processor $q$ can access the locations of nodes $B_1,\ldots,B_n, H$ in constant time.
 In order to compute $S_{\!\textit{\tiny rch}}$, processor $q$ should check the derivability
 of nodes $B_1,\ldots,B_n, H$. If only node $B_i$ ($i\in\{1,\ldots n\}$) and node $H$
 are still not derived, then processor $q$ creates a pair $(B_i, H)$ in $S_{\!\textit{\tiny rch}}$.
 The other elements in $S_{\!\textit{\tiny rch}}$ are similarly computed.
-It is obvious that the above procedure occupies constant time as well on the parallel condition.
+It is obvious that the above procedure requires constant time as well on the parallel condition.
 Thus, in \ref{alg3:updateG}, the phases of
 computing $S_{\!\textit{\tiny rch}}$ and updating $\mathcal{G}$ also take constant time (denoted by $c_2$).
 Recall that the number of constants is at most $|\textbf{I}|e$ (see Section~\ref{sec:alg-bsc}).
