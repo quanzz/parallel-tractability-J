@@ -200,11 +200,11 @@ In order to compute $S_{\!\textit{\tiny rch}}$, processor $p$ should check the d
 of nodes $B_1,\ldots,B_n, H$. If only node $B_i$ ($i\in\{1,\ldots n\}$) and node $H$
 are still not derived, then processor $p$ creates a pair $(B_i, H)$ in $S_{\!\textit{\tiny rch}}$.
 The other elements in $S_{\!\textit{\tiny rch}}$ are similarly computed.
-Under the parallel condition, the above procedure uses constant time as well as checking
-the applicability of a rule instantiation. \textcolor{red}{BG: I
-  cannot parse the previous sentence, in particular the `as well as
-  checking\ldots' part.}
-We have added the above arguments \textcolor{red}{to the paper?} to
+The main work of the above procedure is to check the derivability
+of the nodes in the processed rule instantiation, which is the same as that of
+checking the applicability of the rule instantiation.
+Under the parallel condition, the above procedure also uses constant time.
+We have added the above arguments to the paper to
 make the claim that the computation of $S_\text{rch}$ costs
 constant time clearer.
 The procedure of updating $G$ is similar to that of Algorithm~$\mathsf{A}_{\text{bsc}}$.
